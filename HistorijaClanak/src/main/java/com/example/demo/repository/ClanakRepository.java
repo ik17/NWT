@@ -15,7 +15,7 @@ import com.example.demo.entity.Clanak;
 
 @Repository
 public interface ClanakRepository extends JpaRepository<Clanak, Long> {
-	Clanak findById(int id);
+	//Clanak findById(int id);
 
 
 }

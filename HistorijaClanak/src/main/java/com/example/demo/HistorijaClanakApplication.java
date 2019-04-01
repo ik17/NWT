@@ -80,9 +80,9 @@ ClanakRepository cR;
 	aR.save(a1);
 	aR.save(a2);
 	
-	Clanak c = cR.findById(1);
-	System.out.println(c.getNaziv());
-	System.out.println(c.getIdKategorije().getNaziv());
+	Optional<Clanak> c = cR.findById(new Long(1));
+	System.out.println(c.get().getNaziv());
+	System.out.println(c.get().getIdKategorije().getNaziv());
 	
 	
 	

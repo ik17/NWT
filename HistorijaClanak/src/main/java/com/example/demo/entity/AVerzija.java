@@ -12,7 +12,7 @@ public class AVerzija {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 	
 	
 	@ManyToOne
@@ -60,11 +60,11 @@ public class AVerzija {
 	public void setIdClanak(Clanak idC)  {
 		this.idClanak = idC;
 	}
-	public int getId() {
+	public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
     

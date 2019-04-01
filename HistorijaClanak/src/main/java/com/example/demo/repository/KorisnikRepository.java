@@ -15,7 +15,7 @@ import com.example.demo.entity.Korisnik;
 
 @Repository
 public interface KorisnikRepository extends JpaRepository<Korisnik, Long> {
-	Korisnik findById(int id);
+	//Korisnik findById(int id);
 	
 	//@Query(value = "INSERT INTO korisnik (username) values (?1) ", nativeQuery = true)
 	//public void addKorisnik( String Ime); 

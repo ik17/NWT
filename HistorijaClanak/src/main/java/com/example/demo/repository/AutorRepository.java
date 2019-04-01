@@ -15,7 +15,7 @@ import com.example.demo.entity.Autor;
 
 @Repository
 public interface AutorRepository extends JpaRepository<Autor, Long> {
-	Autor findById(int id);
+	//Autor findById(int id);
 
 
 }

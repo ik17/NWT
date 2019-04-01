@@ -15,7 +15,7 @@ import com.example.demo.entity.Kategorija;
 
 @Repository
 public interface KategorijaRepository extends JpaRepository<Kategorija, Long> {
-	Kategorija findById(int id);
+	//Kategorija findById(int id);
 
 
 }

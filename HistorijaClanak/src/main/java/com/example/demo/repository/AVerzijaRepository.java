@@ -16,7 +16,7 @@ import com.example.demo.entity.AVerzija;
 
 @Repository
 public interface AVerzijaRepository extends JpaRepository<AVerzija, Long> {
-	AVerzija findById(int id);
+	//AVerzija findById(int id);
 
 
 }
