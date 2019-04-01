@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,8 +26,11 @@ public class Korisnik {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@NotNull(message = "The id must not be null!")
     private Long id;
 	
+	@Size(min = 3, max = 30, message = "The length of username must be between 3 and 30 characters!")
+	@NotNull(message = "User must have a username!")
 	private String username;
 	
 	 @OneToMany(mappedBy = "odobrioClanak", cascade = CascadeType.ALL)

@@ -6,6 +6,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 @Entity
 public class AVerzija {
 
@@ -18,8 +22,12 @@ public class AVerzija {
 	@ManyToOne
     @JoinColumn
 	private Clanak idClanak;
+	@Positive
 	private int verzijaClanka;
+	@Size(min = 10, message = "The length of link must be min 10 characters!")
+	@NotEmpty 
 	private String linkNaClanak;
+	@Size(min = 20, message = "The length of review must be min 20 characters!")	
 	private String reviewVerzije;
 	public AVerzija(int ver, String link, String rev, Clanak c) {
 		this.linkNaClanak = link;

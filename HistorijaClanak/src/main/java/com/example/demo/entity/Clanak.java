@@ -7,6 +7,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Data
 @EqualsAndHashCode(exclude = {"verzije", "autors"})
@@ -17,14 +21,18 @@ public class Clanak {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@NotNull(message = "The id must not be null!")
     private Long id;
 	
+	@Size(min = 2, max = 30, message = "The length of username must be between 2 and 30 characters!")
 	private String naziv;
 	
 	
 	@ManyToOne
     @JoinColumn
 	private Kategorija idKategorije;
+	@Min(value = 0L, message = "Approved can be only one or zero!")
+	@Max(value = 1L, message = "Approved can be only one or zero!")
 	private int clanakOdobren;
 	@ManyToOne
     @JoinColumn
