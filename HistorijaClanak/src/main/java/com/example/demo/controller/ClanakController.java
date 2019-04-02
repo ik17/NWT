@@ -17,7 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.Clanak;
+import com.example.demo.entity.Kategorija;
+import com.example.demo.entity.Korisnik;
 import com.example.demo.repository.ClanakRepository;
+import com.example.demo.repository.KategorijaRepository;
+import com.example.demo.repository.KorisnikRepository;
 
 import ch.qos.logback.core.net.server.Client;
 import javassist.NotFoundException;
@@ -27,6 +31,12 @@ import javassist.NotFoundException;
 public class ClanakController {
 	@Autowired
 	ClanakRepository cR;
+	
+	@Autowired
+	KategorijaRepository kR;
+	
+	@Autowired
+	KorisnikRepository kkR;
 	
 	@GetMapping(value="/all")
     public List<Clanak> getAll(){
@@ -44,6 +54,17 @@ public class ClanakController {
 	        if(errors.hasErrors()){
 	            throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
 	        }
+	        Kategorija kategorija = kR
+	                .findById(clanak.getIdKategorije().getId())
+	                .orElseThrow(
+	                        () -> new NotFoundException("Category with given id not found")
+	                );
+	        
+	        Korisnik korisnik= kkR
+	                .findById(clanak.getOdobrioClanak().getId())
+	                .orElseThrow(
+	                        () -> new NotFoundException("User with given id not found")
+	                );
 
 	        return cR.save(clanak);
 	    }
@@ -62,10 +83,22 @@ public class ClanakController {
 	                        () -> new NotFoundException("Article with given id not found")
 	                );
 	        
+	        Kategorija kategorija = kR
+	                .findById(clanakUpdated.getIdKategorije().getId())
+	                .orElseThrow(
+	                        () -> new NotFoundException("Category with given id not found")
+	                );
+	        
+	        Korisnik korisnik= kkR
+	                .findById(clanakUpdated.getOdobrioClanak().getId())
+	                .orElseThrow(
+	                        () -> new NotFoundException("User with given id not found")
+	                );
+	        
 	        clanak.setClanakOobren(clanakUpdated.getClanakOdobren());
-	        clanak.setIdKategorije(clanakUpdated.getIdKategorije());
+	        clanak.setIdKategorije(kategorija);
 	        clanak.setNaziv(clanakUpdated.getNaziv());
-	        clanak.setOdobrioClanak(clanakUpdated.getOdobrioClanak());
+	        clanak.setOdobrioClanak(korisnik);
 	       
 
 	        clanakUpdated = cR.save(clanak);

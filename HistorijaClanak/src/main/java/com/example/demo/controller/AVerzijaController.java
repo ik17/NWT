@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.AVerzija;
+import com.example.demo.entity.Clanak;
 import com.example.demo.repository.AVerzijaRepository;
+import com.example.demo.repository.ClanakRepository;
 
 import javassist.NotFoundException;
 
@@ -27,6 +29,8 @@ import javassist.NotFoundException;
 public class AVerzijaController {
 	@Autowired
 	AVerzijaRepository vR;
+	@Autowired
+	ClanakRepository cR;
 	
 	@GetMapping(value="/all")
     public List<AVerzija> getAll(){
@@ -44,6 +48,11 @@ public class AVerzijaController {
 	        if(errors.hasErrors()){
 	            throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
 	        }
+	        Clanak clanak = cR
+	                .findById(verzija.getIdClanak().getId())
+	                .orElseThrow(
+	                        () -> new NotFoundException("Article with given id not found")
+	                );
 
 	        return vR.save(verzija);
 	    }
@@ -61,9 +70,13 @@ public class AVerzijaController {
 	                .orElseThrow(
 	                        () -> new NotFoundException("Version with given id not found")
 	                );
-	        if (verzijaUpdated.getIdClanak() != null) {
-	        verzija.setIdClanak(verzijaUpdated.getIdClanak());
-	        }
+	        Clanak clanak = cR
+	                .findById(verzijaUpdated.getIdClanak().getId())
+	                .orElseThrow(
+	                        () -> new NotFoundException("Article with given id not found")
+	                );
+	        
+	        verzija.setIdClanak(clanak);
 	        if (verzijaUpdated.getLink() != null) {
 	        	verzija.setLink(verzijaUpdated.getLink());
 		        }
@@ -72,10 +85,7 @@ public class AVerzijaController {
 		        }
 	       
 	        
-	       //verzija.setVerzijaClanka(verzijaUpdated.getVerzijaClanka());
-	       //verzija.setLink(verzijaUpdated.getLink());
-	       //verzija.setReview(verzijaUpdated.getReview());
-	        
+	           
 	        
 	  
 	       

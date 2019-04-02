@@ -17,7 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.Autor;
+import com.example.demo.entity.Clanak;
+import com.example.demo.entity.Korisnik;
 import com.example.demo.repository.AutorRepository;
+import com.example.demo.repository.ClanakRepository;
+import com.example.demo.repository.KorisnikRepository;
 
 import javassist.NotFoundException;
 
@@ -26,6 +30,12 @@ import javassist.NotFoundException;
 public class AutorController {
 	@Autowired
 	AutorRepository aR;
+
+	@Autowired
+	KorisnikRepository kkR;
+	
+	@Autowired
+	ClanakRepository cR;
 	
 	@GetMapping(value="/all")
     public List<Autor> getAll(){
@@ -43,6 +53,17 @@ public class AutorController {
 	        if(errors.hasErrors()){
 	            throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
 	        }
+	        Korisnik korisnik= kkR
+	                .findById(autor.getIdKorisnik().getId())
+	                .orElseThrow(
+	                        () -> new NotFoundException("User with given id not found")
+	                );
+	        Clanak clanak = cR
+	                .findById(autor.getIdClanak().getId())
+	                .orElseThrow(
+	                        () -> new NotFoundException("Article with given id not found")
+	                );
+	       
 
 	        return aR.save(autor);
 	    }
@@ -60,13 +81,20 @@ public class AutorController {
 	                .orElseThrow(
 	                        () -> new NotFoundException("Autor with given id not found")
 	                );
-	        
-	        if(autorUpdated.getIdClanak() != null) {
-	        autor.setIdClanak(autorUpdated.getIdClanak());
-	        }
-	        if(autorUpdated.getIdKorisnik() != null) {
-	        	autor.setIdKorisnik(autorUpdated.getIdKorisnik());
-		        }
+	        Korisnik korisnik= kkR
+	                .findById(autorUpdated.getIdKorisnik().getId())
+	                .orElseThrow(
+	                        () -> new NotFoundException("User with given id not found")
+	                );
+	        Clanak clanak = cR
+	                .findById(autorUpdated.getIdClanak().getId())
+	                .orElseThrow(
+	                        () -> new NotFoundException("Article with given id not found")
+	                );
+	       
+	        autor.setIdClanak(clanak);   
+	        autor.setIdKorisnik(korisnik);
+		        
 	       
 	       	        
 	        
