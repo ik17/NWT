@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.Entities.Kategorija;
 
 @Repository
-public interface KategorijaRepository extends JpaRepository<Kategorija, Integer>{
-	Kategorija findById(int id);
+public interface KategorijaRepository extends JpaRepository<Kategorija, Long>{
+	
 }
 

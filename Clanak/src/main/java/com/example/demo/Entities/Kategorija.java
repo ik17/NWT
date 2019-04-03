@@ -12,7 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
+import javax.validation.constraints.Size;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,9 +24,10 @@ import lombok.EqualsAndHashCode;
 public class Kategorija {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@NotNull(message = "ID must not be null!")
-	private int id;
+	private Long id;
 	
+	@NotNull
+	@Size(min = 2, max = 30, message = "Category name must be at least 2 character long, and must not surpass 30 characters in length!")
 	private String naziv;
 	
 	@OneToMany(mappedBy = "kategorija", cascade = CascadeType.ALL)
@@ -38,11 +39,11 @@ public class Kategorija {
 		this.clanci.forEach(x -> x.setKategorija(this));
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int idKategorija) {
+	public void setId(Long idKategorija) {
 		this.id = idKategorija;
 	}
 
@@ -57,6 +58,10 @@ public class Kategorija {
 	public Kategorija(String naziv, Set<Clanak> clanci) {
 		this.naziv = naziv;
 		this.clanci = clanci;
+	}
+	
+	public Kategorija(){
+		
 	}
 	
 	

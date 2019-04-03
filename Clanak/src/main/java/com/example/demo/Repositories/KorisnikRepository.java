@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.Entities.Korisnik;
 
 @Repository
-public interface KorisnikRepository extends JpaRepository<Korisnik, Integer>{
-	Korisnik findById(int id);
+public interface KorisnikRepository extends JpaRepository<Korisnik, Long>{
+	
 }
 

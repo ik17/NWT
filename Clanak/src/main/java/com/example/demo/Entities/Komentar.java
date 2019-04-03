@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.Data;
 
@@ -17,9 +18,10 @@ import lombok.Data;
 public class Komentar {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@NotNull(message = "ID must not be null!")
-	private int id;
+	private Long id;
 	
+	@NotNull(message = "Comment text must not be empty!")
+	@Size(min = 3, max = 2000, message = "Comment must not be shorter than 3 characters, and cannot surpass the length of 2000 characters!")
 	private String textKomentara;
 	
 	@ManyToOne
@@ -36,10 +38,10 @@ public class Komentar {
 	public void setClanak(Clanak clanak) {
 		this.clanak = clanak;
 	}
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(int idKomentar) {
+	public void setId(Long idKomentar) {
 		this.id = idKomentar;
 	}
 	public String getTextKomentara() {
@@ -58,6 +60,9 @@ public class Komentar {
 		this.textKomentara = textKomentara;
 		this.clanak = clanak;
 		this.korisnik = korisnik;
+	}
+	public Komentar() {
+		
 	}
 	
 	

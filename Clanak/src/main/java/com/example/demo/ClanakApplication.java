@@ -48,7 +48,7 @@ KorisnikRepository korisnikRepository;
 		Korisnik k3 = new Korisnik("Korisnik");
 		Kategorija k = new Kategorija("kategorija");
 		Clanak c = new Clanak("naziv", k, true, k3);
-		Autor a = new Autor(k3, c);
+		Autor a = new Autor(c, k3);
 		
 		Komentar k2 = new Komentar("komentar", c, k3);
 		korisnikRepository.save(k3);

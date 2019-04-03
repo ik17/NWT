@@ -17,23 +17,24 @@ import lombok.Data;
 public class Autor {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@NotNull(message = "ID must not be null!")
-	private int id;
+	private Long id;
 	
-	//fk
+	
 	@ManyToOne
 	@JoinColumn
+	@NotNull(message = "Korisnik ID must not be null!")
 	private Korisnik korisnik;
-	//fk
+	
 	@ManyToOne
 	@JoinColumn
+	@NotNull(message = "Clanak ID must not be null!")
 	private Clanak clanak;
 	
-	public int getId() {
+	public Long getId() {
         return id;
     }
 
-    public void setId(int idAutor) {
+    public void setId(Long idAutor) {
         this.id = idAutor;
     }
     
@@ -54,9 +55,13 @@ public class Autor {
 		this.korisnik = korisnik;
 	}
 
-	public Autor(Korisnik korisnik, Clanak clanak) {
+	public Autor(Clanak clanak, Korisnik korisnik) {
 		this.korisnik = korisnik;
 		this.clanak = clanak;
+	}
+	
+	public Autor() {
+		
 	}
     
     

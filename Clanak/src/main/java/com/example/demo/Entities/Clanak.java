@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
+import javax.validation.constraints.Size;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -26,15 +26,17 @@ import lombok.EqualsAndHashCode;
 public class Clanak {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@NotNull(message = "ID must not be null!")
-	private int id;
+	private Long id;
 	
+	@NotNull
+	@Size(min = 2, max = 30, message = "The length of the article name must be at least 2 characters long, and must not surpass 30 characters in length!")
 	private String naziv;
 	
 	@ManyToOne
 	@JoinColumn
 	private Kategorija kategorija;
 	
+	@NotNull
 	private boolean clanakOdobren;
 	
 	@ManyToOne
@@ -46,6 +48,10 @@ public class Clanak {
 	
 	@OneToMany(mappedBy = "clanak", cascade = CascadeType.ALL)
 	private Set<Autor> autori;
+	
+	public Clanak() {
+		
+	}
 	
 	public Clanak(String naziv, Kategorija kategorija, Boolean odobren, Komentar[] komentari, Autor...autori) {
 		this.naziv = naziv;
@@ -64,11 +70,11 @@ public class Clanak {
 		this.kategorija=kategorija;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setIdClanak(int idClanak) {
+	public void setIdClanak(Long idClanak) {
 		this.id = idClanak;
 	}
 
@@ -80,7 +86,7 @@ public class Clanak {
 		this.naziv = naziv;
 	}
 
-	public boolean isClanakOdobren() {
+	public boolean getClanakOdobren() {
 		return clanakOdobren;
 	}
 

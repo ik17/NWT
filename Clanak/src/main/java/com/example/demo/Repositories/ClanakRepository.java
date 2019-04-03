@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.Entities.Clanak;
 
 @Repository
-public interface ClanakRepository extends JpaRepository<Clanak, Integer>{
-	Clanak findById(int id);
+public interface ClanakRepository extends JpaRepository<Clanak, Long>{
+	
 }

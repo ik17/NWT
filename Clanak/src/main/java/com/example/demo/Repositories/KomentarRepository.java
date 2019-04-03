@@ -7,6 +7,6 @@ import com.example.demo.Entities.Komentar;
 
 
 @Repository
-public interface KomentarRepository extends JpaRepository<Komentar, Integer>{
-	Komentar findById(int id);
+public interface KomentarRepository extends JpaRepository<Komentar, Long>{
+	
 }
