@@ -23,13 +23,16 @@ import lombok.EqualsAndHashCode;
 public class UlogaKorisnik {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@NotNull(message = "ID must not be null!")
-	private int id;
+	//@NotNull(message = "ID must not be null!")
+	private Long id;
 	
 	private String ulogaKorisnik;
 	
 	@OneToMany(mappedBy = "ulogaKorisnik", cascade = CascadeType.ALL)
 	private Set<Korisnik> korisnici;
+	
+	public UlogaKorisnik() {
+	}
 	
 	public UlogaKorisnik(String uloga, Korisnik...korisnici) {
 		this.ulogaKorisnik = uloga;
@@ -42,11 +45,11 @@ public class UlogaKorisnik {
 	}
 	
 	
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

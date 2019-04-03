@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,16 +25,22 @@ import lombok.EqualsAndHashCode;
 public class KorisnikPodaci {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@NotNull(message = "ID must not be null!")
-	private int id;
+	//@NotNull(message = "ID must not be null!")
+	private Long id;
 	
+	@Size(min = 2, max = 30, message = "The length of firs tname must be between 2 and 30 characters!")
 	private String ime;
 	
+	@Size(min = 2, max = 30, message = "The length of last name must be between 2 and 30 characters!")
 	private String prezime;
 	
+	@Size(min = 20, message = "The length of biography must be min 20 characters!")
 	private String biografija;
 	
 	private Date datumPrijave;
+	
+	public KorisnikPodaci() {
+	}
 
 	public KorisnikPodaci(String ime, String prezime, String biografija, Date datumPrijave) {
 		this.ime = ime;
@@ -42,11 +49,11 @@ public class KorisnikPodaci {
 		this.datumPrijave = datumPrijave;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

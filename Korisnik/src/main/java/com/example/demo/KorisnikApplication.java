@@ -43,7 +43,6 @@ UlogaKorisnikRepository ulogaRepository;
 	
 	
 	
-	
 	public static void main(String[] args) {
 		SpringApplication.run(KorisnikApplication.class, args);
 		System.out.println("INSIDEE");
@@ -52,12 +51,23 @@ UlogaKorisnikRepository ulogaRepository;
 	@Override
     public void run(String... arg0) throws Exception {
 		Date d = new Date();
-		KorisnikPodaci kp = new KorisnikPodaci("ime", "prezime", "nesto o njemu", d);
-		UlogaKorisnik uk = new UlogaKorisnik("uloga");
-		Korisnik k = new Korisnik("username", "password", kp, uk);
-		podaciRepository.save(kp);
-		ulogaRepository.save(uk);
-		korisnikRepository.save(k);
+		KorisnikPodaci kp1 = new KorisnikPodaci("ime", "prezime", "nesto o njemu bla bla bla bla bla bla", d);
+		KorisnikPodaci kp2 = new KorisnikPodaci("jana", "dva", "jana dva kazu ista je ko ja haha", d);
+		
+		UlogaKorisnik uk1 = new UlogaKorisnik("uloga1");
+		UlogaKorisnik uk2 = new UlogaKorisnik("uloga2");
+		UlogaKorisnik uk3 = new UlogaKorisnik("uloga3");
+		
+		Korisnik k1 = new Korisnik("username1", "password1", kp1, uk1);
+		Korisnik k2 = new Korisnik("username2", "password2", kp2, uk3);
+		
+		podaciRepository.save(kp1);
+		podaciRepository.save(kp2);
+		ulogaRepository.save(uk1);
+		ulogaRepository.save(uk2);
+		ulogaRepository.save(uk3);
+		korisnikRepository.save(k1);
+		korisnikRepository.save(k2);
 	}
 
 }

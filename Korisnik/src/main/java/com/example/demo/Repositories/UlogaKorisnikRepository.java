@@ -7,6 +7,6 @@ import com.example.demo.Entities.UlogaKorisnik;
 
 
 @Repository
-public interface UlogaKorisnikRepository extends JpaRepository<UlogaKorisnik, Integer> {
-	UlogaKorisnik findById(int id);
+public interface UlogaKorisnikRepository extends JpaRepository<UlogaKorisnik, Long> {
+	//UlogaKorisnik findById(int id);
 }

@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.Data;
 
@@ -17,11 +18,14 @@ import lombok.Data;
 public class Korisnik {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@NotNull(message = "ID must not be null!")
-	private int id;
+	//@NotNull(message = "ID must not be null!")
+	private Long id;
 	
+	@NotNull(message = "User must have a username!")
+	@Size(min = 3, max = 30, message = "The length of username must be between 2 and 30 characters!")
 	private String username;
 	
+	@Size(min = 6, max = 30, message = "The length of password must be between 6 and 30 characters!")
 	private String password;
 	
 	@ManyToOne
@@ -32,6 +36,8 @@ public class Korisnik {
 	@JoinColumn
 	private UlogaKorisnik ulogaKorisnik;
 	
+	public Korisnik() {
+	}
 	
 	public Korisnik(String username, String password, KorisnikPodaci kp, UlogaKorisnik uk) {
 		this.username = username;
@@ -40,11 +46,11 @@ public class Korisnik {
 		this.ulogaKorisnik = uk;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
