@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.jdbc.datasource.DataSourceUtils;
@@ -30,6 +31,7 @@ import com.example.demo.entity.Autor;
 import com.example.demo.repository.AutorRepository;
 @EnableDiscoveryClient
 @SpringBootApplication
+@EnableAutoConfiguration
 public class HistorijaClanakApplication implements CommandLineRunner {
 	 
 
