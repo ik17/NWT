@@ -61,7 +61,7 @@ KorisnikController kC;
 		UlogaKorisnik uk2 = new UlogaKorisnik("uloga2");
 		UlogaKorisnik uk3 = new UlogaKorisnik("uloga3");
 		
-		Korisnik k1 = new Korisnik("username1", "password1", kp1, uk1);
+		Korisnik k1 = new Korisnik("Komunikacija", "password1", kp1, uk1);
 		Korisnik k2 = new Korisnik("username2", "password2", kp2, uk3);
 		
 		podaciRepository.save(kp1);
@@ -73,6 +73,8 @@ KorisnikController kC;
 		korisnikRepository.save(k2);
 		
 		Korisnik k = kC.createKorisnik(k1, null);
+		System.out.println(k.getUsername());
+		kC.updateKorisnik(k.getId(), new Korisnik("KomunikacijaUpdate", "password2", kp2, uk3), null);
 		System.out.println(k.getUsername());
 		 kC.deleteKorisnik(k.getId());
 		

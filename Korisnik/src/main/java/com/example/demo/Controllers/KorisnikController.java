@@ -72,7 +72,7 @@ public class KorisnikController {
 			String baseUrl2=serviceInstance2.getUri().toString()+ "/korisnik/insert"; //+id.toString();
 			System.out.println(baseUrl2);
 			
-			String requestJson = "{\"username\":\"Komunikacija\"}";
+			String requestJson = "{\"username\":\""  + korisnik.getUsername() +  "\"}";
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -108,9 +108,9 @@ public class KorisnikController {
 	    public Korisnik updateKorisnik(@PathVariable(value = "id") Long id,
 	                                               @RequestBody @Valid Korisnik korisnikUpdate, Errors errors) throws NotFoundException, Exception {
 
-	        if(errors.hasErrors()){
-	            throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
-	        }
+	     //   if(errors.hasErrors()){
+	       //     throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
+	        //}
 	        
 
 	        Korisnik korisnik = korisnikRepo
@@ -119,10 +119,59 @@ public class KorisnikController {
 	                        () -> new NotFoundException("User with given id not found")
 	                );
 	        
+    
 	        korisnik.setUsername(korisnikUpdate.getUsername());
 	        korisnik.setPassword(korisnikUpdate.getPassword());
 	        korisnik.setKorisnikPodaci(korisnikUpdate.getKorisnikPodaci());
 	        korisnik.setUlogaKorisnik(korisnikUpdate.getUlogaKorisnik());
+	        
+	        
+	        
+	        List<ServiceInstance> instances=discoveryClient.getInstances("HistorijaClanak-service");
+	        List<ServiceInstance> instances2=discoveryClient.getInstances("Clanak-service");
+	        
+	        
+	        if(instances.isEmpty()) ;
+			ServiceInstance serviceInstance=instances.get(0);
+			
+			 if(instances2.isEmpty()) ;
+				ServiceInstance serviceInstance2=instances2.get(0);
+			
+			String baseUrl=serviceInstance.getUri().toString()+ "/korisnik/update/"+id.toString();
+			System.out.println(baseUrl);
+			String baseUrl2=serviceInstance2.getUri().toString()+ "/korisnik/update/"+id.toString();
+			System.out.println(baseUrl2);
+			
+			String requestJson = "{\"username\":\"" + korisnikUpdate.getUsername() + "\"}";
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_JSON);
+
+			HttpEntity<String> entity = new HttpEntity<String>(requestJson,headers);
+			//String answer = RestTemplate.po
+					//.postForObject(url, entity, String.class);
+
+			
+			RestTemplate restTemplate = new RestTemplate();
+			ResponseEntity<String> response=null;
+			try{
+			//response=restTemplate.exchange(baseUrl,HttpMethod.POST, getHeaders(),String.class);
+				//response = restTemplate.postForEntity( baseUrl, entity , String.class );
+				restTemplate.put(baseUrl, entity, String.class);
+				RestTemplate restTemplate2 = new RestTemplate();
+				//ResponseEntity<String> response2 = 
+						restTemplate2.put(baseUrl2, entity, String.class);
+						//postForEntity( baseUrl2, entity , String.class );
+				//System.out.println(response2.getBody());
+			}catch (Exception ex)
+			{	///ovdje if(contains null) return NEMA
+				// ex.getMessage();
+				//return ex.getCause().toString();
+				System.out.println(ex);
+			}
+			//System.out.println(response.getBody());
+			
+	        
+	        
 	        
 	        korisnikUpdate = korisnikRepo.save(korisnik);
 	        return korisnikUpdate;
@@ -133,15 +182,7 @@ public class KorisnikController {
 	        Korisnik korisnik = korisnikRepo.findById(id)
 	                .orElseThrow(() -> new NotFoundException("User with given id not found"));
 	        
-	        
-	        
-	        
-	        
-	        
-	        
-	        
-	        
-	        
+
 	        List<ServiceInstance> instances=discoveryClient.getInstances("HistorijaClanak-service");
 	        List<ServiceInstance> instances2=discoveryClient.getInstances("Clanak-service");
 	        
@@ -157,22 +198,12 @@ public class KorisnikController {
 			String baseUrl2=serviceInstance2.getUri().toString()+ "/korisnik/delete/" +id.toString();
 			System.out.println(baseUrl2);
 			
-			//String requestJson = "{\"username\":\"Komunikacija\"}";
-			//HttpHeaders headers = new HttpHeaders();
-			//headers.setContentType(MediaType.APPLICATION_JSON);
-
-			//HttpEntity<String> entity = new HttpEntity<String>(requestJson,headers);
-			//String answer = restTemplate.postForObject(url, entity, String.class);
-
-			
+				
 			RestTemplate restTemplate = new RestTemplate();
 			ResponseEntity<String> response=null;
 			try{
-			//response=restTemplate.exchange(baseUrl,HttpMethod.POST, getHeaders(),String.class);
 				response  = restTemplate.exchange(baseUrl, HttpMethod.DELETE, getHeaders(), String.class);
-				//response = restTemplate.postForEntity( baseUrl, entity , String.class );
 				RestTemplate restTemplate2 = new RestTemplate();
-				//ResponseEntity<String> response2 = restTemplate2 .postForEntity( baseUrl2, entity , String.class );
 				ResponseEntity<String> response2 = restTemplate2.exchange(baseUrl2, HttpMethod.DELETE, getHeaders(), String.class);
 				System.out.println(response2.getBody());
 			}catch (Exception ex)
