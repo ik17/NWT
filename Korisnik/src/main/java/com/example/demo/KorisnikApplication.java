@@ -17,6 +17,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Component;
 
+import com.example.demo.Controllers.KorisnikController;
 import com.example.demo.Entities.Korisnik;
 import com.example.demo.Entities.KorisnikPodaci;
 import com.example.demo.Entities.UlogaKorisnik;
@@ -40,6 +41,8 @@ KorisnikPodaciRepository podaciRepository;
 KorisnikRepository korisnikRepository;
 @Autowired
 UlogaKorisnikRepository ulogaRepository;
+@Autowired
+KorisnikController kC;
 	
 	
 	
@@ -66,8 +69,12 @@ UlogaKorisnikRepository ulogaRepository;
 		ulogaRepository.save(uk1);
 		ulogaRepository.save(uk2);
 		ulogaRepository.save(uk3);
-		korisnikRepository.save(k1);
+		//korisnikRepository.save(k1);
 		korisnikRepository.save(k2);
+		
+		Korisnik k = kC.createKorisnik(k1, null);
+		System.out.println(k.getUsername());
+		
 	}
 
 }
