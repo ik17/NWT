@@ -132,6 +132,74 @@ public class KorisnikController {
 	    public ResponseEntity<?> deleteKorisnik(@PathVariable(value = "id") Long id) throws NotFoundException {
 	        Korisnik korisnik = korisnikRepo.findById(id)
 	                .orElseThrow(() -> new NotFoundException("User with given id not found"));
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        List<ServiceInstance> instances=discoveryClient.getInstances("HistorijaClanak-service");
+	        List<ServiceInstance> instances2=discoveryClient.getInstances("Clanak-service");
+	        
+	        
+	        if(instances.isEmpty()) ;
+			ServiceInstance serviceInstance=instances.get(0);
+			
+			 if(instances2.isEmpty()) ;
+				ServiceInstance serviceInstance2=instances2.get(0);
+			
+			String baseUrl=serviceInstance.getUri().toString()+ "/korisnik/delete/" +id.toString();
+			System.out.println(baseUrl);
+			String baseUrl2=serviceInstance2.getUri().toString()+ "/korisnik/delete/" +id.toString();
+			System.out.println(baseUrl2);
+			
+			//String requestJson = "{\"username\":\"Komunikacija\"}";
+			//HttpHeaders headers = new HttpHeaders();
+			//headers.setContentType(MediaType.APPLICATION_JSON);
+
+			//HttpEntity<String> entity = new HttpEntity<String>(requestJson,headers);
+			//String answer = restTemplate.postForObject(url, entity, String.class);
+
+			
+			RestTemplate restTemplate = new RestTemplate();
+			ResponseEntity<String> response=null;
+			try{
+			//response=restTemplate.exchange(baseUrl,HttpMethod.POST, getHeaders(),String.class);
+				response  = restTemplate.exchange(baseUrl, HttpMethod.DELETE, getHeaders(), String.class);
+				//response = restTemplate.postForEntity( baseUrl, entity , String.class );
+				RestTemplate restTemplate2 = new RestTemplate();
+				//ResponseEntity<String> response2 = restTemplate2 .postForEntity( baseUrl2, entity , String.class );
+				ResponseEntity<String> response2 = restTemplate2.exchange(baseUrl2, HttpMethod.DELETE, getHeaders(), String.class);
+				System.out.println(response2.getBody());
+			}catch (Exception ex)
+			{	///ovdje if(contains null) return NEMA
+				// ex.getMessage();
+				//return ex.getCause().toString();
+				System.out.println(ex);
+			}
+			System.out.println(response.getBody());
+			
+			//return response.getBody();
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
 
 	        korisnikRepo.delete(korisnik);
 

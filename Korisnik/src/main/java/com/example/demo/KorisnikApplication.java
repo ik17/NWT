@@ -74,6 +74,8 @@ KorisnikController kC;
 		
 		Korisnik k = kC.createKorisnik(k1, null);
 		System.out.println(k.getUsername());
+		 kC.deleteKorisnik(k.getId());
+		
 		
 	}
 
