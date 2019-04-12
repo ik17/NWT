@@ -1,5 +1,11 @@
 package com.example.demo;
-
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
+import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,6 +19,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Component;
@@ -28,13 +35,14 @@ import com.example.demo.Repositories.UlogaKorisnikRepository;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.sound.midi.Receiver;
 
 import java.util.Date;
 import java.util.stream.Stream;
 @EnableDiscoveryClient
 @SpringBootApplication
 @EnableAutoConfiguration
-public class KorisnikApplication  implements CommandLineRunner{
+public class KorisnikApplication  {
 @Autowired 
 KorisnikPodaciRepository podaciRepository;
 @Autowired 
@@ -50,7 +58,7 @@ KorisnikController kC;
 		SpringApplication.run(KorisnikApplication.class, args);
 		System.out.println("INSIDEE");
 	}
-	
+	/*
 	@Override
     public void run(String... arg0) throws Exception {
 		Date d = new Date();
@@ -80,6 +88,40 @@ KorisnikController kC;
 		
 		
 	}
+	*/
+	public static final String topicExchangeName = "spring-boot-exchange";
+
+    static final String queueName = "spring-boot";
+
+    @Bean
+    Queue queue() {
+        return new Queue(queueName, false);
+    }
+
+    @Bean
+    TopicExchange exchange() {
+        return new TopicExchange(topicExchangeName);
+    }
+
+    @Bean
+    Binding binding(Queue queue, TopicExchange exchange) {
+        return BindingBuilder.bind(queue).to(exchange).with("nwt.HistorijaClanak.korisnik");
+    }
+/*
+    @Bean
+    SimpleMessageListenerContainer container(ConnectionFactory connectionFactory,
+            MessageListenerAdapter listenerAdapter) {
+        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+        container.setConnectionFactory(connectionFactory);
+        container.setQueueNames(queueName);
+        container.setMessageListener(listenerAdapter);
+        return container;
+    }
+*/
+   /* @Bean
+    MessageListenerAdapter listenerAdapter(Reciver receiver) {
+        return new MessageListenerAdapter(receiver, "receiveMessage");
+    }*/
 
 }
 

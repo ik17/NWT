@@ -1,7 +1,13 @@
 package com.example.demo;
 
 
-
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
+import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 
 
 import java.sql.Connection;
@@ -17,6 +23,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 
 import com.example.demo.entity.Korisnik;
@@ -32,7 +39,7 @@ import com.example.demo.repository.AutorRepository;
 @EnableDiscoveryClient
 @SpringBootApplication
 @EnableAutoConfiguration
-public class HistorijaClanakApplication implements CommandLineRunner {
+public class HistorijaClanakApplication  {
 	 
 
 @Autowired
@@ -51,6 +58,7 @@ ClanakRepository cR;
 		SpringApplication.run(HistorijaClanakApplication.class, args);
 		
 	}
+	/*
 	@Override
 
 	    public void run(String... arg0) throws Exception {
@@ -89,4 +97,38 @@ ClanakRepository cR;
 	
 	
 	 }
+	 */
+	public static final String topicExchangeName = "spring-boot-exchange";
+
+	static final String queueName = "spring-boot";
+
+	@Bean
+	Queue queue() {
+		return new Queue(queueName, false);
+	}
+
+	@Bean
+	TopicExchange exchange() {
+		return new TopicExchange(topicExchangeName);
+	}
+
+	@Bean
+	Binding binding(Queue queue, TopicExchange exchange) {
+		return BindingBuilder.bind(queue).to(exchange).with("com.example.korisnik.korisnik");
+	}
+
+	@Bean
+	SimpleMessageListenerContainer container(ConnectionFactory connectionFactory,
+											 MessageListenerAdapter listenerAdapter) {
+		SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+		container.setConnectionFactory(connectionFactory);
+		container.setQueueNames(queueName);
+		container.setMessageListener(listenerAdapter);
+		return container;
+	}
+
+	@Bean
+	MessageListenerAdapter listenerAdapter(Reciver receiver) {
+		return new MessageListenerAdapter(receiver, "receiveMessage");
+	}
 }

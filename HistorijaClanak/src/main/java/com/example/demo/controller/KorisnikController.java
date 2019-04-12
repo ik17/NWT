@@ -41,10 +41,10 @@ public class KorisnikController {
 	 @PostMapping(value="")
 	    public Korisnik createUder(@RequestBody @Valid final Korisnik korisnik, Errors errors) throws Exception {
 
-	        if(errors.hasErrors()){
-	            throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
-	        }
-
+	        //if(errors.hasErrors()){
+	          //  throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
+	        //}
+		 	System.out.println("In");
 	        return kR.save(korisnik);
 	    }
 	 

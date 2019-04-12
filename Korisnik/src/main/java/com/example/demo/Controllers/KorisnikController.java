@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.example.demo.KorisnikApplication;
 import com.example.demo.Entities.Korisnik;
 import com.example.demo.Repositories.KorisnikRepository;
 
@@ -40,6 +42,15 @@ public class KorisnikController {
 	KorisnikRepository korisnikRepo;
 	@Autowired
 	private DiscoveryClient discoveryClient;
+	@Autowired
+	RabbitTemplate rabbitTemplate;
+	
+	@GetMapping(value="/testAsync")
+	public String getResponse(){
+		rabbitTemplate.convertAndSend(KorisnikApplication.topicExchangeName, "nwt.HistorijaClanak.korisnik", "IMEVELIKO");
+		return "OK";
+
+	}
 	
 	@GetMapping(value="")
     public List<Korisnik> getAll(){
@@ -57,6 +68,7 @@ public class KorisnikController {
 	     //   if(errors.hasErrors()){
 	       //     throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
 	        //}
+		 /*
 	        List<ServiceInstance> instances=discoveryClient.getInstances("HistorijaClanak-service");
 	        List<ServiceInstance> instances2=discoveryClient.getInstances("Clanak-service");
 	        
@@ -77,26 +89,22 @@ public class KorisnikController {
 			headers.setContentType(MediaType.APPLICATION_JSON);
 
 			HttpEntity<String> entity = new HttpEntity<String>(requestJson,headers);
-			//String answer = restTemplate.postForObject(url, entity, String.class);
-
-			
-			RestTemplate restTemplate = new RestTemplate();
+				RestTemplate restTemplate = new RestTemplate();
 			ResponseEntity<String> response=null;
 			try{
-			//response=restTemplate.exchange(baseUrl,HttpMethod.POST, getHeaders(),String.class);
 				response = restTemplate.postForEntity( baseUrl, entity , String.class );
 				RestTemplate restTemplate2 = new RestTemplate();
 				ResponseEntity<String> response2 = restTemplate2 .postForEntity( baseUrl2, entity , String.class );
 				System.out.println(response2.getBody());
 			}catch (Exception ex)
-			{	///ovdje if(contains null) return NEMA
-				// ex.getMessage();
-				//return ex.getCause().toString();
+			{	
 				System.out.println(ex);
 			}
 			System.out.println(response.getBody());
+			*/
+		 rabbitTemplate.convertAndSend(KorisnikApplication.topicExchangeName, "nwt.HistorijaClanak.korisnik", korisnik.getUsername());
 			
-			//return response.getBody();
+			
 	        
 	        
 	        
