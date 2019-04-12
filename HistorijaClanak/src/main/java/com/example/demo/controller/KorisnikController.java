@@ -28,17 +28,17 @@ public class KorisnikController {
 	@Autowired
 	KorisnikRepository kR;
 	
-	@GetMapping(value="/all")
+	@GetMapping(value="")
     public List<Korisnik> getAll(){
         return kR.findAll();
     }
 	
-	 @GetMapping("/get/{id}")
+	 @GetMapping("/{id}")
 	    public Korisnik getCategoryById(@PathVariable(value = "id") Long id) throws NotFoundException {
 	        return kR.findById(id).orElseThrow(() -> new NotFoundException("User with given id not found"));
 	    }
 	 
-	 @PostMapping(value="/insert")
+	 @PostMapping(value="")
 	    public Korisnik createUder(@RequestBody @Valid final Korisnik korisnik, Errors errors) throws Exception {
 
 	        if(errors.hasErrors()){
@@ -48,7 +48,7 @@ public class KorisnikController {
 	        return kR.save(korisnik);
 	    }
 	 
-	 @PutMapping("update/{id}")
+	 @PutMapping("/{id}")
 	    public Korisnik updateUser(@PathVariable(value = "id") Long id,
 	                                               @RequestBody @Valid Korisnik korisnikUpdated, Errors errors) throws NotFoundException, Exception {
 
@@ -68,7 +68,7 @@ public class KorisnikController {
 	        korisnikUpdated = kR.save(korisnik);
 	        return korisnikUpdated;
 	    }
-	 @DeleteMapping("delete/{id}")
+	 @DeleteMapping("/{id}")
 	    public ResponseEntity<?> deleteCategory(@PathVariable(value = "id") Long id) throws NotFoundException {
 	        Korisnik korisnik = kR.findById(id)
 	                .orElseThrow(() -> new NotFoundException("User with given id not found"));

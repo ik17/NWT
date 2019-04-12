@@ -35,17 +35,17 @@ public class KomentarController {
 	@Autowired
 	KorisnikRepository korisnikRepository;
 	
-	@GetMapping(value = "/all")
+	@GetMapping(value = "")
 	public List<Komentar> getAll(){
 		return komentarRepository.findAll();
 	}
 	
-	@GetMapping(value = "/get/{id}")
+	@GetMapping(value = "/{id}")
 	public Komentar getCommentById(@PathVariable(value = "id") Long id) throws NotFoundException {
 		return komentarRepository.findById(id).orElseThrow(() -> new NotFoundException("Comment with given id not found!"));
 	}
 	
-	@PostMapping(value = "/insert")
+	@PostMapping(value = "")
 	public Komentar createComment(@RequestBody @Valid final Komentar komentar, Errors errors)throws Exception {
 		if(errors.hasErrors()) {
 			throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
@@ -62,7 +62,7 @@ public class KomentarController {
 		return komentarRepository.save(komentar);
 	}
 	
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteComment(@PathVariable(value = "id") Long id) throws NotFoundException{
 		Komentar komentar = komentarRepository
 				.findById(id)
@@ -71,7 +71,7 @@ public class KomentarController {
 		return ResponseEntity.ok().build();
 	}
 	
-	@PutMapping("/update/{id}")
+	@PutMapping("/{id}")
 	public Komentar updateComment(@PathVariable(value = "id") Long id, @RequestBody @Valid Komentar komentarUpdate, Errors errors)throws NotFoundException, Exception {
 		if(errors.hasErrors()) 
 			throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());

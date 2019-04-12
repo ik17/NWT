@@ -35,17 +35,17 @@ public class ClanakController {
 	@Autowired
 	KategorijaRepository kategorijaRepository;
 	
-	@GetMapping(value = "/all")
+	@GetMapping(value = "")
 	public List<Clanak> getAll(){
 		return clanakRepository.findAll();
 	}
 	
-	@GetMapping(value = "/get/{id}")
+	@GetMapping(value = "/{id}")
 	public Clanak getArticleById(@PathVariable(value = "id") Long id) throws NotFoundException {
 		return clanakRepository.findById(id).orElseThrow(() -> new NotFoundException("Article with given id not found"));
 	}
 	
-	@PostMapping(value = "/insert")
+	@PostMapping(value = "")
 	public Clanak createArticle(@RequestBody @Valid final Clanak clanak, Errors errors) throws Exception {
 		if(errors.hasErrors()) {
 			throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
@@ -66,7 +66,7 @@ public class ClanakController {
 		clanakRepository.delete(clanak);
 		return ResponseEntity.ok().build();
 	}
-	@PutMapping("/update/{id}")
+	@PutMapping("/{id}")
 	public Clanak updateArticle(@PathVariable(value = "id") Long id, @RequestBody @Valid Clanak clanakUpdate, Errors errors) throws NotFoundException, Exception{
 		if(errors.hasErrors()) 
 			throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());

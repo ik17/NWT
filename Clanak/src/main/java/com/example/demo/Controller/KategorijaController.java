@@ -27,17 +27,17 @@ public class KategorijaController {
 	@Autowired
 	KategorijaRepository kategorijaRepository;
 	
-	@GetMapping(value = "/all")
+	@GetMapping(value = "")
 	public List<Kategorija> getAll(){
 		return kategorijaRepository.findAll();
 	}
 	
-	@GetMapping(value = "/get/{id}")
+	@GetMapping(value = "/{id}")
 	public Kategorija getCategoryById(@PathVariable(value = "id") Long id) throws NotFoundException {
 		return kategorijaRepository.findById(id).orElseThrow(() -> new NotFoundException("Category with given id not found!"));
 	}
 	
-	@PostMapping(value = "/insert")
+	@PostMapping(value = "")
 	public Kategorija createCategory(@RequestBody @Valid final Kategorija kategorija, Errors errors) throws Exception {
 		if(errors.hasErrors()) {
 			throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
@@ -46,7 +46,7 @@ public class KategorijaController {
 		return kategorijaRepository.save(kategorija);
 	}
 	
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteCategory(@PathVariable(value = "id") Long id)throws NotFoundException{
 		Kategorija kategorija = kategorijaRepository
 				.findById(id)
@@ -56,7 +56,7 @@ public class KategorijaController {
 		return ResponseEntity.ok().build();
 	}
 	
-	@PutMapping("/update/{id}")
+	@PutMapping("/{id}")
 	public Kategorija updateCategory(@PathVariable(value = "id") Long id, @RequestBody @Valid Kategorija kategorijaUpdate, Errors errors) throws NotFoundException, Exception{
 		if(errors.hasErrors()) 
 			throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());

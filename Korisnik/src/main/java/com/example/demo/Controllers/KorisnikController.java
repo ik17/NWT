@@ -41,17 +41,17 @@ public class KorisnikController {
 	@Autowired
 	private DiscoveryClient discoveryClient;
 	
-	@GetMapping(value="/all")
+	@GetMapping(value="")
     public List<Korisnik> getAll(){
         return korisnikRepo.findAll();
     }
 	
-	 @GetMapping("/get/{id}")
+	 @GetMapping("/{id}")
 	    public Korisnik getKorisnikById(@PathVariable(value = "id") Long id) throws NotFoundException {
 	        return korisnikRepo.findById(id).orElseThrow(() -> new NotFoundException("User with given id not found"));
 	    }
 	 
-	 @PostMapping(value="/insert")
+	 @PostMapping(value="")
 	    public Korisnik createKorisnik(@RequestBody @Valid final Korisnik korisnik, Errors errors) throws Exception {
 
 	     //   if(errors.hasErrors()){
@@ -104,7 +104,7 @@ public class KorisnikController {
 	        return korisnikRepo.save(korisnik);
 	    }
 	 
-	 @PutMapping("update/{id}")
+	 @PutMapping("/{id}")
 	    public Korisnik updateKorisnik(@PathVariable(value = "id") Long id,
 	                                               @RequestBody @Valid Korisnik korisnikUpdate, Errors errors) throws NotFoundException, Exception {
 
@@ -177,7 +177,7 @@ public class KorisnikController {
 	        return korisnikUpdate;
 	    }
 	 
-	 @DeleteMapping("delete/{id}")
+	 @DeleteMapping("/{id}")
 	    public ResponseEntity<?> deleteKorisnik(@PathVariable(value = "id") Long id) throws NotFoundException {
 	        Korisnik korisnik = korisnikRepo.findById(id)
 	                .orElseThrow(() -> new NotFoundException("User with given id not found"));

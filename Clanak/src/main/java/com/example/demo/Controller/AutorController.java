@@ -35,17 +35,17 @@ public class AutorController {
 	@Autowired
 	KorisnikRepository korisnikRepository;
 	
-	@GetMapping(value = "/all")
+	@GetMapping(value = "")
 	public List<Autor> getAll(){
 		return autorRepository.findAll();
 	}
 	
-	@GetMapping(value = "/get/{id}")
+	@GetMapping(value = "/{id}")
 	public Autor getAuthorById(@PathVariable(value = "id") Long id) throws NotFoundException {
 		return autorRepository.findById(id).orElseThrow(() -> new NotFoundException("Author with given id not found"));
 	}
 	
-	@PostMapping(value = "/insert")
+	@PostMapping(value = "")
 	public Autor createAuthor(@RequestBody @Valid final Autor autor, Errors errors) throws Exception {
 		if(errors.hasErrors()) {
 			throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
@@ -59,7 +59,7 @@ public class AutorController {
 		return autorRepository.save(autor);
 	}
 	
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteVersion(@PathVariable(value = "id") Long id) throws NotFoundException{
 		Autor autor = autorRepository
 				.findById(id)
@@ -70,7 +70,7 @@ public class AutorController {
 		return ResponseEntity.ok().build();
 	}
 	
-	@PutMapping("/update/{id}")
+	@PutMapping("/{id}")
 	public Autor updateAuthor(@PathVariable(value = "id") Long id, @RequestBody @Valid Autor autorUpdate, Errors errors) throws NotFoundException, Exception {
 		if(errors.hasErrors()) 
 			throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());

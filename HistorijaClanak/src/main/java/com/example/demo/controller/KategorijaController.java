@@ -28,17 +28,17 @@ public class KategorijaController {
 	@Autowired
 	KategorijaRepository kR;
 	
-	@GetMapping(value="/all")
+	@GetMapping(value="")
     public List<Kategorija> getAll(){
         return kR.findAll();
     }
 	
-	 @GetMapping("/get/{id}")
+	 @GetMapping("/{id}")
 	    public Kategorija getCategoryById(@PathVariable(value = "id") Long id) throws NotFoundException {
 	        return kR.findById(id).orElseThrow(() -> new NotFoundException("Category with given id not found"));
 	    }
 	 
-	 @PostMapping(value="/insert")
+	 @PostMapping(value="")
 	    public Kategorija createCategory(@RequestBody @Valid final Kategorija kategorija, Errors errors) throws Exception {
 
 	        if(errors.hasErrors()){
@@ -48,7 +48,7 @@ public class KategorijaController {
 	        return kR.save(kategorija);
 	    }
 	 
-	 @PutMapping("update/{id}")
+	 @PutMapping("/{id}")
 	    public Kategorija updateCategory(@PathVariable(value = "id") Long id,
 	                                               @RequestBody @Valid Kategorija kategorijaUpdated, Errors errors) throws NotFoundException, Exception {
 
@@ -68,7 +68,7 @@ public class KategorijaController {
 	        kategorijaUpdated = kR.save(kategorija);
 	        return kategorijaUpdated;
 	    }
-	 @DeleteMapping("delete/{id}")
+	 @DeleteMapping("/{id}")
 	    public ResponseEntity<?> deleteCategory(@PathVariable(value = "id") Long id) throws NotFoundException {
 	        Kategorija kategorija = kR.findById(id)
 	                .orElseThrow(() -> new NotFoundException("Category with given id not found"));

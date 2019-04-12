@@ -37,17 +37,17 @@ public class AutorController {
 	@Autowired
 	ClanakRepository cR;
 	
-	@GetMapping(value="/all")
+	@GetMapping(value="")
     public List<Autor> getAll(){
         return aR.findAll();
     }
 	
-	 @GetMapping("/get/{id}")
+	 @GetMapping("/{id}")
 	    public Autor getAutorById(@PathVariable(value = "id") Long id) throws NotFoundException {
 	        return aR.findById(id).orElseThrow(() -> new NotFoundException("Autor with given id not found"));
 	    }
 	 
-	 @PostMapping(value="/insert")
+	 @PostMapping(value="")
 	    public Autor createAutor(@RequestBody @Valid final Autor autor, Errors errors) throws Exception {
 
 	        if(errors.hasErrors()){
@@ -68,7 +68,7 @@ public class AutorController {
 	        return aR.save(autor);
 	    }
 	 
-	 @PutMapping("update/{id}")
+	 @PutMapping("/{id}")
 	    public Autor updateAutor(@PathVariable(value = "id") Long id,
 	                                               @RequestBody @Valid Autor autorUpdated, Errors errors) throws NotFoundException, Exception {
 
@@ -104,7 +104,7 @@ public class AutorController {
 	        autorUpdated = aR.save(autor);
 	        return autorUpdated;
 	    }
-	 @DeleteMapping("delete/{id}")
+	 @DeleteMapping("/{id}")
 	    public ResponseEntity<?> deleteAutor(@PathVariable(value = "id") Long id) throws NotFoundException {
 	        Autor autor = aR.findById(id)
 	                .orElseThrow(() -> new NotFoundException("Autor with given id not found"));

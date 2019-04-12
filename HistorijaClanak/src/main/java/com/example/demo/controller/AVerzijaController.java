@@ -32,17 +32,17 @@ public class AVerzijaController {
 	@Autowired
 	ClanakRepository cR;
 	
-	@GetMapping(value="/all")
+	@GetMapping(value="")
     public List<AVerzija> getAll(){
         return vR.findAll();
     }
 	
-	 @GetMapping("/get/{id}")
+	 @GetMapping("/{id}")
 	    public AVerzija getVersionById(@PathVariable(value = "id") Long id) throws NotFoundException {
 	        return vR.findById(id).orElseThrow(() -> new NotFoundException("Version with given id not found"));
 	    }
 	 
-	 @PostMapping(value="/insert")
+	 @PostMapping(value="")
 	    public AVerzija createVersion(@RequestBody @Valid final AVerzija verzija, Errors errors) throws Exception {
 
 	        if(errors.hasErrors()){
@@ -57,7 +57,7 @@ public class AVerzijaController {
 	        return vR.save(verzija);
 	    }
 	 
-	 @PutMapping("update/{id}")
+	 @PutMapping("/{id}")
 	    public AVerzija updateVersion(@PathVariable(value = "id") Long id,
 	                                               @RequestBody @Valid AVerzija verzijaUpdated, Errors errors) throws NotFoundException, Exception {
 
@@ -93,7 +93,7 @@ public class AVerzijaController {
 	        verzijaUpdated = vR.save(verzija);
 	        return verzijaUpdated;
 	    }
-	 @DeleteMapping("delete/{id}")
+	 @DeleteMapping("/{id}")
 	    public ResponseEntity<?> deleteVersion(@PathVariable(value = "id") Long id) throws NotFoundException {
 	        AVerzija verzija = vR.findById(id)
 	                .orElseThrow(() -> new NotFoundException("Version with given id not found"));

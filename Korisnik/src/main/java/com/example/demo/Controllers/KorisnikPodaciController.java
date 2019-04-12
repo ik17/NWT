@@ -29,17 +29,17 @@ public class KorisnikPodaciController {
 	@Autowired
 	KorisnikPodaciRepository korisnikPodaciRepo;
 	
-	@GetMapping(value="/all")
+	@GetMapping(value="")
     public List<KorisnikPodaci> getAll(){
         return korisnikPodaciRepo.findAll();
     }
 	
-	 @GetMapping("/get/{id}")
+	 @GetMapping("/{id}")
 	    public KorisnikPodaci getPodaciById(@PathVariable(value = "id") Long id) throws NotFoundException {
 	        return korisnikPodaciRepo.findById(id).orElseThrow(() -> new NotFoundException("korisnikPodaci with given id not found"));
 	    }
 	 
-	 @PostMapping(value="/insert")
+	 @PostMapping(value="")
 	    public KorisnikPodaci createPodaci(@RequestBody @Valid final KorisnikPodaci korisnikPodaci, Errors errors) throws Exception {
 
 	        if(errors.hasErrors()){
@@ -49,7 +49,7 @@ public class KorisnikPodaciController {
 	        return korisnikPodaciRepo.save(korisnikPodaci);
 	    }
 	 
-	 @PutMapping("update/{id}")
+	 @PutMapping("/{id}")
 	    public KorisnikPodaci updatePodaci(@PathVariable(value = "id") Long id,
 	                                               @RequestBody @Valid KorisnikPodaci korisnikPodaciUpdate, Errors errors) throws NotFoundException, Exception {
 
@@ -72,7 +72,7 @@ public class KorisnikPodaciController {
 	        return korisnikPodaciUpdate;
 	    }
 	 
-	 @DeleteMapping("delete/{id}")
+	 @DeleteMapping("/{id}")
 	    public ResponseEntity<?> deletePodaci(@PathVariable(value = "id") Long id) throws NotFoundException {
 	        KorisnikPodaci korisnikPodaci = korisnikPodaciRepo.findById(id)
 	                .orElseThrow(() -> new NotFoundException("korisnikPodaci with given id not found"));

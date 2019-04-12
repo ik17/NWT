@@ -27,17 +27,17 @@ public class KorisnikController {
 	@Autowired
 	KorisnikRepository korisnikRepository;
 	
-	@GetMapping(value = "/all")
+	@GetMapping(value = "")
 	public List<Korisnik> getAll(){
 		return korisnikRepository.findAll();
 	}
 	
-	@GetMapping(value = "/get/{id}")
+	@GetMapping(value = "/{id}")
 	public Korisnik getUserById(@PathVariable(value = "id") Long id) throws NotFoundException {
 		return korisnikRepository.findById(id).orElseThrow(() -> new NotFoundException("User with given id not found!"));
 	}
 	
-	@PostMapping(value = "/insert")
+	@PostMapping(value = "")
 	public Korisnik createUser(@RequestBody @Valid final Korisnik korisnik, Errors errors)throws Exception {
 		if(errors.hasErrors()) {
 			throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
@@ -45,7 +45,7 @@ public class KorisnikController {
 		return korisnikRepository.save(korisnik);
 	}
 	
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteUser(@PathVariable(value = "id") Long id) throws NotFoundException{
 		Korisnik korisnik = korisnikRepository
 				.findById(id)
@@ -54,7 +54,7 @@ public class KorisnikController {
 		return ResponseEntity.ok().build();
 	}
 	
-	@PutMapping("/update/{id}")
+	@PutMapping("/{id}")
 	public Korisnik updateKorisnik(@PathVariable(value = "id") Long id, @RequestBody @Valid Korisnik korisnikUpdate, Errors errors) throws NotFoundException, Exception{
 		if(errors.hasErrors()) 
 			throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());

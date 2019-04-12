@@ -28,17 +28,17 @@ public class UlogaKorisnikController {
 	@Autowired
 	UlogaKorisnikRepository ulogaKorisnikRepo;
 	
-	@GetMapping(value="/all")
+	@GetMapping(value="")
     public List<UlogaKorisnik> getAll(){
         return ulogaKorisnikRepo.findAll();
     }
 	
-	 @GetMapping("/get/{id}")
+	 @GetMapping("/{id}")
 	    public UlogaKorisnik getUlogaById(@PathVariable(value = "id") Long id) throws NotFoundException {
 	        return ulogaKorisnikRepo.findById(id).orElseThrow(() -> new NotFoundException("Uloga with given id not found"));
 	    }
 	 
-	 @PostMapping(value="/insert")
+	 @PostMapping(value="")
 	    public UlogaKorisnik createUloga(@RequestBody @Valid final UlogaKorisnik ulogaKorisnik, Errors errors) throws Exception {
 
 	        if(errors.hasErrors()){
@@ -48,7 +48,7 @@ public class UlogaKorisnikController {
 	        return ulogaKorisnikRepo.save(ulogaKorisnik);
 	    }
 	 
-	 @PutMapping("update/{id}")
+	 @PutMapping("/{id}")
 	    public UlogaKorisnik updateUloga(@PathVariable(value = "id") Long id,
 	                                               @RequestBody @Valid UlogaKorisnik ulogaKorisnikUpdate, Errors errors) throws NotFoundException, Exception {
 
@@ -68,7 +68,7 @@ public class UlogaKorisnikController {
 	        return ulogaKorisnikUpdate;
 	    }
 	 
-	 @DeleteMapping("delete/{id}")
+	 @DeleteMapping("/{id}")
 	    public ResponseEntity<?> deleteUloga(@PathVariable(value = "id") Long id) throws NotFoundException {
 	        UlogaKorisnik ulogaKorisnik = ulogaKorisnikRepo.findById(id)
 	                .orElseThrow(() -> new NotFoundException("Uloga with given id not found"));
