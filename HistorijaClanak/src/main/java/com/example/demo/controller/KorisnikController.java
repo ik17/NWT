@@ -52,9 +52,9 @@ public class KorisnikController {
 	    public Korisnik updateUser(@PathVariable(value = "id") Long id,
 	                                               @RequestBody @Valid Korisnik korisnikUpdated, Errors errors) throws NotFoundException, Exception {
 
-	        if(errors.hasErrors()){
-	            throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
-	        }
+	       // if(errors.hasErrors()){
+	       //     throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
+	       // }
 
 	        Korisnik korisnik = kR
 	                .findById(id)

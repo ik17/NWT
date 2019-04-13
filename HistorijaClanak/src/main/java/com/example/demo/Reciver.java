@@ -21,7 +21,22 @@ public class Reciver {
 
     public void receiveMessage(String message) throws Exception {
         System.out.println("Received <" + message + ">");
-        kC.createUder(new Korisnik(message), null);
+        String action = message.substring(0,1);
+        String data = message.substring(1);
+        System.out.println(action);
+        if(action.equals("1")) {
+        	//System.out.println(action);
+        kC.createUder(new Korisnik(data), null);
+        }
+        else if( action.equals( "2")) {
+        	//kC.updateUser(Long.parseLong(data.substring(0,1)), new Korisnik(data.substring(1)), null);
+        }
+        else  {
+        	//kC.deleteCategory(Long.parseLong(data,10));
+        	System.out.println(Long.parseLong(data,10));
+        	kC.deleteCategory(Long.parseLong(data,10));
+        	
+        }
         latch.countDown();
     }
 

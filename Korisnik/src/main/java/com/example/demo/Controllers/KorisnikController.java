@@ -47,7 +47,7 @@ public class KorisnikController {
 	
 	@GetMapping(value="/testAsync")
 	public String getResponse(){
-		rabbitTemplate.convertAndSend(KorisnikApplication.topicExchangeName, "nwt.HistorijaClanak.korisnik", "IMEVELIKO");
+		rabbitTemplate.convertAndSend(KorisnikApplication.topicExchangeName, "nwt.HistorijaClanak.korisnik", "1" + "IMEVELIKO");
 		return "OK";
 
 	}
@@ -102,7 +102,7 @@ public class KorisnikController {
 			}
 			System.out.println(response.getBody());
 			*/
-		 rabbitTemplate.convertAndSend(KorisnikApplication.topicExchangeName, "nwt.HistorijaClanak.korisnik", korisnik.getUsername());
+		 rabbitTemplate.convertAndSend(KorisnikApplication.topicExchangeName, "nwt.HistorijaClanak.korisnik", "1" + korisnik.getUsername());
 			
 			
 	        
@@ -134,7 +134,7 @@ public class KorisnikController {
 	        korisnik.setUlogaKorisnik(korisnikUpdate.getUlogaKorisnik());
 	        
 	        
-	        
+	        /*
 	        List<ServiceInstance> instances=discoveryClient.getInstances("HistorijaClanak-service");
 	        List<ServiceInstance> instances2=discoveryClient.getInstances("Clanak-service");
 	        
@@ -155,30 +155,23 @@ public class KorisnikController {
 			headers.setContentType(MediaType.APPLICATION_JSON);
 
 			HttpEntity<String> entity = new HttpEntity<String>(requestJson,headers);
-			//String answer = RestTemplate.po
-					//.postForObject(url, entity, String.class);
-
+			
 			
 			RestTemplate restTemplate = new RestTemplate();
 			ResponseEntity<String> response=null;
 			try{
-			//response=restTemplate.exchange(baseUrl,HttpMethod.POST, getHeaders(),String.class);
-				//response = restTemplate.postForEntity( baseUrl, entity , String.class );
 				restTemplate.put(baseUrl, entity, String.class);
 				RestTemplate restTemplate2 = new RestTemplate();
-				//ResponseEntity<String> response2 = 
 						restTemplate2.put(baseUrl2, entity, String.class);
-						//postForEntity( baseUrl2, entity , String.class );
-				//System.out.println(response2.getBody());
-			}catch (Exception ex)
-			{	///ovdje if(contains null) return NEMA
-				// ex.getMessage();
-				//return ex.getCause().toString();
+				}catch (Exception ex)
+			{	
 				System.out.println(ex);
 			}
-			//System.out.println(response.getBody());
 			
-	        
+	        */
+	        //rabbitTemplate.convertAndSend(KorisnikApplication.topicExchangeName, "nwt.HistorijaClanak.korisnik","2" +Long.valueOf()+ korisnik.getUsername());
+			
+			
 	        
 	        
 	        korisnikUpdate = korisnikRepo.save(korisnik);
@@ -190,7 +183,7 @@ public class KorisnikController {
 	        Korisnik korisnik = korisnikRepo.findById(id)
 	                .orElseThrow(() -> new NotFoundException("User with given id not found"));
 	        
-
+	        /*
 	        List<ServiceInstance> instances=discoveryClient.getInstances("HistorijaClanak-service");
 	        List<ServiceInstance> instances2=discoveryClient.getInstances("Clanak-service");
 	        
@@ -215,14 +208,13 @@ public class KorisnikController {
 				ResponseEntity<String> response2 = restTemplate2.exchange(baseUrl2, HttpMethod.DELETE, getHeaders(), String.class);
 				System.out.println(response2.getBody());
 			}catch (Exception ex)
-			{	///ovdje if(contains null) return NEMA
-				// ex.getMessage();
-				//return ex.getCause().toString();
+			{	
 				System.out.println(ex);
 			}
 			System.out.println(response.getBody());
+			*/
+	        rabbitTemplate.convertAndSend(KorisnikApplication.topicExchangeName, "nwt.HistorijaClanak.korisnik","3" +Long.valueOf(id));
 			
-			//return response.getBody();
 	        
 	        
 	        

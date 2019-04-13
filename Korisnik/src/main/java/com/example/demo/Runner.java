@@ -65,7 +65,7 @@ public class Runner implements CommandLineRunner{
 		//kC.updateKorisnik(k.getId(), new Korisnik("KomunikacijaUpdate", "password2", kp2, uk3), null);
 		System.out.println(k.getUsername());
 		// kC.deleteKorisnik(k.getId());
-        rabbitTemplate.convertAndSend(KorisnikApplication.topicExchangeName, "nwt.HistorijaClanak.korisnik", "IMEKOMUNIKACIJA");
+        rabbitTemplate.convertAndSend(KorisnikApplication.topicExchangeName, "nwt.HistorijaClanak.korisnik","1" + "IMEKOMUNIKACIJA");
         //receiver.getLatch().await(10000, TimeUnit.MILLISECONDS);
     }
 
