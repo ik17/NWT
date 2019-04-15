@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.entity.Clanak;
 import com.example.demo.entity.Kategorija;
 import com.example.demo.entity.Korisnik;
+import com.example.demo.repository.AVerzijaRepository;
 import com.example.demo.repository.ClanakRepository;
 import com.example.demo.repository.KategorijaRepository;
 import com.example.demo.repository.KorisnikRepository;
@@ -31,7 +32,8 @@ import javassist.NotFoundException;
 public class ClanakController {
 	@Autowired
 	ClanakRepository cR;
-	
+	@Autowired
+	AVerzijaRepository aR;
 	@Autowired
 	KategorijaRepository kR;
 	
@@ -47,6 +49,11 @@ public class ClanakController {
 	    public Clanak getClientById(@PathVariable(value = "id") Long id) throws NotFoundException {
 	        return cR.findById(id).orElseThrow(() -> new NotFoundException("Article with given id not found"));
 	    }
+	 @GetMapping(value="/link/{id}")
+	    public String getLink(@PathVariable(value = "id") Long id) throws NotFoundException{
+	        //Clanak c =  cR.findById(id).orElseThrow(() -> new NotFoundException("Article with given id not found"));
+	        return aR.findLink(id);
+	 }
 	 
 	 @PostMapping(value="")
 	    public Clanak createClanak(@RequestBody @Valid final Clanak clanak, Errors errors) throws Exception {

@@ -61,9 +61,9 @@ public class Runner  implements CommandLineRunner {
     	Clanak c2 = new Clanak("Clanak1", kk1, 0, k1);
     	cR.save(c1);
     	cR.save(c2);
-    	AVerzija v1 = new AVerzija(2, "linkNaClanak", "review ovaj članak je dobar i jako mi se svidja, odobreno",c1);
-    	AVerzija v2 = new AVerzija(1, "linkNaClanak", "review ovaj članak je dobar i jako mi se svidja, odobreno",c2);
-    	AVerzija v3 = new AVerzija(3, "linkNaClanak", "review ovaj članak je dobar i jako mi se svidja, odobreno",c1);
+    	AVerzija v1 = new AVerzija(2, "linkNaClanak1", "review ovaj članak je dobar i jako mi se svidja, odobreno",c1);
+    	AVerzija v2 = new AVerzija(1, "linkNaClanak11", "review ovaj članak je dobar i jako mi se svidja, odobreno",c2);
+    	AVerzija v3 = new AVerzija(3, "linkNaClanak2", "review ovaj članak je dobar i jako mi se svidja, odobreno",c1);
     	vR.save(v1);
     	vR.save(v2);
     	vR.save(v3);
@@ -75,6 +75,7 @@ public class Runner  implements CommandLineRunner {
     	Optional<Clanak> c = cR.findById(new Long(1));
     	System.out.println(c.get().getNaziv());
     	System.out.println(c.get().getIdKategorije().getNaziv());
+    	System.out.println(vR.findLink(c1.getId()));
        // System.out.println("Sending message...");
        // rabbitTemplate.convertAndSend(HistorijaClanakApplication.topicExchangeName, "com.example.korisnik.korisnik", "5");
        // receiver.getLatch().await(10000, TimeUnit.MILLISECONDS);
