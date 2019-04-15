@@ -29,7 +29,7 @@ public class Reciver {
         kC.createUder(new Korisnik(data), null);
         }
         else if( action.equals( "2")) {
-        	//kC.updateUser(Long.parseLong(data.substring(0,1)), new Korisnik(data.substring(1)), null);
+        	kC.updateUser(Long.parseLong(data.substring(0,1),10), new Korisnik(data.substring(1)), null);
         }
         else  {
         	//kC.deleteCategory(Long.parseLong(data,10));

@@ -170,6 +170,8 @@ public class KorisnikController {
 			
 	        */
 	        //rabbitTemplate.convertAndSend(KorisnikApplication.topicExchangeName, "nwt.HistorijaClanak.korisnik","2" +Long.valueOf()+ korisnik.getUsername());
+	        rabbitTemplate.convertAndSend(KorisnikApplication.topicExchangeName, "nwt.HistorijaClanak.korisnik", "2" + id.toString()+ korisnikUpdate.getUsername());
+			
 			
 			
 	        
