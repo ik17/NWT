@@ -8,6 +8,7 @@ import com.example.demo.entity.Kategorija;
 import com.example.demo.repository.KategorijaRepository;
 import com.example.demo.entity.Clanak;
 import com.example.demo.repository.ClanakRepository;
+import com.example.demo.controller.ClanakController;
 import com.example.demo.entity.AVerzija;
 import com.example.demo.repository.AVerzijaRepository;
 import com.example.demo.entity.Autor;
@@ -37,6 +38,8 @@ public class Runner  implements CommandLineRunner {
 	AutorRepository aR;
 	@Autowired
 	ClanakRepository cR;
+	@Autowired
+	ClanakController ccR;
 
 
     private final RabbitTemplate rabbitTemplate;
@@ -58,7 +61,7 @@ public class Runner  implements CommandLineRunner {
     	korisnikRepository.save(k1);
     	korisnikRepository.save(k2);
     	Clanak c1 = new Clanak("Clanak1", kk1, 0, k1);
-    	Clanak c2 = new Clanak("Clanak1", kk1, 0, k1);
+    	Clanak c2 = new Clanak("Clanak2", kk1, 0, k1);
     	cR.save(c1);
     	cR.save(c2);
     	AVerzija v1 = new AVerzija(2, "linkNaClanak1", "review ovaj članak je dobar i jako mi se svidja, odobreno",c1);
@@ -75,7 +78,7 @@ public class Runner  implements CommandLineRunner {
     	Optional<Clanak> c = cR.findById(new Long(1));
     	System.out.println(c.get().getNaziv());
     	System.out.println(c.get().getIdKategorije().getNaziv());
-    	System.out.println(vR.findLink(c1.getId()));
+    	System.out.println(ccR.getLink2("Clanak1"));
        // System.out.println("Sending message...");
        // rabbitTemplate.convertAndSend(HistorijaClanakApplication.topicExchangeName, "com.example.korisnik.korisnik", "5");
        // receiver.getLatch().await(10000, TimeUnit.MILLISECONDS);

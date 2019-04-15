@@ -16,6 +16,9 @@ import com.example.demo.entity.Clanak;
 @Repository
 public interface ClanakRepository extends JpaRepository<Clanak, Long> {
 	//Clanak findById(int id);
+	@Query(value = "SELECT id FROM clanak WHERE naziv = ?1 ", 
+			  nativeQuery = true)
+	Long getIdByName(String name);
 
 
 }
