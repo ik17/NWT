@@ -1,10 +1,17 @@
 package com.example.demo.Controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +22,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.example.demo.Entities.Clanak;
 import com.example.demo.Entities.Kategorija;
@@ -34,6 +42,8 @@ public class ClanakController {
 	KorisnikRepository korisnikRepository;
 	@Autowired
 	KategorijaRepository kategorijaRepository;
+	@Autowired
+	private DiscoveryClient discoveryClient;
 	
 	@GetMapping(value = "")
 	public List<Clanak> getAll(){
@@ -43,6 +53,26 @@ public class ClanakController {
 	@GetMapping(value = "/{id}")
 	public Clanak getArticleById(@PathVariable(value = "id") Long id) throws NotFoundException {
 		return clanakRepository.findById(id).orElseThrow(() -> new NotFoundException("Article with given id not found"));
+	}
+	
+	@GetMapping(value = "/link/{naziv}")
+	public String getLinkByName(@PathVariable(value = "naziv") String name ) throws NotFoundException {
+		List<ServiceInstance> instances=discoveryClient.getInstances("HistorijaClanak-service");
+		if(instances.isEmpty()) return "greskaServis";
+		ServiceInstance serviceInstance=instances.get(0);
+		String baseUrl=serviceInstance.getUri().toString()+ "/clanak/link/" +name;
+		System.out.println(baseUrl);
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<String> response=null;
+		try{
+			response  = restTemplate.exchange(baseUrl, HttpMethod.GET, getHeaders(), String.class);
+			
+		}catch (Exception ex)
+		{	
+			System.out.println(ex);
+		}
+		System.out.println(response.getBody());
+		return response.getBody();
 	}
 	
 	@PostMapping(value = "")
@@ -88,4 +118,9 @@ public class ClanakController {
 		clanakUpdate = clanakRepository.save(clanak);
 		return clanakUpdate;
 	} 
+	 private static HttpEntity<?> getHeaders() throws IOException {
+			HttpHeaders headers = new HttpHeaders();
+			headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+			return new HttpEntity<>(headers);
+		}
 }

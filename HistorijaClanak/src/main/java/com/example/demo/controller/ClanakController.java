@@ -49,7 +49,7 @@ public class ClanakController {
 	    public Clanak getClientById(@PathVariable(value = "id") Long id) throws NotFoundException {
 	        return cR.findById(id).orElseThrow(() -> new NotFoundException("Article with given id not found"));
 	    }
-	 @GetMapping(value="/link/{id}")
+	 @GetMapping(value="/linkId/{id}")
 	    public String getLink(@PathVariable(value = "id") Long id) throws NotFoundException{
 	        //Clanak c =  cR.findById(id).orElseThrow(() -> new NotFoundException("Article with given id not found"));
 	        return aR.findLink(id);
