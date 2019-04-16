@@ -46,12 +46,14 @@ KorisnikRepository korisnikRepository;
 	@Override
     public void run(String... arg0) throws Exception {
 		Korisnik k3 = new Korisnik("Korisnik");
+		Korisnik k32 = new Korisnik("Korisnik2");
 		Kategorija k = new Kategorija("kategorija");
 		Clanak c = new Clanak("naziv", k, true, k3);
 		Autor a = new Autor(c, k3);
 		
 		Komentar k2 = new Komentar("komentar", c, k3);
 		korisnikRepository.save(k3);
+		korisnikRepository.save(k32);
 		kategorijaRepository.save(k);
 		clanakRepository.save(c);
 		autorRepository.save(a);

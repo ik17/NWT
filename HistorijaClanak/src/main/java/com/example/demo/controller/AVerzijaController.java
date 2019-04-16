@@ -56,11 +56,11 @@ public class AVerzijaController {
 	        AVerzija v1 =  vR.findById(id).orElseThrow(() -> new NotFoundException("Version with given id not found"));
 	        Optional<Clanak> c1 = cR.findById(v1.getIdClanak().getId());
 	        
-	        
+	        if(c1==null) return "nema clanka";
 	        
 	        List<ServiceInstance> instances=discoveryClient.getInstances("Clanak-service");
 	             
-	        if(instances.isEmpty()) ;
+	        if(instances.isEmpty()) return "ne radi servis";
 			ServiceInstance serviceInstance=instances.get(0);
 			
 			
@@ -74,6 +74,7 @@ public class AVerzijaController {
 			Long idKategorije = c1.get().getIdKategorije().getId();
 			String nazivKategorije = c1.get().getIdKategorije().getNaziv();
 			String requestJson = "{\"naziv\":\"" + naziv + "\",\"clanakOdobren\":\"" + clanakOdobren + "\",\"odobrioClanak\":"+ "{\"id\":\"" + idKorisnik + "\",\"username\":\"" + imeKorisnik + "\"},\"kategorija\":" + "{\"id\":\"" + idKategorije + "\",\"naziv\":\"" + nazivKategorije + "\"}}"; 
+			System.out.println(requestJson);
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -87,7 +88,8 @@ public class AVerzijaController {
 				System.out.println(ex);
 			}
 			System.out.println(response);
-			return "done";// response.getBody();
+			if (response != null) return  response.getBody();
+			else return "Error";
 	        
 	        
 	 }
