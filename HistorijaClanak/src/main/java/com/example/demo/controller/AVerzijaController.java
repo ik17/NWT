@@ -1,10 +1,16 @@
 package com.example.demo.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +21,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.example.demo.entity.AVerzija;
 import com.example.demo.entity.Clanak;
@@ -31,6 +38,8 @@ public class AVerzijaController {
 	AVerzijaRepository vR;
 	@Autowired
 	ClanakRepository cR;
+	@Autowired
+	private DiscoveryClient discoveryClient;
 	
 	@GetMapping(value="")
     public List<AVerzija> getAll(){
@@ -41,6 +50,47 @@ public class AVerzijaController {
 	    public AVerzija getVersionById(@PathVariable(value = "id") Long id) throws NotFoundException {
 	        return vR.findById(id).orElseThrow(() -> new NotFoundException("Version with given id not found"));
 	    }
+	 
+	 @GetMapping("/prihvacen/{id}")
+	    public String prihvatiClanak(@PathVariable(value = "id") Long id) throws NotFoundException {
+	        AVerzija v1 =  vR.findById(id).orElseThrow(() -> new NotFoundException("Version with given id not found"));
+	        Optional<Clanak> c1 = cR.findById(v1.getIdClanak().getId());
+	        
+	        
+	        
+	        List<ServiceInstance> instances=discoveryClient.getInstances("Clanak-service");
+	             
+	        if(instances.isEmpty()) ;
+			ServiceInstance serviceInstance=instances.get(0);
+			
+			
+			
+			String baseUrl=serviceInstance.getUri().toString()+ "/clanak/"; //+id.toString();
+			System.out.println(baseUrl);
+			String naziv = c1.get().getNaziv();
+			String clanakOdobren = "true";
+			Long idKorisnik = c1.get().getOdobrioClanak().getId();
+			String imeKorisnik = c1.get().getOdobrioClanak().getUsername();
+			Long idKategorije = c1.get().getIdKategorije().getId();
+			String nazivKategorije = c1.get().getIdKategorije().getNaziv();
+			String requestJson = "{\"naziv\":\"" + naziv + "\",\"clanakOdobren\":\"" + clanakOdobren + "\",\"odobrioClanak\":"+ "{\"id\":\"" + idKorisnik + "\",\"username\":\"" + imeKorisnik + "\"},\"kategorija\":" + "{\"id\":\"" + idKategorije + "\",\"naziv\":\"" + nazivKategorije + "\"}}"; 
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_JSON);
+
+			HttpEntity<String> entity = new HttpEntity<String>(requestJson,headers);
+				RestTemplate restTemplate = new RestTemplate();
+			ResponseEntity<String> response=null;
+			try{
+				response = restTemplate.postForEntity( baseUrl, entity , String.class );
+				}catch (Exception ex)
+			{	
+				System.out.println(ex);
+			}
+			System.out.println(response);
+			return "done";// response.getBody();
+	        
+	        
+	 }
 	 
 	 @PostMapping(value="")
 	    public AVerzija createVersion(@RequestBody @Valid final AVerzija verzija, Errors errors) throws Exception {

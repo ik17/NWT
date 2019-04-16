@@ -70,7 +70,7 @@ public class HistorijaClanakApplicationTests {
 	   
 	    
 	    //given
-	    Kategorija kk1 = new Kategorija("kategorija2");
+	    /*Kategorija kk1 = new Kategorija("kategorija2");
     	Kategorija kk2 = new Kategorija("Kategorija3");
     	kR.save(kk1);
     	kR.save(kk2);
@@ -87,7 +87,7 @@ public class HistorijaClanakApplicationTests {
     	AVerzija v3 = new AVerzija(3, "linkNaClanak2", "review ovaj članak je dobar i jako mi se svidja, odobreno",c1);
     	vR.save(v1);
     	vR.save(v2);
-    	vR.save(v3);
+    	vR.save(v3);*/
     	
     	//when
     	String linkFound = ccR.getLink2("Clanak1");
@@ -101,7 +101,7 @@ public class HistorijaClanakApplicationTests {
 	 
 	    // then
 	    assertThat(linkFound)
-	      .isEqualTo(v3.getLink());
+	      .isEqualTo("linkNaClanak2"/*v3.getLink()*/);
 	}
 
 }
