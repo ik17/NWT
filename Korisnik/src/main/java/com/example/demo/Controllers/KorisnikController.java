@@ -2,6 +2,7 @@ package com.example.demo.Controllers;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.validation.Valid;
 
@@ -9,6 +10,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -47,7 +49,7 @@ public class KorisnikController {
 	
 	@GetMapping(value="/testAsync")
 	public String getResponse(){
-		rabbitTemplate.convertAndSend(KorisnikApplication.topicExchangeName, "nwt.HistorijaClanak.korisnik", "1" + "IMEVELIKO");
+		//rabbitTemplate.convertAndSend(KorisnikApplication.topicExchangeName, "nwt.HistorijaClanak.korisnik", "1" + "IMEVELIKO");
 		return "OK";
 
 	}
@@ -102,8 +104,13 @@ public class KorisnikController {
 			}
 			System.out.println(response.getBody());
 			*/
+		 rabbitTemplate.convertAndSend(KorisnikApplication.topicExchangeName, "", "1" + korisnik.getUsername());
+		 
+		 /*rabbitTemplate.convertAndSend(KorisnikApplication.topicExchangeName, "nwt.HistorijaClanak.korisnik", "1" + korisnik.getUsername());
+		 rabbitTemplate.convertAndSend(KorisnikApplication.topicExchangeName, "nwt.Clanak.korisnik", "1" + korisnik.getUsername());
 		 rabbitTemplate.convertAndSend(KorisnikApplication.topicExchangeName, "nwt.HistorijaClanak.korisnik", "1" + korisnik.getUsername());
-			
+		 rabbitTemplate.convertAndSend(KorisnikApplication.topicExchangeName, "nwt.Clanak.korisnik", "1" + korisnik.getUsername());
+			*/
 			
 	        
 	        
@@ -169,10 +176,15 @@ public class KorisnikController {
 			}
 			
 	        */
+	        
+	        
+	        
 	        //rabbitTemplate.convertAndSend(KorisnikApplication.topicExchangeName, "nwt.HistorijaClanak.korisnik","2" +Long.valueOf()+ korisnik.getUsername());
+	        /*rabbitTemplate.convertAndSend(KorisnikApplication.topicExchangeName, "nwt.HistorijaClanak.korisnik", "2" + id.toString()+ korisnikUpdate.getUsername());
+	        rabbitTemplate.convertAndSend(KorisnikApplication.topicExchangeName, "nwt.Clanak.korisnik", "2" + id.toString()+ korisnikUpdate.getUsername());
 	        rabbitTemplate.convertAndSend(KorisnikApplication.topicExchangeName, "nwt.HistorijaClanak.korisnik", "2" + id.toString()+ korisnikUpdate.getUsername());
-			
-			
+	        rabbitTemplate.convertAndSend(KorisnikApplication.topicExchangeName, "nwt.Clanak.korisnik", "2" + id.toString()+ korisnikUpdate.getUsername());*/
+	        //rabbitTemplate.convertAndSend("spring-boot", "", "2" + id.toString()+ korisnikUpdate.getUsername());
 			
 	        
 	        
@@ -215,8 +227,13 @@ public class KorisnikController {
 			}
 			System.out.println(response.getBody());
 			*/
+	        
 	        rabbitTemplate.convertAndSend(KorisnikApplication.topicExchangeName, "nwt.HistorijaClanak.korisnik","3" +Long.valueOf(id));
-			
+	        rabbitTemplate.convertAndSend(KorisnikApplication.topicExchangeName, "nwt.Clanak.korisnik","3" +Long.valueOf(id));
+	        rabbitTemplate.convertAndSend(KorisnikApplication.topicExchangeName, "nwt.HistorijaClanak.korisnik","3" +Long.valueOf(id));
+	        rabbitTemplate.convertAndSend(KorisnikApplication.topicExchangeName, "nwt.Clanak.korisnik","3" +Long.valueOf(id));
+	        
+	        
 	        
 	        
 	        

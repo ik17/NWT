@@ -20,6 +20,7 @@ public class Reciver {
     
 
     public void receiveMessage(String message) throws Exception {
+    	System.out.println("Receiver historije clanka");
         System.out.println("Received <" + message + ">");
         String action = message.substring(0,1);
         String data = message.substring(1);

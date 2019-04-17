@@ -3,6 +3,7 @@ package com.example.demo;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -98,9 +99,9 @@ ClanakRepository cR;
 	
 	 }
 	 */
-	public static final String topicExchangeName = "spring-boot-exchange";
+	public static final String topicExchangeName = "fanoutTopic";
 
-	static final String queueName = "spring-boot";
+	static final String queueName = "spring-boot-3";
 
 	@Bean
 	Queue queue() {
@@ -108,13 +109,13 @@ ClanakRepository cR;
 	}
 
 	@Bean
-	TopicExchange exchange() {
-		return new TopicExchange(topicExchangeName);
+	FanoutExchange exchange() {
+		return new FanoutExchange(topicExchangeName);
 	}
 
 	@Bean
-	Binding binding(Queue queue, TopicExchange exchange) {
-		return BindingBuilder.bind(queue).to(exchange).with("com.example.korisnik.korisnik");
+	Binding binding(Queue queue, FanoutExchange exchange) {
+		return BindingBuilder.bind(queue).to(exchange);
 	}
 
 	@Bean

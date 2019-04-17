@@ -1,6 +1,8 @@
 package com.example.demo;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.Declarable;
+import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -37,7 +39,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.sound.midi.Receiver;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.stream.Stream;
 @EnableDiscoveryClient
 @SpringBootApplication
@@ -89,23 +93,33 @@ KorisnikController kC;
 		
 	}
 	*/
-	public static final String topicExchangeName = "spring-boot-exchange";
-
-    static final String queueName = "spring-boot";
+	//public static final String topicExchangeName = "spring-boot-exchange";
+	public static final String topicExchangeName = "fanoutTopic";
+    static final String queueName = "spring-boot-3";
+    static final String queueName2 = "spring-boot-4";
 
     @Bean
     Queue queue() {
         return new Queue(queueName, false);
     }
+    @Bean
+    Queue queue2() {
+        return new Queue(queueName2, false);
+    }
+    
 
     @Bean
-    TopicExchange exchange() {
-        return new TopicExchange(topicExchangeName);
+    FanoutExchange exchange() {
+        return new FanoutExchange(topicExchangeName);
     }
 
     @Bean
-    Binding binding(Queue queue, TopicExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with("nwt.HistorijaClanak.korisnik");
+    Binding binding(Queue queue, FanoutExchange exchange) {
+        return BindingBuilder.bind(queue).to(exchange);
+    }
+    @Bean
+    Binding binding2(Queue queue2, FanoutExchange exchange) {
+        return BindingBuilder.bind(queue2).to(exchange);
     }
 /*
     @Bean

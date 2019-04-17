@@ -39,9 +39,9 @@ public class KorisnikController {
 	
 	@PostMapping(value = "")
 	public Korisnik createUser(@RequestBody @Valid final Korisnik korisnik, Errors errors)throws Exception {
-		if(errors.hasErrors()) {
+		/*if(errors.hasErrors()) {
 			throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
-		}
+		}*/
 		return korisnikRepository.save(korisnik);
 	}
 	
@@ -56,8 +56,8 @@ public class KorisnikController {
 	
 	@PutMapping("/{id}")
 	public Korisnik updateKorisnik(@PathVariable(value = "id") Long id, @RequestBody @Valid Korisnik korisnikUpdate, Errors errors) throws NotFoundException, Exception{
-		if(errors.hasErrors()) 
-			throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
+		/*if(errors.hasErrors()) 
+			throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());*/
 		Korisnik korisnik = korisnikRepository
 				.findById(id)
 				.orElseThrow(() -> new NotFoundException("User with given id not found!"));
