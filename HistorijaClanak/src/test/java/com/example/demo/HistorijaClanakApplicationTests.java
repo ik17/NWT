@@ -162,5 +162,6 @@ public class HistorijaClanakApplicationTests {
 	    assertThat(respons.substring(9))
 	      .isEqualTo(json.substring(9)/*v3.getLink()*/);
 	}
+	
 
 }
