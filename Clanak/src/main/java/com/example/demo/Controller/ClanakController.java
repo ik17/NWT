@@ -45,6 +45,32 @@ public class ClanakController {
 	@Autowired
 	private DiscoveryClient discoveryClient;
 	
+	
+	public String getKorisnikFromKorisnik(Long id) {
+		List<ServiceInstance> instances=discoveryClient.getInstances("Korisnik-service");
+		
+		if(instances.isEmpty()) return "Servis nedostupan";
+		ServiceInstance serviceInstance=instances.get(0);
+		
+		String baseUrl=serviceInstance.getUri().toString()+ "/korisnik/"+id.toString();
+		System.out.println(baseUrl);
+		
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<String> response=null;
+		try{
+		response=restTemplate.exchange(baseUrl,
+				HttpMethod.GET, getHeaders(),String.class);
+		}catch (Exception ex)
+		{	///ovdje if(contains null) return NEMA
+			return ex.getMessage();
+			//return ex.getCause().toString();
+			//System.out.println(ex);
+		}
+		//System.out.println(response.getBody());
+		return response.getBody();
+		
+	}
+	
 	@GetMapping(value = "")
 	public List<Clanak> getAll(){
 		return clanakRepository.findAll();

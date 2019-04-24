@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import com.example.demo.Controller.ClanakController;
 import com.example.demo.Entities.Autor;
 import com.example.demo.Entities.Clanak;
 import com.example.demo.Entities.Kategorija;
@@ -31,6 +32,8 @@ public class Runner  implements CommandLineRunner {
     KomentarRepository komentarRepository;
     @Autowired
     KorisnikRepository korisnikRepository;
+    @Autowired
+    ClanakController ccC;
     
     
     public Runner(Receiver receiver, RabbitTemplate rabbitTemplate) {
@@ -56,6 +59,7 @@ public class Runner  implements CommandLineRunner {
 		clanakRepository.save(c);
 		autorRepository.save(a);
 		komentarRepository.save(k2);*/
+    	System.out.println(ccC.getKorisnikFromKorisnik(1L));
 		System.out.println("here");
 		
     }

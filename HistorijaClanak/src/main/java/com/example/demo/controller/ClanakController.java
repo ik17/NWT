@@ -1,10 +1,17 @@
 package com.example.demo.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +22,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.example.demo.entity.Clanak;
 import com.example.demo.entity.Kategorija;
@@ -39,6 +47,35 @@ public class ClanakController {
 	
 	@Autowired
 	KorisnikRepository kkR;
+	@Autowired
+	private DiscoveryClient discoveryClient;
+	
+	
+	
+	public String getKorisnikFromKorisnik(Long id) {
+		List<ServiceInstance> instances=discoveryClient.getInstances("Korisnik-service");
+		
+		if(instances.isEmpty()) return "Servis nedostupan";
+		ServiceInstance serviceInstance=instances.get(0);
+		
+		String baseUrl=serviceInstance.getUri().toString()+ "/korisnik/"+id.toString();
+		System.out.println(baseUrl);
+		
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<String> response=null;
+		try{
+		response=restTemplate.exchange(baseUrl,
+				HttpMethod.GET, getHeaders(),String.class);
+		}catch (Exception ex)
+		{	///ovdje if(contains null) return NEMA
+			return ex.getMessage();
+			//return ex.getCause().toString();
+			//System.out.println(ex);
+		}
+		//System.out.println(response.getBody());
+		return response.getBody();
+		
+	}
 	
 	@GetMapping(value="")
     public List<Clanak> getAll(){
@@ -128,5 +165,10 @@ public class ClanakController {
 
 	        return ResponseEntity.ok().build();
 	    }
+	 private static HttpEntity<?> getHeaders() throws IOException {
+			HttpHeaders headers = new HttpHeaders();
+			headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+			return new HttpEntity<>(headers);
+		}
 
 }
