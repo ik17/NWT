@@ -52,8 +52,8 @@ public class Runner  implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-    	/*Kategorija kk1 = new Kategorija("kategorija2");
-    	Kategorija kk2 = new Kategorija("Kategorija3");
+    	Kategorija kk1 = new Kategorija("kategorija2");
+    	/*Kategorija kk2 = new Kategorija("Kategorija3");
     	kR.save(kk1);
     	kR.save(kk2);
     	Korisnik k1 = new Korisnik("Billy");
