@@ -40,7 +40,7 @@ public class Runner implements CommandLineRunner{
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println("Sending message...");
+        //System.out.println("Sending message...");
         Date d = new Date();
 		KorisnikPodaci kp1 = new KorisnikPodaci("ime", "prezime", "nesto o njemu bla bla bla bla bla bla", d);
 		KorisnikPodaci kp2 = new KorisnikPodaci("jana", "dva", "jana dva kazu ista je ko ja haha", d);
@@ -58,14 +58,14 @@ public class Runner implements CommandLineRunner{
 		ulogaRepository.save(uk2);
 		ulogaRepository.save(uk3);
 		//korisnikRepository.save(k1);
-		korisnikRepository.save(k2);
+		/*korisnikRepository.save(k2);
 		
 		Korisnik k = kC.createKorisnik(k1, null);
-		System.out.println(k.getUsername());
+		System.out.println(k.getUsername());*/
 		//kC.updateKorisnik(k.getId(), new Korisnik("KomunikacijaUpdate", "password2", kp2, uk3), null);
-		System.out.println(k.getUsername());
+		//System.out.println(k.getUsername());
 		// kC.deleteKorisnik(k.getId());
-        rabbitTemplate.convertAndSend(KorisnikApplication.topicExchangeName, "nwt.HistorijaClanak.korisnik","1" + "IMEKOMUNIKACIJA");
+        //rabbitTemplate.convertAndSend(KorisnikApplication.topicExchangeName, "nwt.HistorijaClanak.korisnik","1" + "IMEKOMUNIKACIJA");
         //receiver.getLatch().await(10000, TimeUnit.MILLISECONDS);
     }
 

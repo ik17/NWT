@@ -52,7 +52,7 @@ public class Runner  implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-    	Kategorija kk1 = new Kategorija("kategorija2");
+    	/*Kategorija kk1 = new Kategorija("kategorija2");
     	Kategorija kk2 = new Kategorija("Kategorija3");
     	kR.save(kk1);
     	kR.save(kk2);
@@ -79,7 +79,7 @@ public class Runner  implements CommandLineRunner {
     	System.out.println(c.get().getNaziv());
     	System.out.println(c.get().getIdKategorije().getNaziv());
     	System.out.println(ccR.getLink2("Clanak1"));
-    	System.out.println(ccR.getKorisnikFromKorisnik(1L));
+    	System.out.println(ccR.getKorisnikFromKorisnik(1L));*/
        // System.out.println("Sending message...");
        // rabbitTemplate.convertAndSend(HistorijaClanakApplication.topicExchangeName, "com.example.korisnik.korisnik", "5");
        // receiver.getLatch().await(10000, TimeUnit.MILLISECONDS);

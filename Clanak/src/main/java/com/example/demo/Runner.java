@@ -59,8 +59,8 @@ public class Runner  implements CommandLineRunner {
 		clanakRepository.save(c);
 		autorRepository.save(a);
 		komentarRepository.save(k2);*/
-    	System.out.println(ccC.getKorisnikFromKorisnik(1L));
-		System.out.println("here");
+    	//System.out.println(ccC.getKorisnikFromKorisnik(1L));
+		//System.out.println("here");
 		
     }
 }
