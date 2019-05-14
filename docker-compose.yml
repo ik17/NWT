@@ -18,7 +18,7 @@ services:
       context: Clanak
       dockerfile: Dockerfile
       args:
-        rabbithost: '10.0.75.1'
+        rabbithost: '192.168.99.100'
     image: clanak:0.0.1-SNAPSHOT
     entrypoint: /opt/Clanak-entrypoint.sh
     expose:
@@ -37,7 +37,7 @@ services:
       context: HistorijaClanak
       dockerfile: Dockerfile
       args:
-        rabbithost: '10.0.75.1'
+        rabbithost: '192.168.99.100'
     image: historijaclanak:0.0.1-SNAPSHOT
     entrypoint: /opt/HistorijaClanak-entrypoint.sh
     expose:
@@ -56,7 +56,7 @@ services:
       context: Korisnik
       dockerfile: Dockerfile
       args:
-        rabbithost: '10.0.75.1'
+        rabbithost: '192.168.99.100'
     image: korisnik:0.0.1-SNAPSHOT
     entrypoint: /opt/Korisnik-entrypoint.sh
     expose:
