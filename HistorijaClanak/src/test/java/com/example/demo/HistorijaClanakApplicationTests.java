@@ -37,6 +37,7 @@ import javassist.NotFoundException;
 @SpringBootTest
 //@DataJpaTest
 public class HistorijaClanakApplicationTests {
+	/*
 	//@Mock
 	@Autowired
 	 KorisnikRepository korisnikRepository;
@@ -67,31 +68,28 @@ public class HistorijaClanakApplicationTests {
 	 private Clanak c2;
 	 private Kategorija kk1;
 	 private Kategorija kk2;
+	*/
 	
-	//@BeforeClass
-   // static public void init() {
-		    
-    //}
 	 
 
 
 	@Test
 	public void contextLoads() {
 	}
-	
+	/*
 	@Test
 	public void whenFindByName_thenReturnEmployee() throws NotFoundException {
 	  
 	   
-		 //given
+		
 		kk1 = new Kategorija("kategorija2");
-    	//kk2 = new Kategorija("Kategorija3");
+    	
     	kR.save(kk1);
-    	//kR.save(kk2);
+    	
     	k1 = new Korisnik("Billy");
-    	//k2 = new Korisnik("Samantha");
+    	
     	korisnikRepository.save(k1);
-    	//korisnikRepository.save(k2);
+    	korisnikRepository.save(k2);
     	c1 = new Clanak("Clanak1", kk1, 0, k1);
     	c2 = new Clanak("Clanak2", kk1, 0, k1);
     	cR.save(c1);
@@ -104,19 +102,15 @@ public class HistorijaClanakApplicationTests {
     	vR.save(v3);
     	
 	   
-    	//when
+    	
     	String linkFound = ccR.getLink2("Clanak1");
     	
-    	
-    	//Optional<Clanak> c = cR.findById(new Long(1));
-    	//System.out.println(c.get().getNaziv());
-    	//System.out.println(c.get().getIdKategorije().getNaziv());
-    	//System.out.println(ccR.getLink2("Clanak1"));
+    
 	    
 	 
-	    // then
+	
 	    assertThat(linkFound)
-	      .isEqualTo("linkNaClanak2"/*v3.getLink()*/);
+	      .isEqualTo("linkNaClanak2"/*v3.getLink());
 	}
 	
 	
@@ -125,8 +119,8 @@ public class HistorijaClanakApplicationTests {
 	  
 	   
 	    
-	    //given
-	   /* Kategorija kk1 = new Kategorija("kategorija2");
+	    
+	    Kategorija kk1 = new Kategorija("kategorija2");
     	Kategorija kk2 = new Kategorija("Kategorija3");
     	kR.save(kk1);
     	kR.save(kk2);
@@ -143,25 +137,18 @@ public class HistorijaClanakApplicationTests {
     	AVerzija v3 = new AVerzija(3, "linkNaClanak32", "review ovaj članak je dobar i jako mi se svidja, odobreno",c1);
     	vR.save(v1);
     	vR.save(v2);
-    	vR.save(v3);*/
-		//already given
-    	
-    	
-    	//when
+    	vR.save(v3);
+		
     	String respons = vC.prihvatiClanak(3L);
     	
     	
-    	//Optional<Clanak> c = cR.findById(new Long(1));
-    	//System.out.println(c.get().getNaziv());
-    	//System.out.println(c.get().getIdKategorije().getNaziv());
-    	//System.out.println(ccR.getLink2("Clanak1"));
-	    
+    	
 	 
-	    // then
-    	String json = "{\"id\":2,\"naziv\":\"Clanak1\",\"kategorija\":{\"id\":1,\"naziv\":\"kategorija2\"},\"clanakOdobren\":true,\"odobrioClanak\":{\"id\":1,\"username\":\"Billy\"}}";
+	   	String json = "{\"id\":2,\"naziv\":\"Clanak1\",\"kategorija\":{\"id\":1,\"naziv\":\"kategorija2\"},\"clanakOdobren\":true,\"odobrioClanak\":{\"id\":1,\"username\":\"Billy\"}}";
 	    assertThat(respons.substring(9))
-	      .isEqualTo(json.substring(9)/*v3.getLink()*/);
+	      .isEqualTo(json.substring(9)/*v3.getLink());
 	}
+	*/
 	
 
 }

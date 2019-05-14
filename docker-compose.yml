@@ -1,0 +1,90 @@
+version: '3'
+services:
+  eureka-server:
+    container_name: EurekaServer
+    build:
+      context: EurekaServer
+      dockerfile: Dockerfile
+    image: eureka-server:0.0.1-SNAPSHOT
+    expose:
+      - 8761
+    ports:
+      - 8761:8761
+    networks:
+      - emp-network
+  Clanak:
+    container_name: Clanak
+    build:
+      context: Clanak
+      dockerfile: Dockerfile
+      args:
+        rabbithost: '10.0.75.1'
+    image: clanak:0.0.1-SNAPSHOT
+    entrypoint: /opt/Clanak-entrypoint.sh
+    expose:
+      - 8089
+    ports:
+      - 8089:8089
+    networks:
+      - emp-network
+    links:
+      - eureka-server:eureka-server
+    depends_on:
+      - eureka-server
+  HistorijaClanak:
+    container_name: HistorijaClanak
+    build:
+      context: HistorijaClanak
+      dockerfile: Dockerfile
+      args:
+        rabbithost: '10.0.75.1'
+    image: historijaclanak:0.0.1-SNAPSHOT
+    entrypoint: /opt/HistorijaClanak-entrypoint.sh
+    expose:
+      - 8090
+    ports:
+      - 8090:8090
+    networks:
+      - emp-network
+    links:
+      - eureka-server:eureka-server
+    depends_on:
+      - eureka-server
+  Korisnik:
+    container_name: Korisnik
+    build:
+      context: Korisnik
+      dockerfile: Dockerfile
+      args:
+        rabbithost: '10.0.75.1'
+    image: korisnik:0.0.1-SNAPSHOT
+    entrypoint: /opt/Korisnik-entrypoint.sh
+    expose:
+      - 8088
+    ports:
+      - 8088:8088
+    networks:
+      - emp-network
+    links:
+      - eureka-server:eureka-server
+    depends_on:
+      - eureka-server
+  Zuul:
+    container_name: Zuul
+    build:
+      context: Zuul
+      dockerfile: Dockerfile
+    image: zuul:0.0.1-SNAPSHOT
+    expose:
+      - 8084
+    ports:
+      - 8084:8084
+    networks:
+      - emp-network
+    links:
+      - eureka-server:eureka-server
+    depends_on:
+      - eureka-server
+networks:
+  emp-network:
+    driver: bridge
