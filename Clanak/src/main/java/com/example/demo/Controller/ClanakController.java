@@ -13,6 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -80,6 +81,13 @@ public class ClanakController {
 	public Clanak getArticleById(@PathVariable(value = "id") Long id) throws NotFoundException {
 		return clanakRepository.findById(id).orElseThrow(() -> new NotFoundException("Article with given id not found"));
 	}
+	
+	@PostMapping(value = "auth")
+	    @PreAuthorize("hasRole('ROLE_ADMIN')")
+	    public String addGreeting(@RequestBody String greeting) {
+	         // Business logic to save the greeting typically to a DB table
+	         return "Greeting successfully saved";
+	    }
 	
 	@GetMapping(value = "/link/{naziv}")
 	public String getLinkByName(@PathVariable(value = "naziv") String name ) throws NotFoundException {
