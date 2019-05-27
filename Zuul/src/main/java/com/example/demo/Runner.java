@@ -29,8 +29,8 @@ public class Runner implements CommandLineRunner{
     @Override
     public void run(String... args) throws Exception {
         //System.out.println("Sending message...");
-    	LoginUser lu = new LoginUser("Hanna", "hanna", 1);
-    	us.save(lu);
+    	//LoginUser lu = new LoginUser("Hanna", "hanna", "Boss");
+    	//us.save(lu);
          }
 
 }

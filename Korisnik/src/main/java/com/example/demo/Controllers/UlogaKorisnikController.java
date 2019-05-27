@@ -44,8 +44,10 @@ public class UlogaKorisnikController {
 	        if(errors.hasErrors()){
 	            throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
 	        }
-
-	        return ulogaKorisnikRepo.save(ulogaKorisnik);
+	        UlogaKorisnik pomocnaUloga = findByUsername(ulogaKorisnik.getUlogaKorisnik());
+	        if(pomocnaUloga == null)
+	        	return ulogaKorisnikRepo.save(ulogaKorisnik);
+	        else return pomocnaUloga;
 	    }
 	 
 	 @PutMapping("/{id}")
@@ -77,6 +79,10 @@ public class UlogaKorisnikController {
 
 	        return ResponseEntity.ok().build();
 	    }
-
+	 public UlogaKorisnik findByUsername(String username) {
+		 UlogaKorisnik uk = ulogaKorisnikRepo.findByUsername(username);
+		 return uk;
+	 }
+	 
 
 }

@@ -31,8 +31,11 @@ import org.springframework.web.client.RestTemplate;
 
 import com.example.demo.KorisnikApplication;
 import com.example.demo.Entities.Korisnik;
+import com.example.demo.Entities.KorisnikPodaci;
+import com.example.demo.Entities.UlogaKorisnik;
+import com.example.demo.Repositories.KorisnikPodaciRepository;
 import com.example.demo.Repositories.KorisnikRepository;
-
+import com.example.demo.Repositories.UlogaKorisnikRepository;
 
 import javassist.NotFoundException;
 
@@ -42,6 +45,10 @@ public class KorisnikController {
 	
 	@Autowired
 	KorisnikRepository korisnikRepo;
+	@Autowired
+	KorisnikPodaciRepository kPR;
+	@Autowired 
+	UlogaKorisnikRepository uKR;
 	@Autowired
 	private DiscoveryClient discoveryClient;
 	@Autowired
@@ -66,7 +73,12 @@ public class KorisnikController {
 	 
 	 @PostMapping(value="")
 	    public Korisnik createKorisnik(@RequestBody @Valid final Korisnik korisnik, Errors errors) throws Exception {
-
+		 KorisnikPodaci kp = kPR.
+	        		findById(korisnik.getKorisnikPodaci().getId())
+	        		.orElseThrow(() -> new NotFoundException("User data with given id not found"));
+	        UlogaKorisnik uk = uKR.
+	        		findById(korisnik.getUlogaKorisnik().getId())
+	        		.orElseThrow(() -> new NotFoundException("Role with given id not found"));
 	     //   if(errors.hasErrors()){
 	       //     throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
 	        //}
@@ -133,8 +145,12 @@ public class KorisnikController {
 	                .orElseThrow(
 	                        () -> new NotFoundException("User with given id not found")
 	                );
-	        
-    
+	        KorisnikPodaci kp = kPR.
+	        		findById(korisnikUpdate.getKorisnikPodaci().getId())
+	        		.orElseThrow(() -> new NotFoundException("User data with given id not found"));
+	        UlogaKorisnik uk = uKR.
+	        		findById(korisnikUpdate.getUlogaKorisnik().getId())
+	        		.orElseThrow(() -> new NotFoundException("Role with given id not found"));
 	        korisnik.setUsername(korisnikUpdate.getUsername());
 	        korisnik.setPassword(korisnikUpdate.getPassword());
 	        korisnik.setKorisnikPodaci(korisnikUpdate.getKorisnikPodaci());

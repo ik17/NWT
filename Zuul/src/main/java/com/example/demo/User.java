@@ -25,23 +25,23 @@ public class User {
 	
 	private String password;
 	
-	private int role;
+	private String role;
 	
 	
 	public User() {
 	}
 	
-	public User(String username, String password, int role) {
+	public User(String username, String password, String role) {
 		this.username = username;
 		this.password = password;
 		this.role = role;
 	}
 	
-	public int getRole() {
+	public String getRole() {
 		return role;
 	}
 
-	public void setRole(int id) {
+	public void setRole(String id) {
 		this.role = id;
 	}
 

@@ -25,23 +25,39 @@ public class LoginUser {
 	
 	private String password;
 	
-	private int role;
+	private String role;
+	
+	private String ime;
+	
+	private String prezime;
+	
+	private String biografija;
 	
 	
 	public LoginUser() {
 	}
 	
-	public LoginUser(String username, String password, int role) {
+	public LoginUser(String username, String password, String role, String ime, String prezime, String biografija) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.role = role;
+		this.ime = ime;
+		this.prezime = prezime;
+		this.biografija = biografija;
+	}
+
+	public LoginUser(String username, String password, String role) {
 		this.username = username;
 		this.password = password;
 		this.role = role;
 	}
 	
-	public int getRole() {
+	public String getRole() {
 		return role;
 	}
 
-	public void setRole(int id) {
+	public void setRole(String id) {
 		this.role = id;
 	}
 
@@ -55,6 +71,30 @@ public class LoginUser {
 
 	public String getUsername() {
 		return username;
+	}
+
+	public String getIme() {
+		return ime;
+	}
+
+	public void setIme(String ime) {
+		this.ime = ime;
+	}
+
+	public String getPrezime() {
+		return prezime;
+	}
+
+	public void setPrezime(String prezime) {
+		this.prezime = prezime;
+	}
+
+	public String getBiografija() {
+		return biografija;
+	}
+
+	public void setBiografija(String biografija) {
+		this.biografija = biografija;
 	}
 
 	public void setUsername(String username) {
