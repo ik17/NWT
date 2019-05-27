@@ -62,11 +62,11 @@ public class UserServiceImpl implements UserDetailsService {
 		String date = simpleDateFormat.format(new Date());
 		
 		String requestJsonRola= "{\"ulogaKorisnik\":\"" + rola + "\"}}";
-		String requestJsonKorisnickiPodaci = "{\"ime\":\"" + ime + "\",\"prezime\":\"" + prezime + "\",\"biografija\":\"" + bio + "\",\"datumPrijave\":\"" + date + "\"}}";
+		String requestJsonKorisnickiPodaci = "{\"ime\":\"" + ime + "\",\"prezime\":\"" + prezime + "\",\"biografija\":\"" + bio + "\",\"datumPrijave\":\"" + date + "\"}";
 		//String requestJson = "{\"username\":\"" + username + "\",\"password\":\"" + password + "\"}}"; 
 		//ovaj ide zadnji, i u njega idu ova dva response-a
 
-		//System.out.println(requestJson);
+		System.out.println(requestJsonKorisnickiPodaci);
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -99,8 +99,8 @@ public class UserServiceImpl implements UserDetailsService {
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		
 		
-		String requestJson = "{\"username\":\"" + username + "\",\"password\":\"" + password + "\",\"korisnikPodaci\":\"" + responseKP.getBody() + "\",\"ulogaKorisnik\":\"" + responseRola.getBody() + "\"}}"; 
-		
+		String requestJson = "{\"username\":\"" + username + "\",\"password\":\"" + password + "\",\"korisnikPodaci\":" + responseKP.getBody() + ",\"ulogaKorisnik\":" + responseRola.getBody() + "}"; 
+		System.out.println(requestJson);
 		HttpEntity<String> entity3 = new HttpEntity<String>(requestJson, headers);
 		RestTemplate restTemplate3 = new RestTemplate();
 		ResponseEntity<String> responseKorisnik = null;

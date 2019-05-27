@@ -25,7 +25,7 @@ public class Korisnik {
 	@Size(min = 3, max = 30, message = "The length of username must be between 2 and 30 characters!")
 	private String username;
 	
-	@Size(min = 6, max = 30, message = "The length of password must be between 6 and 30 characters!")
+	@Size(min = 0, max = 300, message = "The length of password must be between 6 and 30 characters!")
 	private String password;
 	
 	@ManyToOne
