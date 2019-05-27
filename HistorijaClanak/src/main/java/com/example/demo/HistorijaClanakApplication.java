@@ -101,7 +101,7 @@ ClanakRepository cR;
 	 */
 	public static final String topicExchangeName = "fanoutTopic";
 
-	static final String queueName = "spring-boot-3";
+	static final String queueName = "spring-boot-8";
 
 	@Bean
 	Queue queue() {

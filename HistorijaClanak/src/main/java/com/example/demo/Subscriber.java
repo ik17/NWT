@@ -12,7 +12,7 @@ public class Subscriber {
 	 @Autowired
 	    KorisnikController kC;
 	
-	@RabbitListener(queues="spring-boot-6")
+	@RabbitListener(queues="spring-boot-8")
 	public void receivedMessage(String message) throws Exception {
 		System.out.println("Received message " + message);
 		String action = message.substring(0,1);

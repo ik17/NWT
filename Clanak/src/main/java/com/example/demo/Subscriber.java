@@ -14,7 +14,7 @@ public class Subscriber {
 	@Autowired
 	KorisnikController korisnikController;
 	
-	@RabbitListener(queues="spring-boot-5")
+	@RabbitListener(queues="spring-boot-7")
 	public void receivedMessage(String message) throws Exception {
 		System.out.println("Received message " + message);
 		 String action = message.substring(0,1);

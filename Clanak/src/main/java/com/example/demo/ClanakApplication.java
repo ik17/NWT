@@ -73,7 +73,7 @@ KorisnikRepository korisnikRepository;
 	}*/
 	public static final String topicExchangeName = "fanoutTopic";
 
-	static final String queueName = "spring-boot-4";
+	static final String queueName = "spring-boot-7";
 
 	@Bean
 	Queue queue() {

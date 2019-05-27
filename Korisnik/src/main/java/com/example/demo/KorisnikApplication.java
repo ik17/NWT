@@ -95,8 +95,8 @@ KorisnikController kC;
 	*/
 	//public static final String topicExchangeName = "spring-boot-exchange";
 	public static final String topicExchangeName = "fanoutTopic";
-    static final String queueName = "spring-boot-3";
-    static final String queueName2 = "spring-boot-4";
+    static final String queueName = "spring-boot-7";
+    static final String queueName2 = "spring-boot-8";
 
     @Bean
     Queue queue() {
