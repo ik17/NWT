@@ -16,6 +16,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.validation.Errors;
@@ -60,7 +61,7 @@ public class KorisnikController {
 		return "OK";
 
 	}
-	
+	@PreAuthorize("hasAuthority('ROLE_USER')")
 	@GetMapping(value="")
     public List<Korisnik> getAll(){
         return korisnikRepo.findAll();

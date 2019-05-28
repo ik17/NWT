@@ -6,6 +6,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +29,8 @@ public class KorisnikController {
 	@Autowired
 	KorisnikRepository korisnikRepository;
 	
+	//@PreAuthorize("hasAuthority('ROLE_USER')")
+	//@Secured("ROLE_USER")
 	@GetMapping(value = "")
 	public List<Korisnik> getAll(){
 		return korisnikRepository.findAll();

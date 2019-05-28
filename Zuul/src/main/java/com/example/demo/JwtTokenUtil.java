@@ -1,11 +1,17 @@
 package com.example.demo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.xml.bind.DatatypeConverter;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 //import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -18,7 +24,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class JwtTokenUtil implements Serializable {   
 	
 	//quick fix
-    private static final int ACCESS_TOKEN_VALIDITY_SECONDS = 300;
+    private static final int ACCESS_TOKEN_VALIDITY_SECONDS = 30000;
 	@Value("${jwt.security.key}")
     private String jwtKey;
     private String doGenerateToken(String subject) {
@@ -47,6 +53,14 @@ public class JwtTokenUtil implements Serializable {
 		Claims claims = Jwts.claims();
 		claims.put("username", o);
 		claims.put("password", user.getPassword());
+		claims.put("rol", user.getRole());
+		Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
+        authorities.add(new SimpleGrantedAuthority(user.getRole()));
+		claims.put("scopes", authorities);
+		/*List<String> lista =new ArrayList<String>();
+		lista.add(user.getRole());
+		
+		claims.put("roles", lista);*/
 		return Jwts.builder()
                 .setClaims(claims)
                 .setIssuer("http://jwtdemo.com")

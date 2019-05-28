@@ -15,6 +15,8 @@ import org.springframework.web.client.RestTemplate;
 
 import com.example.demo.models.LoginUser;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 //import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -24,8 +26,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import static java.util.Collections.emptyList;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service(value = "userService")
 public class UserServiceImpl implements UserDetailsService {
@@ -122,8 +129,14 @@ public class UserServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("Invalid username or password.");
          }
        //TODO: Get user by username from users microservice, and change emptyList() with user role
+         /*Collection<? extends GrantedAuthority> authorities
+         = Arrays.asList(user.getRole()).stream()
+         .map(authority -> new SimpleGrantedAuthority(authority))
+         .collect(Collectors.toList());*/
+         Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
+         authorities.add(new SimpleGrantedAuthority(user.getRole()));
          return new org.springframework.security.core.userdetails.User(
-            user.getUsername(), user.getPassword(), emptyList());
+            user.getUsername(), user.getPassword(), authorities);
          }
   // Other service methods
 }

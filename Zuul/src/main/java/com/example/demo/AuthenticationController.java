@@ -1,11 +1,19 @@
 package com.example.demo;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 //import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +35,10 @@ public class AuthenticationController {
     @RequestMapping(value = "/generate-token", method = RequestMethod.POST)
     public ResponseEntity<?> generateToken(@RequestBody LoginUser loginUser) 
               throws AuthenticationException {
+    	/*Collection<? extends GrantedAuthority> authorities
+        = Arrays.asList(loginUser.getRole()).stream()
+        .map(authority -> new SimpleGrantedAuthority(authority))
+        .collect(Collectors.toList());*/
         final Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginUser.getUsername(),

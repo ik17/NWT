@@ -22,8 +22,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.Controllers.KorisnikController;
@@ -120,6 +123,14 @@ KorisnikController kC;
     @Bean
     Binding binding2(Queue queue2, FanoutExchange exchange) {
         return BindingBuilder.bind(queue2).to(exchange);
+    }
+    @Configuration
+    @EnableGlobalMethodSecurity(
+      prePostEnabled = true, 
+      securedEnabled = true, 
+      jsr250Enabled = true)
+    public class MethodSecurityConfig 
+      extends GlobalMethodSecurityConfiguration {
     }
 /*
     @Bean
