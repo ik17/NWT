@@ -1,0 +1,35 @@
+<div class="modal-fade">
+  <div class="modal-header col-md-12">
+    <div class="col-md-12 naslov">Login</div>
+  </div>
+  <div class="modal-body">
+    <div class="content">
+      <form [formGroup]="loginForm" (ngSubmit) = "onSubmit()">
+          <div class="row col-md-12 form-group">
+            <div class="col-md-4 text_alignment">
+              <label for="username">Username:</label>
+            </div>
+            <div class="col-md-8">
+              <input type="text" formControlName="username" class = "form-control" placeholder="Korisničko ime" 
+              [ngClass] = "{ 'is-invalid' : submitted && f.username.errors }">
+            </div>
+          </div>
+          <div class="row col-md-12 form-group">
+              <div class="col-md-4 text_alignment">
+                <label for="password">Password:</label>
+              </div>
+              <div class="col-md-8">
+                <input type="password" formControlName = "password" class="form-control"
+                placeholder="Korisnička šifra" [ngClass] = "{ 'is-invalid' : submitted && f.password.errors }">
+              </div>
+          </div>
+          <div class="row col-md-12 form-group">
+              <div class="col-md-3">
+
+              </div>
+              <button class = "btn col-md-6 col-md-offset3" type="submit">Prijava</button>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
