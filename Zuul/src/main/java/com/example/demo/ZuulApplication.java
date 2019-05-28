@@ -14,7 +14,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class ZuulApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ZuulApplication.class, args);
+		try {
+			SpringApplication.run(ZuulApplication.class, args);
+		}
+		catch(Exception e) {
+			System.out.println(e.toString());
+		}
 		
 	
 	}

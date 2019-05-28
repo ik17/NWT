@@ -61,7 +61,7 @@ public class KorisnikController {
 		return "OK";
 
 	}
-	@PreAuthorize("hasAuthority('ROLE_USER')")
+	//@PreAuthorize("hasAuthority('ROLE_AUTOR')")
 	@GetMapping(value="")
     public List<Korisnik> getAll(){
         return korisnikRepo.findAll();

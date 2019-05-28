@@ -29,7 +29,8 @@ public class UlogaKorisnikController {
 	@Autowired
 	UlogaKorisnikRepository ulogaKorisnikRepo;
 	
-	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+
+	@PreAuthorize("hasAuthority('ROLE_AUTOR')")
 	@GetMapping(value="")
     public List<UlogaKorisnik> getAll(){
         return ulogaKorisnikRepo.findAll();

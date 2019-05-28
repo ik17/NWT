@@ -53,14 +53,14 @@ public class JwtTokenUtil implements Serializable {
 		Claims claims = Jwts.claims();
 		claims.put("username", o);
 		claims.put("password", user.getPassword());
-		claims.put("rol", user.getRole());
-		Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
-        authorities.add(new SimpleGrantedAuthority(user.getRole()));
-		claims.put("scopes", authorities);
-		/*List<String> lista =new ArrayList<String>();
+		//claims.put("rol", user.getRole());
+		//Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
+        //authorities.add(new SimpleGrantedAuthority(user.getRole()));
+		//claims.put("scopes", authorities);
+		List<String> lista =new ArrayList<String>();
 		lista.add(user.getRole());
 		
-		claims.put("roles", lista);*/
+		claims.put("roles", lista);
 		return Jwts.builder()
                 .setClaims(claims)
                 .setIssuer("http://jwtdemo.com")
