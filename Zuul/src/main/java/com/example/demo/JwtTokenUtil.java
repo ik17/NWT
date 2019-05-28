@@ -48,19 +48,23 @@ public class JwtTokenUtil implements Serializable {
 		Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(jwtKey)).parseClaimsJws(authToken).getBody();
 		return claims.get("username", String.class);
 	}
+	public String getRoleFromToken(String authToken) {
+		Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(jwtKey)).parseClaimsJws(authToken).getBody();
+		return claims.get("role", String.class);
+	}
 	public String generateToken(User user) {
 		Object o = user.getUsername();
 		Claims claims = Jwts.claims();
 		claims.put("username", o);
 		claims.put("password", user.getPassword());
-		//claims.put("rol", user.getRole());
+		claims.put("role", user.getRole());
 		//Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
         //authorities.add(new SimpleGrantedAuthority(user.getRole()));
 		//claims.put("scopes", authorities);
-		List<String> lista =new ArrayList<String>();
-		lista.add(user.getRole());
+		/*List<String> lista =new ArrayList<String>();
+		lista.add(user.getRole());*/
 		
-		claims.put("roles", lista);
+		//claims.put("authorities", lista);
 		return Jwts.builder()
                 .setClaims(claims)
                 .setIssuer("http://jwtdemo.com")

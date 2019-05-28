@@ -1,9 +1,13 @@
 package com.example.demo.Controllers;
 
 import java.io.IOException;
+import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -26,6 +30,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -62,8 +67,8 @@ public class KorisnikController {
 
 	}
 	//@PreAuthorize("hasAuthority('ROLE_AUTOR')")
-	@GetMapping(value="")
-    public List<Korisnik> getAll(){
+	@GetMapping(value="/getAll")
+    public List<Korisnik> getAll(@RequestHeader(value="role") String acceptHeader, HttpServletRequest request){ 
         return korisnikRepo.findAll();
     }
 	
@@ -117,7 +122,10 @@ public class KorisnikController {
 			}
 			System.out.println(response.getBody());
 			*/
-		 rabbitTemplate.convertAndSend(KorisnikApplication.topicExchangeName, "", "1" + korisnik.getUsername());
+	        
+	        
+	        //Otkomentarisati liniju ispod poslije! 28 05 2019, rekla Hanna da zakomentarišem
+		 //rabbitTemplate.convertAndSend(KorisnikApplication.topicExchangeName, "", "1" + korisnik.getUsername());
 		 
 		 /*rabbitTemplate.convertAndSend(KorisnikApplication.topicExchangeName, "nwt.HistorijaClanak.korisnik", "1" + korisnik.getUsername());
 		 rabbitTemplate.convertAndSend(KorisnikApplication.topicExchangeName, "nwt.Clanak.korisnik", "1" + korisnik.getUsername());

@@ -38,11 +38,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String header = req.getHeader(HEADER_STRING);
         String username = null;
         String authToken = null;
+        String role = null;
         if (header != null && header.startsWith(TOKEN_PREFIX)) {
         	System.out.println(header.toString());
             authToken = header.replace(TOKEN_PREFIX,"");
+            System.out.println("Here boi");
+            System.out.println(authToken);
             try {
                 username = jwtTokenUtil.getUsernameFromToken(authToken);
+                role = jwtTokenUtil.getRoleFromToken(authToken);
             } catch (IllegalArgumentException e) {
                 logger.error("An error occured during getting username from token", e);
             } catch (ExpiredJwtException e) {
@@ -65,6 +69,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                           authentication);
             }
         }
+        req.setAttribute("Rola", role);
         chain.doFilter(req, res);
     }
 }

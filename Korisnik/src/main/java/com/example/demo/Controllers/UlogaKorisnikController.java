@@ -30,8 +30,8 @@ public class UlogaKorisnikController {
 	UlogaKorisnikRepository ulogaKorisnikRepo;
 	
 
-	@PreAuthorize("hasAuthority('ROLE_AUTOR')")
-	@GetMapping(value="")
+	//@PreAuthorize("hasAuthority('ROLE_AUTOR')")
+	@GetMapping(value="/getAll")
     public List<UlogaKorisnik> getAll(){
         return ulogaKorisnikRepo.findAll();
     }
