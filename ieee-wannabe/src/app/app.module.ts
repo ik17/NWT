@@ -11,13 +11,19 @@ import { RouterModule } from '@angular/router';
 import { APP_BASE_HREF } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { ArticleReviewComponent } from './article-review/article-review.component';
+import { ReviewWrapperComponent } from './review-wrapper/review-wrapper.component';
+import { ReviewElementComponent } from './review-wrapper/review-element/review-element.component';
+import { UsersListComponent } from './users-list/users-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     LoginComponent,
-    ArticleReviewComponent
+    ArticleReviewComponent,
+    ReviewWrapperComponent,
+    ReviewElementComponent,
+    UsersListComponent
   ],
   imports: [
     BrowserModule,

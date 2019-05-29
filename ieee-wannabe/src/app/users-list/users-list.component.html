@@ -1,0 +1,49 @@
+<div class="wrapper">
+    <div class="container">
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-10 col-md-offset-1">
+            <div class="row">
+                <div class="col-md-2 header-tabele">Username</div>
+                <div class="col-md-2 header-tabele">Ime</div>
+                <div class="col-md-2 header-tabele">Prezime</div>
+                <div class="col-md-6 header-tabele">Biografija</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+          <div *ngFor="let korisnik of korisnici">
+            <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-10 col-md-offset-1">
+                  <div class="row">
+                      <div class="col-md-2 polje-tabele">{{ korisnik.username }}</div>
+                      <div class="col-md-2 polje-tabele">{{ korisnik.korisnikPodaci.ime }}</div>
+                      <div class="col-md-2 polje-tabele">{{ korisnik.korisnikPodaci.prezime }}</div>
+                      <div class="col-md-6 polje-tabele biografija">{{ korisnik.korisnikPodaci.biografija }}</div>
+                  </div>
+              </div>
+              <div class="col-md-1"></div>
+            </div>
+          </div>
+      </div>
+            <!--<table class="table">
+              <thead>
+                <th>Username</th>
+                <th>Ime</th>
+                <th>Prezime</th>
+                <th>Biografija</th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let korisnik of korisnici">
+                  <td> {{ korisnik.username }}</td>
+                  <td> {{ korisnik.korisnikPodaci.ime }}</td>
+                  <td> {{ korisnik.korisnikPodaci.prezime }}</td>
+                  <td> {{ korisnik.korisnikPodaci.biografija }}</td>
+                </tr>
+              </tbody>
+            </table>-->
+        
+      
+</div>

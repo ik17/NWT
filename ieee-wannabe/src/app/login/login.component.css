@@ -15,8 +15,11 @@
     padding: 5%;
   
   }
+  
 .text_alignment{
-    padding-top: 2%;
+    padding-top: 1%;
+    color:#87C232;
+    font-size:18px;
   }
 
   .naslov{
@@ -26,3 +29,16 @@
     font-size: 32px;
     font-weight: bold;
   }
+
+  .btn{
+    background-color:#6A6E71;
+    color: #87C232;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align:center;
+  }
+  .red{
+      color:crimson;
+  }
+
+  

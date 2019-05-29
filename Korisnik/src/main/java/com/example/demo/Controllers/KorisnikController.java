@@ -67,8 +67,13 @@ public class KorisnikController {
 
 	}
 	//@PreAuthorize("hasAuthority('ROLE_AUTOR')")
-	@GetMapping(value="/getAll")
+	@GetMapping(value="/")
     public List<Korisnik> getAll(@RequestHeader(value="role") String acceptHeader, HttpServletRequest request){ 
+      
+		return korisnikRepo.findAll();
+    }
+	@GetMapping(value="/getAllUsers")
+    public List<Korisnik> getAllUsers(/*@RequestHeader(value="role") String acceptHeader, */HttpServletRequest request){ 
       
 		return korisnikRepo.findAll();
     }

@@ -1,0 +1,27 @@
+
+.header-tabele{
+background-color: rgb(97,137,111, 0.55);
+border-style: solid;
+border-width: thin;
+border-color: black;
+font-weight: bold;
+color:white;
+/*opacity:0.5;*/
+}
+.polje-tabele{
+background-color: rgb(135,194,50, 0.55);
+border-style: solid;
+border-width: thin;
+border-color: black;
+color:white;
+/*opacity:0.5;*/
+}
+
+.wrapper{
+    padding-top:5%;
+    text-align:center;
+}
+
+.biografija{
+    text-align:left;
+}
