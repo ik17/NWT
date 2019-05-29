@@ -16,6 +16,7 @@ import { ReviewElementComponent } from './review-wrapper/review-element/review-e
 import { UsersListComponent } from './users-list/users-list.component';
 import { ArticleSearchComponent } from './article-search/article-search.component';
 import { ReviewerArticlesComponent } from './reviewer-articles/reviewer-articles.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ReviewerArticlesComponent } from './reviewer-articles/reviewer-articles
     ReviewElementComponent,
     UsersListComponent,
     ArticleSearchComponent,
-    ReviewerArticlesComponent
+    ReviewerArticlesComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +42,7 @@ import { ReviewerArticlesComponent } from './reviewer-articles/reviewer-articles
   ],
   providers: [NgbActiveModal, {provide: APP_BASE_HREF, useValue: '/'}],
   bootstrap: [AppComponent],
-  entryComponents: [LoginComponent],
-  exports: [LoginComponent]
+  entryComponents: [LoginComponent,RegisterComponent],
+  exports: [LoginComponent,RegisterComponent]
 })
 export class AppModule { }

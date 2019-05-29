@@ -1,0 +1,42 @@
+:host ::ng-deep .modal-header {
+    color: #6A6E71;
+    background-color: #6A6E71;
+    border-color: #6A6E71;
+    font-size: 18px;
+    text-align: center;
+   /* color:#474A4F;
+      color: #6A6E71;
+      color:#222629;*/
+
+  }
+  .modal-body{
+    background-color: #222629;
+    color: #FFFFFF;
+    padding: 5%;
+  
+  }
+  
+.text_alignment{
+    padding-top: 1%;
+    color:#87C232;
+    font-size:18px;
+  }
+
+  .naslov{
+    padding-top: 2%;
+    margin-bottom:2%;
+    color:#87C232;
+    font-size: 32px;
+    font-weight: bold;
+  }
+
+  .btn{
+    background-color:#6A6E71;
+    color: #87C232;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align:center;
+  }
+  .red{
+      color:crimson;
+  }

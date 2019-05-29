@@ -1,0 +1,114 @@
+<div class="modal-fade">
+    <div class="modal-header col-md-12">
+      <div class="col-md-12 naslov">Register</div>
+    </div>
+    <div class="modal-body">
+      <div class="content">
+        <form [formGroup]="registerForm" (ngSubmit) = "onSubmit()">
+
+
+
+           
+
+
+
+            <div class="row col-md-12 form-group">
+                <div class="col-md-4 text_alignment">
+                  <label for="ime">Ime:</label>
+                </div>
+                <div class="col-md-8">
+                  <input type="text" formControlName="ime" class = "form-control" placeholder="Ime" 
+                  [ngClass] = "{ 'is-invalid' : submitted && f.ime.errors }">
+                </div>
+                <div *ngIf="submitted && f.ime.errors" class="col-md-12">
+                    <div class="col-md-3">
+                      </div>
+                    <div *ngIf="f.ime.errors.required" class="red col-md-9 col-md-offset-3">Ime is required</div>
+                </div>
+    
+              </div>
+
+
+              <div class="row col-md-12 form-group">
+                  <div class="col-md-4 text_alignment">
+                    <label for="prezime">Prezime:</label>
+                  </div>
+                  <div class="col-md-8">
+                    <input type="text" formControlName="prezime" class = "form-control" placeholder="Prezime" 
+                    [ngClass] = "{ 'is-invalid' : submitted && f.prezime.errors }">
+                  </div>
+                  <div *ngIf="submitted && f.prezime.errors" class="col-md-12">
+                      <div class="col-md-3">
+                        </div>
+                      <div *ngIf="f.prezime.errors.required" class="red col-md-9 col-md-offset-3">Prezime je obavezno</div>
+                  </div>
+                </div>
+
+                <div class="row col-md-12 form-group">
+                    <div class="col-md-4 text_alignment">
+                      <label for="biografija">Biografija:</label>
+                    </div>
+                    <div class="col-md-8">
+                      <input type="text" formControlName="biografija" class = "form-control" placeholder="Biografija" 
+                      [ngClass] = "{ 'is-invalid' : submitted && f.biografija.errors }">
+                    </div>
+                    <div *ngIf="submitted && f.biografija.errors" class="col-md-12">
+                        <div class="col-md-3">
+                          </div>
+                        <div *ngIf="f.biografija.errors.required" class="red col-md-9 col-md-offset-3">Biografija je obavezna</div>
+                    </div>
+                  </div>
+
+                  <div class="row col-md-12 form-group">
+                      <div class="col-md-4 text_alignment">
+                        <label for="prezime">Rola:</label>
+                      </div>
+                      <div class="col-md-8">
+                          <input type="radio" value="ROLE_AUTOR" name="rola"  > Autor
+                          <input type="radio" value="ROLE_REVIEWER" name="rola"  > Reviewer
+                      </div>
+                                          
+                    </div>
+
+
+
+
+
+            <div class="row col-md-12 form-group">
+              <div class="col-md-4 text_alignment">
+                <label for="username">Username:</label>
+              </div>
+              <div class="col-md-8">
+                <input type="text" formControlName="username" class = "form-control" placeholder="Korisničko ime" 
+                [ngClass] = "{ 'is-invalid' : submitted && f.username.errors }">
+              </div>
+              <div *ngIf="submitted && f.username.errors" class="col-md-12">
+                  <div class="col-md-3">
+                    </div>
+                  <div *ngIf="f.username.errors.required" class="red col-md-9 col-md-offset-3">Username je obavezno</div>
+              </div>
+            </div>
+            <div class="row col-md-12 form-group">
+                <div class="col-md-4 text_alignment">
+                  <label for="password">Password:</label>
+                </div>
+                <div class="col-md-8">
+                  <input type="password" formControlName = "password" class="form-control"
+                  placeholder="Korisnička šifra" [ngClass] = "{ 'is-invalid' : submitted && f.password.errors }">
+                </div>
+                <div *ngIf="submitted && f.password.errors" class="col-md-12">
+                    <div class="col-md-3">
+                      </div>
+                    <div *ngIf="f.password.errors.required" class="red col-md-9 col-md-offset-3">Password je obavezan</div>
+                </div>
+            </div>
+            <div class="row col-md-12 form-group">
+                <div class="col-md-3">
+  
+                </div>
+                <button class = "btn col-md-6 col-md-offset3" type="submit">Registriraj</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
