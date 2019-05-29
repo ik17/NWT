@@ -1,0 +1,55 @@
+.row {
+    color: rgb(181, 185, 189);
+    font-size: 22px;
+    margin-bottom: 0.5%;
+}
+
+.container-fluid {
+    margin-top: 3%;
+    margin-right: 100px;
+}
+
+.span6 {
+    color: white;
+    background: rgba(255,255,255,0.2);
+    font-size: 22px;
+    margin-left: 1%;
+    margin-bottom: 2%;
+}
+
+.comment {
+    margin-top: 5%;
+}
+
+.btn {
+    color :#87C232;
+    background-color: #6A6E71;
+    font-size: 22px;
+    margin-right: 25%;
+    margin-top: 1%;
+    width: 22%;
+}
+
+.data {
+    margin-left: 2%;
+    color:  rgb(215, 222, 230);
+    font-weight: bold;
+}
+
+a {
+    color: rgb(40, 40, 241);
+}
+
+table {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    text-align: center;
+}
+
+thead {
+    color: #87C232;
+}
+
+tbody tr:hover {
+    background: rgba(255,255,255,0.05);
+}
