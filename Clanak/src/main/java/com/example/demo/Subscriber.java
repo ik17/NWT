@@ -22,15 +22,15 @@ public class Subscriber {
 	        System.out.println(action);
 	        if(action.equals("1")) {
 	        	//System.out.println(action);
-	        	korisnikController.createUser(new Korisnik(data), null);
+	        	korisnikController.createUser(new Korisnik(data), "ROLE_AUTOR",null);
 	        }
 	        else if( action.equals( "2")) {
-	        	korisnikController.updateKorisnik(Long.parseLong(data.substring(0,1),10), new Korisnik(data.substring(1)), null);
+	        	korisnikController.updateKorisnik(Long.parseLong(data.substring(0,1),10), new Korisnik(data.substring(1)),"ROLE_AUTOR", null);
 	        }
 	        else  {
 	        	//kC.deleteCategory(Long.parseLong(data,10));
 	        	System.out.println(Long.parseLong(data,10));
-	        	korisnikController.deleteUser(Long.parseLong(data,10));
+	        	korisnikController.deleteUser(Long.parseLong(data,10),"ROLE_AUTOR");
 	        	
 	        }
 	}

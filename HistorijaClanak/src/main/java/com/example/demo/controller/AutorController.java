@@ -2,10 +2,12 @@ package com.example.demo.controller;
 
 import java.util.List;
 
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,79 +41,125 @@ public class AutorController {
 	ClanakRepository cR;
 	
 	@GetMapping(value="")
-    public List<Autor> getAll(){
+    public List<Autor> getAll(@RequestHeader(value="role") String acceptHeader){
+		if (acceptHeader.equals("ROLE_REVIEWER")) {
         return aR.findAll();
+		}
+		else {
+			
+			throw new AccessDeniedException("nepravilna rola");
+		}
     }
 	
 	 @GetMapping("/{id}")
-	    public Autor getAutorById(@PathVariable(value = "id") Long id) throws NotFoundException {
-	        return aR.findById(id).orElseThrow(() -> new NotFoundException("Autor with given id not found"));
-	    }
+	    public Autor getAutorById(@PathVariable(value = "id") Long id, @RequestHeader(value="role") String acceptHeader) throws NotFoundException {
+		 if (acceptHeader.equals("ROLE_REVIEWER")) {
+			 return aR.findById(id).orElseThrow(() -> new NotFoundException("Autor with given id not found"));
+			   	}
+		else {
+					
+				throw new AccessDeniedException("nepravilna rola");
+			}
+		  }
 	 
 	 @PostMapping(value="")
-	    public Autor createAutor(@RequestBody @Valid final Autor autor, Errors errors) throws Exception {
+	    public Autor createAutor(@RequestBody @Valid final Autor autor, @RequestHeader(value="role") String acceptHeader,Errors errors) throws Exception {
 
-	        if(errors.hasErrors()){
-	            throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
-	        }
-	        Korisnik korisnik= kkR
-	                .findById(autor.getIdKorisnik().getId())
-	                .orElseThrow(
-	                        () -> new NotFoundException("User with given id not found")
-	                );
-	        Clanak clanak = cR
-	                .findById(autor.getIdClanak().getId())
-	                .orElseThrow(
-	                        () -> new NotFoundException("Article with given id not found")
-	                );
-	       
+		 if (acceptHeader.equals("ROLE_REVIEWER")) {
+			 //ovdje pocetak
 
-	        return aR.save(autor);
+			 
+		        if(errors.hasErrors()){
+		            throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
+		        }
+		        Korisnik korisnik= kkR
+		                .findById(autor.getIdKorisnik().getId())
+		                .orElseThrow(
+		                        () -> new NotFoundException("User with given id not found")
+		                );
+		        Clanak clanak = cR
+		                .findById(autor.getIdClanak().getId())
+		                .orElseThrow(
+		                        () -> new NotFoundException("Article with given id not found")
+		                );
+		       
+
+		        return aR.save(autor);
+			 //ovdje kraj
+		 }
+		else {
+					
+				throw new AccessDeniedException("nepravilna rola");
+			}
+		 
+		 
+		 
 	    }
 	 
 	 @PutMapping("/{id}")
 	    public Autor updateAutor(@PathVariable(value = "id") Long id,
-	                                               @RequestBody @Valid Autor autorUpdated, Errors errors) throws NotFoundException, Exception {
+	                                               @RequestBody @Valid Autor autorUpdated,@RequestHeader(value="role") String acceptHeader, Errors errors) throws NotFoundException, Exception {
 
-	        if(errors.hasErrors()){
-	            throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
-	        }
+		 
+		 if (acceptHeader.equals("ROLE_REVIEWER")) {
+			 //ovdje pocetak
+			 if(errors.hasErrors()){
+		            throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
+		        }
 
-	        Autor autor = aR
-	                .findById(id)
-	                .orElseThrow(
-	                        () -> new NotFoundException("Autor with given id not found")
-	                );
-	        Korisnik korisnik= kkR
-	                .findById(autorUpdated.getIdKorisnik().getId())
-	                .orElseThrow(
-	                        () -> new NotFoundException("User with given id not found")
-	                );
-	        Clanak clanak = cR
-	                .findById(autorUpdated.getIdClanak().getId())
-	                .orElseThrow(
-	                        () -> new NotFoundException("Article with given id not found")
-	                );
-	       
-	        autor.setIdClanak(clanak);   
-	        autor.setIdKorisnik(korisnik);
-		        
-	       
-	       	        
+		        Autor autor = aR
+		                .findById(id)
+		                .orElseThrow(
+		                        () -> new NotFoundException("Autor with given id not found")
+		                );
+		        Korisnik korisnik= kkR
+		                .findById(autorUpdated.getIdKorisnik().getId())
+		                .orElseThrow(
+		                        () -> new NotFoundException("User with given id not found")
+		                );
+		        Clanak clanak = cR
+		                .findById(autorUpdated.getIdClanak().getId())
+		                .orElseThrow(
+		                        () -> new NotFoundException("Article with given id not found")
+		                );
+		       
+		        autor.setIdClanak(clanak);   
+		        autor.setIdKorisnik(korisnik);
+		        autorUpdated = aR.save(autor);
+		        return autorUpdated;
+
+			 
+			 //ovdje kraj
+		 }
+		else {
+					
+				throw new AccessDeniedException("nepravilna rola");
+		}
+		 
+		 
 	        
-	  
-	       
-
-	        autorUpdated = aR.save(autor);
-	        return autorUpdated;
 	    }
 	 @DeleteMapping("/{id}")
-	    public ResponseEntity<?> deleteAutor(@PathVariable(value = "id") Long id) throws NotFoundException {
+	    public ResponseEntity<?> deleteAutor(@PathVariable(value = "id") Long id, @RequestHeader(value="role") String acceptHeader) throws NotFoundException {
 	        Autor autor = aR.findById(id)
 	                .orElseThrow(() -> new NotFoundException("Autor with given id not found"));
 
-	        aR.delete(autor);
+	   	 if (acceptHeader.equals("ROLE_REVIEWER")) {
+			 //ovdje pocetak
+			
+	   	  aR.delete(autor);
 
 	        return ResponseEntity.ok().build();
+			 //ovdje kraj
+		 }
+		else {
+					
+				throw new AccessDeniedException("nepravilna rola");
+		}
+	        
+	        
+	        
+	        
+	      
 	    }
 }

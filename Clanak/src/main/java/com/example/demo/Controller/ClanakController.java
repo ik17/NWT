@@ -13,6 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -73,21 +75,33 @@ public class ClanakController {
 	}
 	
 	@GetMapping(value = "")
-	public List<Clanak> getAll(){
-		return clanakRepository.findAll();
+	public List<Clanak> getAll(@RequestHeader(value="role") String acceptHeader){
+		if (acceptHeader.equals("ROLE_AUTOR")) {
+			 //ovdje pocetak
+			return clanakRepository.findAll();
+			 //ovdje kraj
+		 }
+		else {		
+				throw new AccessDeniedException("nepravilna rola");
+			}
+		
+		
 	}
 	
 	@GetMapping(value = "/{id}")
-	public Clanak getArticleById(@PathVariable(value = "id") Long id) throws NotFoundException {
-		return clanakRepository.findById(id).orElseThrow(() -> new NotFoundException("Article with given id not found"));
-	}
+	public Clanak getArticleById(@PathVariable(value = "id") Long id,@RequestHeader(value="role") String acceptHeader) throws NotFoundException {
+		if (acceptHeader.equals("ROLE_AUTOR")) {
+			 //ovdje pocetak
+			return clanakRepository.findById(id).orElseThrow(() -> new NotFoundException("Article with given id not found"));
+			 //ovdje kraj
+		 }
+		else {		
+				throw new AccessDeniedException("nepravilna rola");
+			}
+		
+		}
 	
-	@PostMapping(value = "auth")
-	    @PreAuthorize("hasRole('ROLE_ADMIN')")
-	    public String addGreeting(@RequestBody String greeting) {
-	         // Business logic to save the greeting typically to a DB table
-	         return "Greeting successfully saved";
-	    }
+	
 	
 	@GetMapping(value = "/link/{naziv}")
 	public String getLinkByName(@PathVariable(value = "naziv") String name ) throws NotFoundException {
@@ -111,46 +125,75 @@ public class ClanakController {
 	
 	@PostMapping(value = "")
 	public Clanak createArticle(@RequestBody @Valid final Clanak clanak, Errors errors) throws Exception {
-		if(errors.hasErrors()) {
-			throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
-		}
-		Korisnik k = korisnikRepository
-				.findById(clanak.getOdobrioClanak().getId())
-				.orElseThrow(() -> new NotFoundException("User with given id not found!"));
-		Kategorija k2 = kategorijaRepository
-				.findById(clanak.getKategorija().getId())
-				.orElseThrow(() -> new NotFoundException("Category with given id not found!"));
-		return clanakRepository.save(clanak);
+		
+	
+			 //ovdje pocetak
+			if(errors.hasErrors()) {
+				throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
+			}
+			Korisnik k = korisnikRepository
+					.findById(clanak.getOdobrioClanak().getId())
+					.orElseThrow(() -> new NotFoundException("User with given id not found!"));
+			Kategorija k2 = kategorijaRepository
+					.findById(clanak.getKategorija().getId())
+					.orElseThrow(() -> new NotFoundException("Category with given id not found!"));
+			return clanakRepository.save(clanak);
+			 //ovdje kraj
+		
+		
+		
+	
 	}
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<?> deleteArticle(@PathVariable(value = "id") Long id) throws NotFoundException{
-		Clanak clanak = clanakRepository
-				.findById(id)
-				.orElseThrow(() -> new NotFoundException("Article with given id not found!"));
-		clanakRepository.delete(clanak);
-		return ResponseEntity.ok().build();
+	public ResponseEntity<?> deleteArticle(@PathVariable(value = "id") Long id, @RequestHeader(value="role") String acceptHeader) throws NotFoundException{
+		
+		if (acceptHeader.equals("ROLE_AUTOR")) {
+			 //ovdje pocetak
+			Clanak clanak = clanakRepository
+					.findById(id)
+					.orElseThrow(() -> new NotFoundException("Article with given id not found!"));
+			clanakRepository.delete(clanak);
+			return ResponseEntity.ok().build();
+			 //ovdje kraj
+		 }
+		else {		
+				throw new AccessDeniedException("nepravilna rola");
+			}
+		
+		
 	}
 	@PutMapping("/{id}")
-	public Clanak updateArticle(@PathVariable(value = "id") Long id, @RequestBody @Valid Clanak clanakUpdate, Errors errors) throws NotFoundException, Exception{
-		if(errors.hasErrors()) 
-			throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
-		Clanak clanak = clanakRepository
-				.findById(id)
-				.orElseThrow(() -> new NotFoundException("Article with given id not found!"));
-		Korisnik k = korisnikRepository
-				.findById(clanakUpdate.getOdobrioClanak().getId())
-				.orElseThrow(() -> new NotFoundException("User with given id not found!"));
-		Kategorija k2 = kategorijaRepository
-				.findById(clanakUpdate.getKategorija().getId())
-				.orElseThrow(() -> new NotFoundException("Category with given id not found!"));
+	public Clanak updateArticle(@PathVariable(value = "id") Long id, @RequestBody @Valid Clanak clanakUpdate, @RequestHeader(value="role") String acceptHeader,Errors errors) throws NotFoundException, Exception{
 		
-		clanak.setClanakOdobren(clanakUpdate.getClanakOdobren());
-		clanak.setKategorija(clanakUpdate.getKategorija());
-		clanak.setNaziv(clanakUpdate.getNaziv());
-		clanak.setOdobrioClanak(clanakUpdate.getOdobrioClanak());
+		if (acceptHeader.equals("ROLE_AUTOR")) {
+			 //ovdje pocetak
+
+			if(errors.hasErrors()) 
+				throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
+			Clanak clanak = clanakRepository
+					.findById(id)
+					.orElseThrow(() -> new NotFoundException("Article with given id not found!"));
+			Korisnik k = korisnikRepository
+					.findById(clanakUpdate.getOdobrioClanak().getId())
+					.orElseThrow(() -> new NotFoundException("User with given id not found!"));
+			Kategorija k2 = kategorijaRepository
+					.findById(clanakUpdate.getKategorija().getId())
+					.orElseThrow(() -> new NotFoundException("Category with given id not found!"));
+			
+			clanak.setClanakOdobren(clanakUpdate.getClanakOdobren());
+			clanak.setKategorija(clanakUpdate.getKategorija());
+			clanak.setNaziv(clanakUpdate.getNaziv());
+			clanak.setOdobrioClanak(clanakUpdate.getOdobrioClanak());
+			
+			clanakUpdate = clanakRepository.save(clanak);
+			return clanakUpdate;
+			 //ovdje kraj
+		 }
+		else {		
+				throw new AccessDeniedException("nepravilna rola");
+			}
 		
-		clanakUpdate = clanakRepository.save(clanak);
-		return clanakUpdate;
+		
 	} 
 	 private static HttpEntity<?> getHeaders() throws IOException {
 			HttpHeaders headers = new HttpHeaders();

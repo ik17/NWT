@@ -13,6 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -37,47 +39,95 @@ public class KategorijaController {
 	@Autowired
 	private DiscoveryClient discoveryClient;
 	@GetMapping(value = "")
-	public List<Kategorija> getAll(){
-		return kategorijaRepository.findAll();
+	public List<Kategorija> getAll(@RequestHeader(value="role") String acceptHeader){
+		
+		if (acceptHeader.equals("ROLE_AUTOR")) {
+			 //ovdje pocetak
+			return kategorijaRepository.findAll();
+			 //ovdje kraj
+		 }
+		else {		
+				throw new AccessDeniedException("nepravilna rola");
+			}
+		
+		
 	}
 	
 	@GetMapping(value = "/{id}")
-	public Kategorija getCategoryById(@PathVariable(value = "id") Long id) throws NotFoundException {
-		return kategorijaRepository.findById(id).orElseThrow(() -> new NotFoundException("Category with given id not found!"));
+	public Kategorija getCategoryById(@PathVariable(value = "id") Long id,@RequestHeader(value="role") String acceptHeader) throws NotFoundException {
+		if (acceptHeader.equals("ROLE_AUTOR")) {
+			 //ovdje pocetak
+			return kategorijaRepository.findById(id).orElseThrow(() -> new NotFoundException("Category with given id not found!"));
+			
+			 //ovdje kraj
+		 }
+		else {		
+				throw new AccessDeniedException("nepravilna rola");
+			}
 	}
 	
 	@PostMapping(value = "")
-	public Kategorija createCategory(@RequestBody @Valid final Kategorija kategorija, Errors errors) throws Exception {
-		if(errors.hasErrors()) {
-			throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
-		}
+	public Kategorija createCategory(@RequestBody @Valid final Kategorija kategorija,@RequestHeader(value="role") String acceptHeader, Errors errors) throws Exception {
+		
+		if (acceptHeader.equals("ROLE_AUTOR")) {
+			 //ovdje pocetak
+			if(errors.hasErrors()) {
+				throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
+			}
+				
+			return kategorijaRepository.save(kategorija);
+			 //ovdje kraj
+		 }
+		else {		
+				throw new AccessDeniedException("nepravilna rola");
+			}
 		
 		
-			
-		return kategorijaRepository.save(kategorija);
+		
+	
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteCategory(@PathVariable(value = "id") Long id)throws NotFoundException{
-		Kategorija kategorija = kategorijaRepository
-				.findById(id)
-				.orElseThrow(() -> new NotFoundException("Category with given id not found!"));
+	public ResponseEntity<?> deleteCategory(@PathVariable(value = "id") Long id, @RequestHeader(value="role") String acceptHeader)throws NotFoundException{
+		if (acceptHeader.equals("ROLE_AUTOR")) {
+			 //ovdje pocetak
+			Kategorija kategorija = kategorijaRepository
+					.findById(id)
+					.orElseThrow(() -> new NotFoundException("Category with given id not found!"));
+			
+			kategorijaRepository.delete(kategorija);
+			return ResponseEntity.ok().build();
+			 //ovdje kraj
+		 }
+		else {		
+				throw new AccessDeniedException("nepravilna rola");
+			}
 		
-		kategorijaRepository.delete(kategorija);
-		return ResponseEntity.ok().build();
+		
 	}
 	
 	@PutMapping("/{id}")
-	public Kategorija updateCategory(@PathVariable(value = "id") Long id, @RequestBody @Valid Kategorija kategorijaUpdate, Errors errors) throws NotFoundException, Exception{
-		if(errors.hasErrors()) 
-			throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
-		Kategorija kategorija = kategorijaRepository
-				.findById(id)
-				.orElseThrow(() -> new NotFoundException("Category with given id not found!"));
-		kategorija.setNaziv(kategorijaUpdate.getNaziv());
+	public Kategorija updateCategory(@PathVariable(value = "id") Long id, @RequestBody @Valid Kategorija kategorijaUpdate,@RequestHeader(value="role") String acceptHeader, Errors errors) throws NotFoundException, Exception{
 		
-		kategorijaUpdate = kategorijaRepository.save(kategorija);
-		return kategorijaUpdate;
+		if (acceptHeader.equals("ROLE_AUTOR")) {
+			 //ovdje pocetak
+			if(errors.hasErrors()) 
+				throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
+			Kategorija kategorija = kategorijaRepository
+					.findById(id)
+					.orElseThrow(() -> new NotFoundException("Category with given id not found!"));
+			kategorija.setNaziv(kategorijaUpdate.getNaziv());
+			
+			kategorijaUpdate = kategorijaRepository.save(kategorija);
+			return kategorijaUpdate;
+			 //ovdje kraj
+		 }
+		else {		
+				throw new AccessDeniedException("nepravilna rola");
+			}
+		
+		
+		
 	}
 	
 	 private static HttpEntity<?> getHeaders() throws IOException {

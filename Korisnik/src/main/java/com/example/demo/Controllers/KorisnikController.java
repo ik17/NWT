@@ -69,11 +69,12 @@ public class KorisnikController {
 	//@PreAuthorize("hasAuthority('ROLE_AUTOR')")
 	@GetMapping(value="/getAll")
     public List<Korisnik> getAll(@RequestHeader(value="role") String acceptHeader, HttpServletRequest request){ 
-        return korisnikRepo.findAll();
+      
+		return korisnikRepo.findAll();
     }
 	
 	 @GetMapping("/{id}")
-	    public Korisnik getKorisnikById(@PathVariable(value = "id") Long id) throws NotFoundException {
+	    public Korisnik getKorisnikById(@PathVariable(value = "id") Long id, @RequestHeader(value="role") String acceptHeader) throws NotFoundException {
 	        return korisnikRepo.findById(id).orElseThrow(() -> new NotFoundException("User with given id not found"));
 	    }
 	 
@@ -142,7 +143,7 @@ public class KorisnikController {
 	 
 	 @PutMapping("/{id}")
 	    public Korisnik updateKorisnik(@PathVariable(value = "id") Long id,
-	                                               @RequestBody @Valid Korisnik korisnikUpdate, Errors errors) throws NotFoundException, Exception {
+	                                               @RequestBody @Valid Korisnik korisnikUpdate, @RequestHeader(value="role") String acceptHeader, Errors errors) throws NotFoundException, Exception {
 
 	     //   if(errors.hasErrors()){
 	       //     throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
@@ -218,7 +219,7 @@ public class KorisnikController {
 	    }
 	 
 	 @DeleteMapping("/{id}")
-	    public ResponseEntity<?> deleteKorisnik(@PathVariable(value = "id") Long id) throws NotFoundException {
+	    public ResponseEntity<?> deleteKorisnik(@PathVariable(value = "id") Long id,@RequestHeader(value="role") String acceptHeader) throws NotFoundException {
 	        Korisnik korisnik = korisnikRepo.findById(id)
 	                .orElseThrow(() -> new NotFoundException("User with given id not found"));
 	        

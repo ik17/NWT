@@ -25,7 +25,10 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceUtils;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration;
 
 import com.example.demo.entity.Korisnik;
 import com.example.demo.repository.KorisnikRepository;
@@ -102,6 +105,8 @@ ClanakRepository cR;
 	public static final String topicExchangeName = "fanoutTopic";
 
 	static final String queueName = "spring-boot-8";
+	
+	
 
 	@Bean
 	Queue queue() {
@@ -132,4 +137,12 @@ ClanakRepository cR;
 	MessageListenerAdapter listenerAdapter(Reciver receiver) {
 		return new MessageListenerAdapter(receiver, "receiveMessage");
 	}
+	@Configuration
+    @EnableGlobalMethodSecurity(
+      prePostEnabled = true, 
+      securedEnabled = true, 
+      jsr250Enabled = true)
+    public class MethodSecurityConfig 
+      extends GlobalMethodSecurityConfiguration {
+    }
 }

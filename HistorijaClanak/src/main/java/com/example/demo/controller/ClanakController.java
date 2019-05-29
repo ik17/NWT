@@ -13,6 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -78,14 +80,32 @@ public class ClanakController {
 	}
 	
 	@GetMapping(value="")
-    public List<Clanak> getAll(){
-        return cR.findAll();
+    public List<Clanak> getAll(@RequestHeader(value="role") String acceptHeader){
+		
+		if (acceptHeader.equals("ROLE_REVIEWER")) {
+			 //ovdje pocetak
+			return cR.findAll();
+			 //ovdje kraj
+		 }
+		else {	
+				throw new AccessDeniedException("nepravilna rola");
+		}
+		
+        
     }
 	
 	 @GetMapping("/{id}")
-	    public Clanak getClientById(@PathVariable(value = "id") Long id) throws NotFoundException {
-	        return cR.findById(id).orElseThrow(() -> new NotFoundException("Article with given id not found"));
-	    }
+	    public Clanak getClientById(@PathVariable(value = "id") Long id, @RequestHeader(value="role") String acceptHeader) throws NotFoundException {
+			if (acceptHeader.equals("ROLE_REVIEWER")) {
+				 //ovdje pocetak
+				 return cR.findById(id).orElseThrow(() -> new NotFoundException("Article with given id not found"));
+				 //ovdje kraj
+			 }
+			else {	
+					throw new AccessDeniedException("nepravilna rola");
+			}
+		 
+		 }
 	 @GetMapping(value="/linkId/{id}")
 	    public String getLink(@PathVariable(value = "id") Long id) throws NotFoundException{
 	        //Clanak c =  cR.findById(id).orElseThrow(() -> new NotFoundException("Article with given id not found"));
@@ -101,69 +121,99 @@ public class ClanakController {
 				// cR.findById(id).orElseThrow(() -> new NotFoundException("Article with given id not found"));
 	 }
 	 @PostMapping(value="")
-	    public Clanak createClanak(@RequestBody @Valid final Clanak clanak, Errors errors) throws Exception {
+	    public Clanak createClanak(@RequestBody @Valid final Clanak clanak,@RequestHeader(value="role") String acceptHeader, Errors errors) throws Exception {
 
-	        if(errors.hasErrors()){
-	            throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
-	        }
-	        Kategorija kategorija = kR
-	                .findById(clanak.getIdKategorije().getId())
-	                .orElseThrow(
-	                        () -> new NotFoundException("Category with given id not found")
-	                );
-	        
-	        Korisnik korisnik= kkR
-	                .findById(clanak.getOdobrioClanak().getId())
-	                .orElseThrow(
-	                        () -> new NotFoundException("User with given id not found")
-	                );
+		 if (acceptHeader.equals("ROLE_REVIEWER")) {
+			 //ovdje pocetak
 
-	        return cR.save(clanak);
+		        if(errors.hasErrors()){
+		            throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
+		        }
+		        Kategorija kategorija = kR
+		                .findById(clanak.getIdKategorije().getId())
+		                .orElseThrow(
+		                        () -> new NotFoundException("Category with given id not found")
+		                );
+		        
+		        Korisnik korisnik= kkR
+		                .findById(clanak.getOdobrioClanak().getId())
+		                .orElseThrow(
+		                        () -> new NotFoundException("User with given id not found")
+		                );
+
+		        return cR.save(clanak);
+		        //ovdje kraj
+		 }
+		else {	
+				throw new AccessDeniedException("nepravilna rola");
+		}
+		 
 	    }
 	 
 	 @PutMapping("/{id}")
 	    public Clanak updateClanak(@PathVariable(value = "id") Long id,
-	                                               @RequestBody @Valid Clanak clanakUpdated, Errors errors) throws NotFoundException, Exception {
+	                                               @RequestBody @Valid Clanak clanakUpdated,@RequestHeader(value="role") String acceptHeader, Errors errors) throws NotFoundException, Exception {
 
-	        if(errors.hasErrors()){
-	            throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
-	        }
+		 if (acceptHeader.equals("ROLE_REVIEWER")) {
+			 //ovdje pocetak
+			  if(errors.hasErrors()){
+		            throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
+		        }
 
-	        Clanak clanak = cR
-	                .findById(id)
-	                .orElseThrow(
-	                        () -> new NotFoundException("Article with given id not found")
-	                );
-	        
-	        Kategorija kategorija = kR
-	                .findById(clanakUpdated.getIdKategorije().getId())
-	                .orElseThrow(
-	                        () -> new NotFoundException("Category with given id not found")
-	                );
-	        
-	        Korisnik korisnik= kkR
-	                .findById(clanakUpdated.getOdobrioClanak().getId())
-	                .orElseThrow(
-	                        () -> new NotFoundException("User with given id not found")
-	                );
-	        
-	        clanak.setClanakOobren(clanakUpdated.getClanakOdobren());
-	        clanak.setIdKategorije(kategorija);
-	        clanak.setNaziv(clanakUpdated.getNaziv());
-	        clanak.setOdobrioClanak(korisnik);
-	       
+		        Clanak clanak = cR
+		                .findById(id)
+		                .orElseThrow(
+		                        () -> new NotFoundException("Article with given id not found")
+		                );
+		        
+		        Kategorija kategorija = kR
+		                .findById(clanakUpdated.getIdKategorije().getId())
+		                .orElseThrow(
+		                        () -> new NotFoundException("Category with given id not found")
+		                );
+		        
+		        Korisnik korisnik= kkR
+		                .findById(clanakUpdated.getOdobrioClanak().getId())
+		                .orElseThrow(
+		                        () -> new NotFoundException("User with given id not found")
+		                );
+		        
+		        clanak.setClanakOobren(clanakUpdated.getClanakOdobren());
+		        clanak.setIdKategorije(kategorija);
+		        clanak.setNaziv(clanakUpdated.getNaziv());
+		        clanak.setOdobrioClanak(korisnik);
+		       
 
-	        clanakUpdated = cR.save(clanak);
-	        return clanakUpdated;
+		        clanakUpdated = cR.save(clanak);
+		        return clanakUpdated;
+		        
+		     //ovdje kraj
+		 }
+		else {	
+				throw new AccessDeniedException("nepravilna rola");
+		}
+ 
+	      
 	    }
 	 @DeleteMapping("/{id}")
-	    public ResponseEntity<?> deleteClanak(@PathVariable(value = "id") Long id) throws NotFoundException {
+	    public ResponseEntity<?> deleteClanak(@PathVariable(value = "id") Long id, @RequestHeader(value="role") String acceptHeader) throws NotFoundException {
 	        Clanak clanak = cR.findById(id)
 	                .orElseThrow(() -> new NotFoundException("Clanak with given id not found"));
 
-	        cR.delete(clanak);
+	        
+	        if (acceptHeader.equals("ROLE_REVIEWER")) {
+				 //ovdje pocetak
+				 
+	        	  cR.delete(clanak);
 
-	        return ResponseEntity.ok().build();
+	  	        return ResponseEntity.ok().build();
+			     //ovdje kraj
+			 }
+			else {	
+					throw new AccessDeniedException("nepravilna rola");
+			}
+	        
+	      
 	    }
 	 private static HttpEntity<?> getHeaders() throws IOException {
 			HttpHeaders headers = new HttpHeaders();
