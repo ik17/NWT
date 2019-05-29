@@ -25,13 +25,14 @@
     border-radius: 45px;
     background: #61896F;
     padding: 0.5%;
-    margin-bottom: 2%;
+    margin-top: 2%;
+    /*margin-bottom: 2%;*/
 }
 
 .searchdiv {
     margin-left: 10%;
     margin-right: 10%;
-    margin-bottom: 4%;
+    /*margin-bottom: 4%;*/
     width: 100%;
 }
 

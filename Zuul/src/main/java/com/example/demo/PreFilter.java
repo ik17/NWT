@@ -40,7 +40,7 @@ public class PreFilter extends ZuulFilter {
     
     @Override
     public Object run() {
-    	System.out.println("Usao u jebeni filter");
+    	System.out.println("Usao u pre filter");
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();    
          // Add a custom header in the request
