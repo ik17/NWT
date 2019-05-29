@@ -1,0 +1,42 @@
+<div class="container-fluid">
+  <div class="row col-md-12">
+    <div>Naziv članka: </div>
+    <div class = "data"> {{nazivClanka}} </div>
+  </div>
+  
+  <div class="row col-md-12">
+    <div>Autori članka: </div>
+    <div class = "data"> {{showAuthors()}} </div>
+  </div>
+
+  <div class="row col-md-12">
+    <div>Kategorija članka: </div>
+    <div class = "data"> {{kategorija}} </div>
+  </div>
+
+  <div class="row col-md-12">
+    <div>Link za preuzimanje članka: </div>
+    <div class = "data"><a [href]='urlZaPreuzimanje'>Preuzmi članak</a></div>
+  </div>
+  
+  <div class="row col-md-12 comment">
+    <div>Unesi komentar: </div>
+    <textarea class="span6" rows="3" cols="50" [(ngModel)]='komentar'></textarea>
+  </div>
+
+  <div class="pull-right">
+    <div>
+      <button type="button" class="btn btn-secondary" (click)='onClickPrihvati()'>Prihvati članak</button>
+    </div>
+    <div>
+      <button type="button" class="btn btn-secondary" (click)='onClickOdbij()'>Odbij članak</button>
+    </div>
+  </div>
+
+  <!--
+  <div class="row col-md-12">
+    <div>Komentar: </div>
+    <div class = "data"> {{komentar}} </div>
+  </div> -->
+
+</div>

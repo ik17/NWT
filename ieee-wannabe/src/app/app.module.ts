@@ -10,12 +10,14 @@ import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
 import { APP_BASE_HREF } from '@angular/common';
 import { LoginComponent } from './login/login.component';
+import { ArticleReviewComponent } from './article-review/article-review.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    LoginComponent
+    LoginComponent,
+    ArticleReviewComponent
   ],
   imports: [
     BrowserModule,
