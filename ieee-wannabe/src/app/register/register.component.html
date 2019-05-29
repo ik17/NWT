@@ -64,8 +64,8 @@
                         <label for="prezime">Rola:</label>
                       </div>
                       <div class="col-md-8">
-                          <input type="radio" value="ROLE_AUTOR" name="rola"  > Autor
-                          <input type="radio" value="ROLE_REVIEWER" name="rola"  > Reviewer
+                          <input type="radio" value="ROLE_AUTOR" name="rola"  formControlName="rola"> Autor
+                          <input type="radio" value="ROLE_REVIEWER" name="rola"  formControlName="rola"> Reviewer
                       </div>
                                           
                     </div>
@@ -106,7 +106,7 @@
                 <div class="col-md-3">
   
                 </div>
-                <button class = "btn col-md-6 col-md-offset3" type="submit">Registriraj</button>
+                <button class = "btn col-md-6 col-md-offset3" type="submit" (click)='register()'>Registriraj</button>
             </div>
         </form>
       </div>

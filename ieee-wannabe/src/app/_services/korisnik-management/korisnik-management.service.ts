@@ -4,9 +4,12 @@ import { environment } from '../../environment.prod';
 import { User } from './user';
 import { Uloga } from './uloga';
 import { Podaci } from './podaci';
+import { LoginUser } from './loginUser';
 
 //const baseUrl = environment.url + '/korisnikUI/';
 const baseUrl = environment.urlKorisnik;
+
+const registerUrl = environment.url + '/users/signup';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +28,10 @@ export class KorisnikManagementService {
     return new Promise<any>((resolve, reject) => {
       result.subscribe(resolve as any, reject as any);
     });
+  }
+
+  register(loginUser: LoginUser) {
+    return this.request('post', registerUrl, loginUser);
   }
 
   AllUsers(){
