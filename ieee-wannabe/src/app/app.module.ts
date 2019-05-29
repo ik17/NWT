@@ -14,6 +14,8 @@ import { ArticleReviewComponent } from './article-review/article-review.componen
 import { ReviewWrapperComponent } from './review-wrapper/review-wrapper.component';
 import { ReviewElementComponent } from './review-wrapper/review-element/review-element.component';
 import { UsersListComponent } from './users-list/users-list.component';
+import { ArticleSearchComponent } from './article-search/article-search.component';
+import { ReviewerArticlesComponent } from './reviewer-articles/reviewer-articles.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { UsersListComponent } from './users-list/users-list.component';
     ArticleReviewComponent,
     ReviewWrapperComponent,
     ReviewElementComponent,
-    UsersListComponent
+    UsersListComponent,
+    ArticleSearchComponent,
+    ReviewerArticlesComponent
   ],
   imports: [
     BrowserModule,

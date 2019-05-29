@@ -1,0 +1,17 @@
+<div class="container-fluid">
+  <div class="row col-md-12 searchdiv">
+    <div>
+      <input type="text"
+          [(ngModel)]='filterText' />
+    </div>
+    <button class="btn btn-primary" (click)='filtrirajClanke()'>Search</button>
+  </div>
+  
+  <div class="datacontainer" *ngFor='let clanak of filtriraniClanci'>
+    <div class="row col-md-12 data">{{clanak.nazivClanka}}</div>
+    <div class="row col-md-12 data">{{clanak.autori}}</div>
+    <div class="row col-md-12 data">{{clanak.kategorija}}</div>
+  </div>
+
+
+</div>
