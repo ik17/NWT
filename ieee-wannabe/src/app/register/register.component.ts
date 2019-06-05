@@ -36,10 +36,7 @@ export class RegisterComponent implements OnInit {
   }
 
   async register() {
-    this.Lu = new LoginUser(this.registerForm.get("username").value,this.registerForm.get("password").value,this.registerForm.get("biografija").value, this.registerForm.get("ime").value, this.registerForm.get("prezime").value, this.registerForm.get("rola").value);
-    console.log(this.Lu);
-    const data = await this.korisnikManagement.register(this.Lu);
-    console.log(data);
+    
   }
 
   @HostListener('onSubmit')
@@ -48,6 +45,10 @@ export class RegisterComponent implements OnInit {
     if(this.registerForm.invalid){
       return;
     }
+    this.Lu = new LoginUser(this.registerForm.get("username").value,this.registerForm.get("password").value,this.registerForm.get("biografija").value, this.registerForm.get("ime").value, this.registerForm.get("prezime").value, this.registerForm.get("rola").value);
+    console.log(this.Lu);
+    const data =  this.korisnikManagement.register(this.Lu);
+    console.log(data);
     
   }
 

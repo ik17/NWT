@@ -17,6 +17,7 @@ import { UsersListComponent } from './users-list/users-list.component';
 import { ArticleSearchComponent } from './article-search/article-search.component';
 import { ReviewerArticlesComponent } from './reviewer-articles/reviewer-articles.component';
 import { RegisterComponent } from './register/register.component';
+import { UserViewComponent } from './user-view/user-view.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { RegisterComponent } from './register/register.component';
     UsersListComponent,
     ArticleSearchComponent,
     ReviewerArticlesComponent,
-    RegisterComponent
+    RegisterComponent,
+    UserViewComponent
   ],
   imports: [
     BrowserModule,

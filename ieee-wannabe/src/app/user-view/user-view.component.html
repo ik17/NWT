@@ -1,0 +1,53 @@
+
+    
+<div class="container-fluid">
+
+  <div class="row col-md-12">
+    <div class = "dataBig"> {{nazivKorisnika}} </div>
+  </div>
+
+  <div class="row col-md-12">
+    <div class = "data"> {{username}} </div>
+  </div>
+  <div class="datum">
+  <div class="row col-md-12">
+    <div class="datum" >Datum prijave: </div>
+    <div class="datum" > {{datum}} </div>
+  </div>
+</div>
+  <div class ="custom-padding">
+      <hr style="border: none;">
+  <div class="row col-md-12">
+    <div>Biografija </div>
+    <div class = "data"> {{biografija}} </div>
+  </div>
+</div>
+<hr style="border: none;">
+<div class="row col-md-12">
+
+<label for="file" class="custom-file-upload">
+  Upload članak
+</label>
+  <input type="file"
+         id="file"
+         (change)="handleFileInput($event.target.files)">
+</div>
+
+<hr style="border: none;">
+
+
+
+<div class="row col-md-12">
+    Lista članaka
+  </div>
+  <div class="datacontainer" *ngFor='let clanak of clanci'>
+      <div class="row col-md-12 data3">{{clanak.nazivClanka}}</div>
+      <div class="row col-md-12 data2">{{clanak.autori}}</div>
+      <div class="row col-md-12 data2">{{clanak.kategorija}}</div>
+    </div>
+
+
+  
+</div>
+
+
