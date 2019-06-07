@@ -52,6 +52,14 @@ public class LoginUser {
 		this.password = password;
 		this.role = role;
 	}
+	public LoginUser(LoginUser novi) {
+		this.username = novi.username;
+		this.password = novi.password;
+		this.role = novi.role;
+		this.ime = novi.ime;
+		this.prezime = novi.prezime;
+		this.biografija = novi.biografija;
+	}
 	
 	public String getRole() {
 		return role;

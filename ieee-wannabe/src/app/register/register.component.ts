@@ -11,7 +11,7 @@ import { LoginUser } from '../_services/korisnik-management/loginUser';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  Lu;
+  Lu : any;
   registerForm : FormGroup;
   submitted = false;
   constructor(private formBuilder: FormBuilder, 
@@ -35,8 +35,8 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.controls;
   }
 
-  async register() {
-    
+  async register(Lu:LoginUser) {
+    return this.korisnikManagement.register(this.Lu);
   }
 
   @HostListener('onSubmit')
@@ -45,9 +45,14 @@ export class RegisterComponent implements OnInit {
     if(this.registerForm.invalid){
       return;
     }
-    this.Lu = new LoginUser(this.registerForm.get("username").value,this.registerForm.get("password").value,this.registerForm.get("biografija").value, this.registerForm.get("ime").value, this.registerForm.get("prezime").value, this.registerForm.get("rola").value);
+    this.Lu = new LoginUser(this.registerForm.get("username").value,
+    this.registerForm.get("password").value,
+    this.registerForm.get("biografija").value, 
+    this.registerForm.get("ime").value, 
+    this.registerForm.get("prezime").value, 
+    this.registerForm.get("rola").value);
     console.log(this.Lu);
-    const data =  this.korisnikManagement.register(this.Lu);
+    const data =  this.register(this.Lu);
     console.log(data);
     
   }

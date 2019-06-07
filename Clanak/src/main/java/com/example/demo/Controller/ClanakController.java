@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -73,7 +74,7 @@ public class ClanakController {
 		return response.getBody();
 		
 	}
-	
+	@CrossOrigin
 	@GetMapping(value = "")
 	public List<Clanak> getAll(@RequestHeader(value="role") String acceptHeader){
 		if (acceptHeader.equals("ROLE_AUTOR")) {
@@ -87,7 +88,7 @@ public class ClanakController {
 		
 		
 	}
-	
+	@CrossOrigin
 	@GetMapping(value = "/{id}")
 	public Clanak getArticleById(@PathVariable(value = "id") Long id,@RequestHeader(value="role") String acceptHeader) throws NotFoundException {
 		if (acceptHeader.equals("ROLE_AUTOR")) {
@@ -102,7 +103,7 @@ public class ClanakController {
 		}
 	
 	
-	
+	@CrossOrigin
 	@GetMapping(value = "/link/{naziv}")
 	public String getLinkByName(@PathVariable(value = "naziv") String name ) throws NotFoundException {
 		List<ServiceInstance> instances=discoveryClient.getInstances("HistorijaClanak-service");
@@ -122,7 +123,7 @@ public class ClanakController {
 		System.out.println(response.getBody());
 		return response.getBody();
 	}
-	
+	@CrossOrigin
 	@PostMapping(value = "")
 	public Clanak createArticle(@RequestBody @Valid final Clanak clanak, Errors errors) throws Exception {
 		
@@ -144,6 +145,7 @@ public class ClanakController {
 		
 	
 	}
+	@CrossOrigin
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> deleteArticle(@PathVariable(value = "id") Long id, @RequestHeader(value="role") String acceptHeader) throws NotFoundException{
 		
@@ -162,6 +164,7 @@ public class ClanakController {
 		
 		
 	}
+	@CrossOrigin
 	@PutMapping("/{id}")
 	public Clanak updateArticle(@PathVariable(value = "id") Long id, @RequestBody @Valid Clanak clanakUpdate, @RequestHeader(value="role") String acceptHeader,Errors errors) throws NotFoundException, Exception{
 		

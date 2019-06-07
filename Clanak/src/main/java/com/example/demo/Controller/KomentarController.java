@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,7 +37,7 @@ public class KomentarController {
 	ClanakRepository clanakRepository;
 	@Autowired
 	KorisnikRepository korisnikRepository;
-	
+	@CrossOrigin
 	@GetMapping(value = "")
 	public List<Komentar> getAll(@RequestHeader(value="role") String acceptHeader){
 		if (acceptHeader.equals("ROLE_AUTOR")) {
@@ -50,7 +51,7 @@ public class KomentarController {
 		
 		
 	}
-	
+	@CrossOrigin
 	@GetMapping(value = "/{id}")
 	public Komentar getCommentById(@PathVariable(value = "id") Long id, @RequestHeader(value="role") String acceptHeader) throws NotFoundException {
 		
@@ -64,7 +65,7 @@ public class KomentarController {
 			}
 		
 		}
-	
+	@CrossOrigin
 	@PostMapping(value = "")
 	public Komentar createComment(@RequestBody @Valid final Komentar komentar,@RequestHeader(value="role") String acceptHeader, Errors errors)throws Exception {
 		
@@ -92,7 +93,7 @@ public class KomentarController {
 		
 		
 	}
-	
+	@CrossOrigin
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteComment(@PathVariable(value = "id") Long id,@RequestHeader(value="role") String acceptHeader) throws NotFoundException{
 		if (acceptHeader.equals("ROLE_AUTOR")) {
@@ -110,7 +111,7 @@ public class KomentarController {
 		
 		
 	}
-	
+	@CrossOrigin
 	@PutMapping("/{id}")
 	public Komentar updateComment(@PathVariable(value = "id") Long id, @RequestBody @Valid Komentar komentarUpdate,@RequestHeader(value="role") String acceptHeader, Errors errors)throws NotFoundException, Exception {
 		if (acceptHeader.equals("ROLE_AUTOR")) {

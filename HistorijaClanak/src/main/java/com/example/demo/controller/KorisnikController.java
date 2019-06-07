@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,7 +30,7 @@ public class KorisnikController {
 	
 	@Autowired
 	KorisnikRepository kR;
-	
+	@CrossOrigin
 	@GetMapping(value="")
     public List<Korisnik> getAll(@RequestHeader(value="role") String acceptHeader){
 		System.out.println("in korisnik");
@@ -45,7 +46,7 @@ public class KorisnikController {
 		}
         
     }
-	
+	@CrossOrigin
 	 @GetMapping("/{id}")
 	    public Korisnik getCategoryById(@PathVariable(value = "id") Long id, @RequestHeader(value="role") String acceptHeader) throws NotFoundException {
 		 if (acceptHeader.equals("ROLE_REVIEWER")) {
@@ -59,7 +60,7 @@ public class KorisnikController {
 		}
 		 
 		 }
-	 
+	@CrossOrigin
 	 @PostMapping(value="")
 	    public Korisnik createUder(@RequestBody @Valid final Korisnik korisnik,@RequestHeader(value="role") String acceptHeader, Errors errors) throws Exception {
 
@@ -78,7 +79,7 @@ public class KorisnikController {
 	        //}
 		 	
 	    }
-	 
+	@CrossOrigin
 	 @PutMapping("/{id}")
 	    public Korisnik updateUser(@PathVariable(value = "id") Long id,
 	                                               @RequestBody @Valid Korisnik korisnikUpdated,@RequestHeader(value="role") String acceptHeader, Errors errors) throws NotFoundException, Exception {
@@ -108,6 +109,7 @@ public class KorisnikController {
 		}
 	       
 	    }
+	@CrossOrigin
 	 @DeleteMapping("/{id}")
 	    public ResponseEntity<?> deleteCategory(@PathVariable(value = "id") Long id, @RequestHeader(value="role") String acceptHeader) throws NotFoundException {
 	        

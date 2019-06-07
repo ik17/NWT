@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,17 +32,17 @@ public class KorisnikPodaciController {
 	@Autowired
 	KorisnikPodaciRepository korisnikPodaciRepo;
 	
-	@PreAuthorize("hasAuthority('ROLE_AUTOR')")
+	@CrossOrigin
 	@GetMapping(value="")
     public List<KorisnikPodaci> getAll(@RequestHeader(value="role") String acceptHeader){
         return korisnikPodaciRepo.findAll();
     }
-	
+	@CrossOrigin
 	 @GetMapping("/{id}")
 	    public KorisnikPodaci getPodaciById(@PathVariable(value = "id") Long id, @RequestHeader(value="role") String acceptHeader) throws NotFoundException {
 	        return korisnikPodaciRepo.findById(id).orElseThrow(() -> new NotFoundException("korisnikPodaci with given id not found"));
 	    }
-	 
+	@CrossOrigin
 	 @PostMapping(value="")
 	    public KorisnikPodaci createPodaci(@RequestBody @Valid final KorisnikPodaci korisnikPodaci, Errors errors) throws Exception {
 
@@ -51,7 +52,7 @@ public class KorisnikPodaciController {
 
 	        return korisnikPodaciRepo.save(korisnikPodaci);
 	    }
-	 
+	@CrossOrigin
 	 @PutMapping("/{id}")
 	    public KorisnikPodaci updatePodaci(@PathVariable(value = "id") Long id,
 	                                               @RequestBody @Valid KorisnikPodaci korisnikPodaciUpdate,@RequestHeader(value="role") String acceptHeader, Errors errors) throws NotFoundException, Exception {
@@ -74,7 +75,7 @@ public class KorisnikPodaciController {
 	        korisnikPodaciUpdate = korisnikPodaciRepo.save(korisnikPodaci);
 	        return korisnikPodaciUpdate;
 	    }
-	 
+	@CrossOrigin
 	 @DeleteMapping("/{id}")
 	    public ResponseEntity<?> deletePodaci(@PathVariable(value = "id") Long id,@RequestHeader(value="role") String acceptHeader) throws NotFoundException {
 	        KorisnikPodaci korisnikPodaci = korisnikPodaciRepo.findById(id)

@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -78,7 +79,7 @@ public class ClanakController {
 		return response.getBody();
 		
 	}
-	
+	@CrossOrigin
 	@GetMapping(value="")
     public List<Clanak> getAll(@RequestHeader(value="role") String acceptHeader){
 		
@@ -93,7 +94,7 @@ public class ClanakController {
 		
         
     }
-	
+	@CrossOrigin
 	 @GetMapping("/{id}")
 	    public Clanak getClientById(@PathVariable(value = "id") Long id, @RequestHeader(value="role") String acceptHeader) throws NotFoundException {
 			if (acceptHeader.equals("ROLE_REVIEWER")) {
@@ -106,11 +107,13 @@ public class ClanakController {
 			}
 		 
 		 }
+	@CrossOrigin
 	 @GetMapping(value="/linkId/{id}")
 	    public String getLink(@PathVariable(value = "id") Long id) throws NotFoundException{
 	        //Clanak c =  cR.findById(id).orElseThrow(() -> new NotFoundException("Article with given id not found"));
 	        return aR.findLink(id);
 	 }
+	@CrossOrigin
 	 @GetMapping(value="/link/{name}")
 	    public String getLink2(@PathVariable(value = "name") String name) throws NotFoundException{
 	        //Clanak c =  cR.findById(id).orElseThrow(() -> new NotFoundException("Article with given id not found"));
@@ -120,6 +123,7 @@ public class ClanakController {
 				 
 				// cR.findById(id).orElseThrow(() -> new NotFoundException("Article with given id not found"));
 	 }
+	@CrossOrigin
 	 @PostMapping(value="")
 	    public Clanak createClanak(@RequestBody @Valid final Clanak clanak,@RequestHeader(value="role") String acceptHeader, Errors errors) throws Exception {
 
@@ -149,7 +153,7 @@ public class ClanakController {
 		}
 		 
 	    }
-	 
+	@CrossOrigin
 	 @PutMapping("/{id}")
 	    public Clanak updateClanak(@PathVariable(value = "id") Long id,
 	                                               @RequestBody @Valid Clanak clanakUpdated,@RequestHeader(value="role") String acceptHeader, Errors errors) throws NotFoundException, Exception {
@@ -195,6 +199,7 @@ public class ClanakController {
  
 	      
 	    }
+	@CrossOrigin
 	 @DeleteMapping("/{id}")
 	    public ResponseEntity<?> deleteClanak(@PathVariable(value = "id") Long id, @RequestHeader(value="role") String acceptHeader) throws NotFoundException {
 	        Clanak clanak = cR.findById(id)

@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,7 +43,7 @@ public class AVerzijaController {
 	ClanakRepository cR;
 	@Autowired
 	private DiscoveryClient discoveryClient;
-	
+	@CrossOrigin
 	@GetMapping(value="")
     public List<AVerzija> getAll(@RequestHeader(value="role") String acceptHeader){
 		
@@ -57,7 +58,7 @@ public class AVerzijaController {
 				throw new AccessDeniedException("nepravilna rola");
 		}
     }
-	
+	@CrossOrigin
 	 @GetMapping("/{id}")
 	    public AVerzija getVersionById(@PathVariable(value = "id") Long id, @RequestHeader(value="role") String acceptHeader) throws NotFoundException {
 		 if (acceptHeader.equals("ROLE_REVIEWER")) {
@@ -71,7 +72,7 @@ public class AVerzijaController {
 				throw new AccessDeniedException("nepravilna rola");
 		}	 
 		 }
-	 
+	@CrossOrigin
 	 @GetMapping("/prihvacen/{id}")
 	    public String prihvatiClanak(@PathVariable(value = "id") Long id, @RequestHeader(value="role") String acceptHeader) throws NotFoundException {
 	       
@@ -122,7 +123,7 @@ public class AVerzijaController {
 		}	     
 	        
 	 }
-	 
+	@CrossOrigin
 	 @PostMapping(value="")
 	    public AVerzija createVersion(@RequestBody @Valid final AVerzija verzija,@RequestHeader(value="role") String acceptHeader, Errors errors) throws Exception {
 
@@ -147,7 +148,7 @@ public class AVerzijaController {
 		}
 	       
 	    }
-	 
+	@CrossOrigin
 	 @PutMapping("/{id}")
 	    public AVerzija updateVersion(@PathVariable(value = "id") Long id,
 	                                               @RequestBody @Valid AVerzija verzijaUpdated,@RequestHeader(value="role") String acceptHeader, Errors errors) throws NotFoundException, Exception {
@@ -191,6 +192,7 @@ public class AVerzijaController {
 		 
 	        
 	    }
+	@CrossOrigin
 	 @DeleteMapping("/{id}")
 	    public ResponseEntity<?> deleteVersion(@PathVariable(value = "id") Long id, @RequestHeader(value="role") String acceptHeader) throws NotFoundException {
 	       

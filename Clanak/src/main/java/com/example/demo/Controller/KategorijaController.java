@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,6 +39,7 @@ public class KategorijaController {
 	KategorijaRepository kategorijaRepository;
 	@Autowired
 	private DiscoveryClient discoveryClient;
+	@CrossOrigin
 	@GetMapping(value = "")
 	public List<Kategorija> getAll(@RequestHeader(value="role") String acceptHeader){
 		
@@ -52,7 +54,7 @@ public class KategorijaController {
 		
 		
 	}
-	
+	@CrossOrigin
 	@GetMapping(value = "/{id}")
 	public Kategorija getCategoryById(@PathVariable(value = "id") Long id,@RequestHeader(value="role") String acceptHeader) throws NotFoundException {
 		if (acceptHeader.equals("ROLE_AUTOR")) {
@@ -65,7 +67,7 @@ public class KategorijaController {
 				throw new AccessDeniedException("nepravilna rola");
 			}
 	}
-	
+	@CrossOrigin
 	@PostMapping(value = "")
 	public Kategorija createCategory(@RequestBody @Valid final Kategorija kategorija,@RequestHeader(value="role") String acceptHeader, Errors errors) throws Exception {
 		
@@ -86,7 +88,7 @@ public class KategorijaController {
 		
 	
 	}
-	
+	@CrossOrigin
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteCategory(@PathVariable(value = "id") Long id, @RequestHeader(value="role") String acceptHeader)throws NotFoundException{
 		if (acceptHeader.equals("ROLE_AUTOR")) {
@@ -105,7 +107,7 @@ public class KategorijaController {
 		
 		
 	}
-	
+	@CrossOrigin
 	@PutMapping("/{id}")
 	public Kategorija updateCategory(@PathVariable(value = "id") Long id, @RequestBody @Valid Kategorija kategorijaUpdate,@RequestHeader(value="role") String acceptHeader, Errors errors) throws NotFoundException, Exception{
 		

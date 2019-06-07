@@ -5,9 +5,10 @@ import { User } from './user';
 import { Uloga } from './uloga';
 import { Podaci } from './podaci';
 import { LoginUser } from './loginUser';
+import { headersToString } from 'selenium-webdriver/http';
 
-//const baseUrl = environment.url + '/korisnikUI/';
-const baseUrl = environment.urlKorisnik;
+const baseUrl = environment.url + '/korisnikUI/';
+//const baseUrl = environment.urlKorisnik;
 
 const registerUrl = environment.url + '/users/signup';
 
@@ -30,7 +31,15 @@ export class KorisnikManagementService {
     });
   }
 
+
+  login(loginUser: LoginUser){
+    console.log(environment.url + '/token/generate-token');
+    console.log(loginUser);
+    return this.request('post', environment.url + '/token/generate-token',loginUser );
+  }
+
   register(loginUser: LoginUser) {
+    console.log(registerUrl);
     return this.request('post', registerUrl, loginUser);
   }
 

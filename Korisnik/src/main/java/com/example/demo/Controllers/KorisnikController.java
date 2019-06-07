@@ -24,6 +24,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -60,6 +61,7 @@ public class KorisnikController {
 	@Autowired
 	RabbitTemplate rabbitTemplate;
 	
+	@CrossOrigin
 	@GetMapping(value="/testAsync")
 	public String getResponse(){
 		//rabbitTemplate.convertAndSend(KorisnikApplication.topicExchangeName, "nwt.HistorijaClanak.korisnik", "1" + "IMEVELIKO");
@@ -67,22 +69,24 @@ public class KorisnikController {
 
 	}
 	//@PreAuthorize("hasAuthority('ROLE_AUTOR')")
+	@CrossOrigin
 	@GetMapping(value="/")
     public List<Korisnik> getAll(@RequestHeader(value="role") String acceptHeader, HttpServletRequest request){ 
       
 		return korisnikRepo.findAll();
     }
+	@CrossOrigin
 	@GetMapping(value="/getAllUsers")
     public List<Korisnik> getAllUsers(/*@RequestHeader(value="role") String acceptHeader, */HttpServletRequest request){ 
       
 		return korisnikRepo.findAll();
     }
-	
+	 @CrossOrigin
 	 @GetMapping("/{id}")
-	    public Korisnik getKorisnikById(@PathVariable(value = "id") Long id, @RequestHeader(value="role") String acceptHeader) throws NotFoundException {
-	        return korisnikRepo.findById(id).orElseThrow(() -> new NotFoundException("User with given id not found"));
+		public Korisnik getKorisnikById(@PathVariable(value = "id") Long id, @RequestHeader(value="role") String acceptHeader) throws NotFoundException {
+		return korisnikRepo.findById(id).orElseThrow(() -> new NotFoundException("User with given id not found"));
 	    }
-	 
+	 @CrossOrigin
 	 @PostMapping(value="")
 	    public Korisnik createKorisnik(@RequestBody @Valid final Korisnik korisnik, Errors errors) throws Exception {
 		 KorisnikPodaci kp = kPR.
@@ -145,7 +149,7 @@ public class KorisnikController {
 
 	        return korisnikRepo.save(korisnik);
 	    }
-	 
+	 @CrossOrigin
 	 @PutMapping("/{id}")
 	    public Korisnik updateKorisnik(@PathVariable(value = "id") Long id,
 	                                               @RequestBody @Valid Korisnik korisnikUpdate, @RequestHeader(value="role") String acceptHeader, Errors errors) throws NotFoundException, Exception {
@@ -222,7 +226,7 @@ public class KorisnikController {
 	        korisnikUpdate = korisnikRepo.save(korisnik);
 	        return korisnikUpdate;
 	    }
-	 
+	 @CrossOrigin
 	 @DeleteMapping("/{id}")
 	    public ResponseEntity<?> deleteKorisnik(@PathVariable(value = "id") Long id,@RequestHeader(value="role") String acceptHeader) throws NotFoundException {
 	        Korisnik korisnik = korisnikRepo.findById(id)
@@ -286,7 +290,7 @@ public class KorisnikController {
 
 	        return ResponseEntity.ok().build();
 	    }
-	 
+	 @CrossOrigin
 	 private static HttpEntity<?> getHeaders() throws IOException {
 			HttpHeaders headers = new HttpHeaders();
 			headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);

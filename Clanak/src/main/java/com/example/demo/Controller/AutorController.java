@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,7 +39,7 @@ public class AutorController {
 	@Autowired
 	KorisnikRepository korisnikRepository;
 	
-	//@PreAuthorize("hasRole('Autor')")
+	@CrossOrigin
 	@GetMapping(value = "")
 	public List<Autor> getAll(@RequestHeader(value="role") String acceptHeader){
 		 if (acceptHeader.equals("ROLE_AUTOR")) {
@@ -51,7 +52,7 @@ public class AutorController {
 			}
 		
 	}
-	
+	@CrossOrigin
 	@GetMapping(value = "/{id}")
 	public Autor getAuthorById(@PathVariable(value = "id") Long id,@RequestHeader(value="role") String acceptHeader) throws NotFoundException {
 		 if (acceptHeader.equals("ROLE_AUTOR")) {
@@ -65,7 +66,7 @@ public class AutorController {
 			}
 		
 		}
-	
+	@CrossOrigin
 	@PostMapping(value = "")
 	public Autor createAuthor(@RequestBody @Valid final Autor autor,@RequestHeader(value="role") String acceptHeader, Errors errors) throws Exception {
 		
@@ -91,7 +92,7 @@ public class AutorController {
 		
 		
 	}
-	
+	@CrossOrigin
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteVersion(@PathVariable(value = "id") Long id, @RequestHeader(value="role") String acceptHeader) throws NotFoundException{
 		 if (acceptHeader.equals("ROLE_AUTOR")) {
@@ -112,7 +113,7 @@ public class AutorController {
 		
 	
 	}
-	
+	@CrossOrigin
 	@PutMapping("/{id}")
 	public Autor updateAuthor(@PathVariable(value = "id") Long id, @RequestBody @Valid Autor autorUpdate,@RequestHeader(value="role") String acceptHeader, Errors errors) throws NotFoundException, Exception {
 		
