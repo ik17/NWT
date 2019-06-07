@@ -7,7 +7,7 @@ import { Clanak } from './clanak';
 import { Verzija } from './verzija';
 import { Korisnik } from './korisnik';
 
-const baseUrl = environment.url + '/historijaUI/';
+const baseUrl = environment.url + '/historijaUI';
 
 @Injectable({
   providedIn: 'root'

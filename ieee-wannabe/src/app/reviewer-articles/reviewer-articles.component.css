@@ -12,8 +12,15 @@
 }
 
 .datacontainer {
-    border-radius: 45px;
+    border-radius: 5px;
     background: #61896F;
     padding: 0.5%;
     margin-bottom: 2%;
 }
+.btn{
+    background-color:#6A6E71;
+    color: #87C232;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align:center;
+  }

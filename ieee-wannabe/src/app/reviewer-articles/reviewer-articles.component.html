@@ -1,8 +1,8 @@
 <div class="container-fluid">
     <div class="datacontainer" *ngFor='let clanak of clanci'>
-      <div class="row col-md-12 data">{{clanak.nazivClanka}}</div>
-      <div class="row col-md-12 data">{{clanak.autori}}</div>
-      <div class="row col-md-12 data">{{clanak.kategorija}}</div>
+      <div class="row col-md-12 data">{{clanak.naziv}}</div>
+
     </div>
+    <button class = "btn col-md-6 col-md-offset3"  (click)='prikazi()'>Prikazi</button>
   </div>
   
