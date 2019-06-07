@@ -46,6 +46,8 @@ export class LoginComponent implements OnInit {
     this.something = data;
     this.something.hasOwnProperty('token');
     console.log(this.something);
+    localStorage.setItem('id_token', data.token.toString());
+    console.log(localStorage.getItem("id_token"));
   }
 
 
