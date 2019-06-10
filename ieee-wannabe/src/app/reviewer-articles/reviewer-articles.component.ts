@@ -7,7 +7,7 @@ import { HistorijaService } from '../_services/historija-management/historija.se
   styleUrls: ['./reviewer-articles.component.css']
 })
 export class ReviewerArticlesComponent implements OnInit {
-  clanci = [];
+  clanci: any[];
   /*clanci: any[] = [ {"nazivClanka":"Clanak 1", "autori":"Autor1", "kategorija":"Kategorija 1"}, 
                     {"nazivClanka":"Clanak 2", "autori":"Autor2", "kategorija":"Kategorija 7"},
                     {"nazivClanka":"Clanak 3", "autori":"Autor 3", "kategorija":"Kategorija 3"},
@@ -26,7 +26,7 @@ export class ReviewerArticlesComponent implements OnInit {
 		const autoriData = await this.historijaManagement.autorByClanak(clanak.id);
 		clanak.autori = autoriData;
 	}
-    console.log(data);
+    
     /*if (data!=undefined && data._embedded!=undefined)
     {
       this.korisnici=data._embedded.userEntities;
@@ -35,6 +35,7 @@ export class ReviewerArticlesComponent implements OnInit {
     else this.korisnici=[]
   }*/
   this.clanci = data;
+  console.log(this.clanci);
 }
 
   prikazi() {
