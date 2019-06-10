@@ -62,6 +62,22 @@ public class AutorController {
 				throw new AccessDeniedException("nepravilna rola");
 			}
 		  }
+	
+	//get by id clanka
+	@CrossOrigin
+	 @GetMapping("/clanak/{id}")
+	    public List<Autor> getAutorByClanak(@PathVariable(value = "id") Long id, @RequestHeader(value="role") String acceptHeader) throws NotFoundException {
+			if (acceptHeader.equals("ROLE_REVIEWER")) {
+				 //ovdje pocetak
+				 return aR.findAutorByIdClanak(id); //.orElseThrow(() -> new NotFoundException("Nema clanaka sa nazivom "));
+				 //ovdje kraj
+			 }
+			else {	
+					throw new AccessDeniedException("nepravilna rola");
+			}
+		 
+		 }
+	
 	@CrossOrigin
 	 @PostMapping(value="")
 	    public Autor createAutor(@RequestBody @Valid final Autor autor, @RequestHeader(value="role") String acceptHeader,Errors errors) throws Exception {

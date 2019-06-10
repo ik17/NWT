@@ -1,5 +1,6 @@
 package com.example.demo.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
@@ -16,6 +17,10 @@ import com.example.demo.entity.Autor;
 @Repository
 public interface AutorRepository extends JpaRepository<Autor, Long> {
 	//Autor findById(int id);
+	
+	@Query(value = "SELECT * FROM autor WHERE id_clanaka_id = :id", 
+			  nativeQuery = true)
+			public List<Autor> findAutorByIdClanak(@Param("id") Long id);
 
 
 }
