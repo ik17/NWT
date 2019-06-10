@@ -17,10 +17,15 @@ export class ReviewerArticlesComponent implements OnInit {
   constructor(public historijaManagement: HistorijaService) { }
 
   ngOnInit() {
+	  //this.refreshClanci();
   }
 
-  async refreshUsers(){
+  async refreshClanci(){
     const data = await this.historijaManagement.AllClanak();
+	for (var clanak of data) {
+		const autoriData = await this.historijaManagement.autorByClanak(clanak.id);
+		clanak.autori = autoriData;
+	}
     console.log(data);
     /*if (data!=undefined && data._embedded!=undefined)
     {
@@ -33,7 +38,7 @@ export class ReviewerArticlesComponent implements OnInit {
 }
 
   prikazi() {
-   this.refreshUsers();
+   this.refreshClanci();
   }
 
 }

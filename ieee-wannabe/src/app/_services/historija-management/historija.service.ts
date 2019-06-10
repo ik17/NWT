@@ -117,6 +117,9 @@ export class HistorijaService {
   createAutor(user: Autori) {
     return this.request('post', baseUrl + '/autor');
   }
+  autorByClanak(id:number){
+	  return this.request('get', baseUrl + '/autor/clanak/'+ String(id));
+  }
 
 
 
