@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ClanakService } from '../_services/clanak-management/clanak.service';
 
 @Component({
   selector: 'app-article-search',
@@ -14,14 +15,29 @@ export class ArticleSearchComponent implements OnInit {
   filtriraniClanci: any[];
   filterText: string = "";
 
-  constructor() { }
+  constructor(public clanakManagement: ClanakService) { }
+
+  async refreshClanci(){
+    const data = await this.clanakManagement.allClanakByNaziv(this.filterText);
+    console.log(data);
+    /*if (data!=undefined && data._embedded!=undefined)
+    {
+      this.korisnici=data._embedded.userEntities;
+      console.log(this.korisnici);
+    }
+    else this.korisnici=[]
+  }*/
+  this.filtriraniClanci = data;
+}
 
   ngOnInit() {
-    this.filtriraniClanci = this.clanci;
+    //this.filtriraniClanci = this.clanci;
+    this.refreshClanci();
   }
 
   filtrirajClanke(): void {
-    this.filtriraniClanci= (this.filterText ? this.performFilter(this.filterText) : this.clanci);
+    this.refreshClanci();
+    //this.filtriraniClanci= (this.filterText ? this.performFilter(this.filterText) : this.clanci);
   }
 
   performFilter(filterBy: string): any[] {

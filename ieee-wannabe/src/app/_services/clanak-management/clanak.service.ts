@@ -38,6 +38,14 @@ export class ClanakService {
     });
   }
 
+  //servisi za pretragu 
+  allClanakByNaziv(naziv:string) {
+    return this.request('get', baseUrl + '/clanak/naziv/'+ naziv);
+  }
+  allClanakByKategorija(naziv:string) {
+    return this.request('get', baseUrl + '/clanak/kategorija/' + naziv);
+  }
+
 
   //korisnik
   AllUsers(){
@@ -105,6 +113,9 @@ export class ClanakService {
   }
   createAutor(user: Autor) {
     return this.request('post', baseUrl + '/autor');
+  }
+  autorByClanak(id:number) {
+    return this.request('get', baseUrl + '/autor/clanak/' + String(id));
   }
 
 
