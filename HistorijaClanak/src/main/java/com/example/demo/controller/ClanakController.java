@@ -79,6 +79,10 @@ public class ClanakController {
 		return response.getBody();
 		
 	}
+	
+	
+	
+	
 	@CrossOrigin
 	@GetMapping(value="")
     public List<Clanak> getAll(@RequestHeader(value="role") String acceptHeader){

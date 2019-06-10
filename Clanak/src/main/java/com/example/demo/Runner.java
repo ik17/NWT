@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.util.List;
+
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -46,19 +48,25 @@ public class Runner  implements CommandLineRunner {
     }
     @Override
     public void run(String... args) throws Exception {
-    	/*Korisnik k3 = new Korisnik("Korisnik");
+    	Korisnik k3 = new Korisnik("Korisnik");
 		Korisnik k32 = new Korisnik("Korisnik2");
 		Kategorija k = new Kategorija("kategorija");
 		Clanak c = new Clanak("naziv", k, true, k3);
 		Autor a = new Autor(c, k3);
+		Clanak c2 = new Clanak("naziv2", k, true, k3);
 		
 		Komentar k2 = new Komentar("komentar", c, k3);
 		korisnikRepository.save(k3);
 		korisnikRepository.save(k32);
 		kategorijaRepository.save(k);
 		clanakRepository.save(c);
+		clanakRepository.save(c2);
 		autorRepository.save(a);
-		komentarRepository.save(k2);*/
+		komentarRepository.save(k2);
+		List<Clanak> listaa = clanakRepository.findClanakByNaziv("naziv");
+		//System.out.println(listaa.isEmpty());
+		System.out.println(listaa.get(1).getNaziv());
+		//System.out.println(clanakRepository.findClanakByNaziv("naziv").get(1).getNaziv());
     	//System.out.println(ccC.getKorisnikFromKorisnik(1L));
 		//System.out.println("here");
 		

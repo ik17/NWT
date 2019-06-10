@@ -8,4 +8,6 @@ import com.example.demo.Entities.Autor;
 @Repository
 public interface AutorRepository extends JpaRepository<Autor, Long> {
 	
+	
+	
 }
