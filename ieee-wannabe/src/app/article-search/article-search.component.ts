@@ -35,6 +35,22 @@ export class ArticleSearchComponent implements OnInit {
   }*/
   this.filtriraniClanci = data;
 }
+  async refreshClanciPoKategoriji(){
+    const data = await this.clanakManagement.allClanakByKategorija(this.filterText);
+	for (var clanak of data) {
+		const autoriData = await this.clanakManagement.autorByClanak(clanak.id);
+		clanak.autori = autoriData;
+	}
+    console.log(data);
+    /*if (data!=undefined && data._embedded!=undefined)
+    {
+      this.korisnici=data._embedded.userEntities;
+      console.log(this.korisnici);
+    }
+    else this.korisnici=[]
+  }*/
+  this.filtriraniClanci = data;
+}
 
   ngOnInit() {
     //this.filtriraniClanci = this.clanci;
@@ -45,7 +61,10 @@ export class ArticleSearchComponent implements OnInit {
     this.refreshClanci();
     //this.filtriraniClanci= (this.filterText ? this.performFilter(this.filterText) : this.clanci);
   }
-
+filtrirajClankePoKategoriji(): void {
+    this.refreshClanciPoKategoriji();
+    //this.filtriraniClanci= (this.filterText ? this.performFilter(this.filterText) : this.clanci);
+  }
   performFilter(filterBy: string): any[] {
     filterBy = filterBy.toLocaleLowerCase();
     return this.clanci.filter((clanak: any) => 

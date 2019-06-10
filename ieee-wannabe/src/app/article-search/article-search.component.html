@@ -4,7 +4,8 @@
       <input type="text"
           [(ngModel)]='filterText' />
     </div>
-    <button class="btn btn-primary" (click)='filtrirajClanke()'>Search</button>
+    <button class="btn btn-primary" (click)='filtrirajClanke()'>Pretraga po nazivu</button>
+	<button class="btn btn-primary" (click)='filtrirajClankePoKategoriji()'>Pretraga po kategoriji</button>
   </div>
   
   <div class="datacontainer" *ngFor='let clanak of filtriraniClanci'>
