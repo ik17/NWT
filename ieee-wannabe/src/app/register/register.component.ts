@@ -54,7 +54,7 @@ export class RegisterComponent implements OnInit {
     console.log(this.Lu);
     const data =  this.register(this.Lu);
     console.log(data);
-    
+    this.closeModal();
   }
 
 }

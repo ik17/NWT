@@ -48,6 +48,7 @@ export class LoginComponent implements OnInit {
     console.log(this.something);
     localStorage.setItem('id_token', data.token.toString());
     console.log(localStorage.getItem("id_token"));
+    this.closeModal();
   }
 
 
