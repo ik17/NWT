@@ -23,6 +23,10 @@ export class HeaderComponent implements OnInit {
       console.log(error);
     });
   }
+  logout() {
+    localStorage.removeItem("id_token");
+    console.log(localStorage.getItem("id_token"));
+  }
   openRegister() {
     const modalRef = this.modalService.open(RegisterComponent);
     modalRef.result.then((result) => {
