@@ -13,12 +13,18 @@ export class ArticleSearchComponent implements OnInit {
                     {"nazivClanka":"Clanak 3", "autori":"Autor 3", "kategorija":"Kategorija 3"},
                     {"nazivClanka":"Clanak 4", "autori":"Autor 17", "kategorija":"Kategorija 9"} ]; 
   filtriraniClanci: any[];
+  listaAutora: any[];
   filterText: string = "";
+  
 
   constructor(public clanakManagement: ClanakService) { }
 
   async refreshClanci(){
     const data = await this.clanakManagement.allClanakByNaziv(this.filterText);
+	for (var clanak of data) {
+		const autoriData = await this.clanakManagement.autorByClanak(clanak.id);
+		clanak.autori = autoriData;
+	}
     console.log(data);
     /*if (data!=undefined && data._embedded!=undefined)
     {
