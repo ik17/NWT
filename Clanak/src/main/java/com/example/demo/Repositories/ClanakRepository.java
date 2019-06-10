@@ -23,6 +23,10 @@ public interface ClanakRepository extends JpaRepository<Clanak, Long>{
 	@Query(value = "SELECT * FROM clanak WHERE naziv LIKE CONCAT('%',:naziv,'%')", 
 	  nativeQuery = true)
 	public List<Clanak> findClanakByNaziv(@Param("naziv") String naziv);
+	
+	@Query(value = "SELECT * FROM clanak c, kategorija k WHERE c.kategorija_id = k.id and k.naziv LIKE CONCAT('%',:naziv,'%')", 
+			  nativeQuery = true)
+			public List<Clanak> findClanakByKategorija(@Param("naziv") String naziv);
 
 	
 }

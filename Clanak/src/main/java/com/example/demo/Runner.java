@@ -51,17 +51,23 @@ public class Runner  implements CommandLineRunner {
     	Korisnik k3 = new Korisnik("Korisnik");
 		Korisnik k32 = new Korisnik("Korisnik2");
 		Kategorija k = new Kategorija("kategorija");
+		Kategorija k2222 = new Kategorija("kategorija2");
+		Kategorija k3333 = new Kategorija("kategor");
 		Clanak c = new Clanak("naziv", k, true, k3);
 		Autor a = new Autor(c, k3);
 		Autor a2 = new Autor(c, k32);
 		Clanak c2 = new Clanak("naziv2", k, true, k3);
+		Clanak c3 = new Clanak("naziv3", k3333, true, k3);
 		
 		Komentar k2 = new Komentar("komentar", c, k3);
 		korisnikRepository.save(k3);
 		korisnikRepository.save(k32);
 		kategorijaRepository.save(k);
+		kategorijaRepository.save(k2222);
+		kategorijaRepository.save(k3333);
 		clanakRepository.save(c);
 		clanakRepository.save(c2);
+		clanakRepository.save(c3);
 		autorRepository.save(a);
 		autorRepository.save(a2);
 		komentarRepository.save(k2);

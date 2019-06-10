@@ -117,6 +117,21 @@ public class ClanakController {
 			 
 			 }
 		
+		//get by name
+				@CrossOrigin
+				 @GetMapping("/kategorija/{naziv}")
+				    public List<Clanak> getClanakByKategorija(@PathVariable(value = "naziv") String naziv, @RequestHeader(value="role") String acceptHeader) throws NotFoundException {
+						if (acceptHeader.equals("ROLE_AUTOR")) {
+							 //ovdje pocetak
+							 return clanakRepository.findClanakByKategorija(naziv); //.orElseThrow(() -> new NotFoundException("Nema clanaka sa nazivom "));
+							 //ovdje kraj
+						 }
+						else {	
+								throw new AccessDeniedException("nepravilna rola");
+						}
+					 
+					 }
+		
 	
 	@CrossOrigin
 	@GetMapping(value = "/link/{naziv}")
