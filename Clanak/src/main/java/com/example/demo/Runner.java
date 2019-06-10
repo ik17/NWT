@@ -53,6 +53,7 @@ public class Runner  implements CommandLineRunner {
 		Kategorija k = new Kategorija("kategorija");
 		Clanak c = new Clanak("naziv", k, true, k3);
 		Autor a = new Autor(c, k3);
+		Autor a2 = new Autor(c, k32);
 		Clanak c2 = new Clanak("naziv2", k, true, k3);
 		
 		Komentar k2 = new Komentar("komentar", c, k3);
@@ -62,10 +63,14 @@ public class Runner  implements CommandLineRunner {
 		clanakRepository.save(c);
 		clanakRepository.save(c2);
 		autorRepository.save(a);
+		autorRepository.save(a2);
 		komentarRepository.save(k2);
 		List<Clanak> listaa = clanakRepository.findClanakByNaziv("naziv");
+		List<Autor> lista2 = autorRepository.findAutorByIdClanak(c.getId());
 		//System.out.println(listaa.isEmpty());
-		System.out.println(listaa.get(1).getNaziv());
+		//System.out.println(listaa.get(1).getNaziv());
+		//System.out.println(lista2.get(0).getKorisnik().getUsername());
+		//System.out.println(lista2.get(1).getKorisnik().getUsername());
 		//System.out.println(clanakRepository.findClanakByNaziv("naziv").get(1).getNaziv());
     	//System.out.println(ccC.getKorisnikFromKorisnik(1L));
 		//System.out.println("here");
