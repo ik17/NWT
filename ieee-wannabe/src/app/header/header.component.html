@@ -6,8 +6,8 @@
         
         <a class="navbar-brand" href="#" (click)="openRegister()" style="padding-left:1%">Register	</a> 
         <img src="https://i.imgur.com/wmLzN5m.png" style="width:5%"/>
-        <a class="navbar-brand" href="#" (click)="openLogin()" style="padding-left:1%">Log In	</a> 
-        <a class="navbar-brand" href="#" (click)="logout()" style="padding-left:1%">Log Out</a> 
+        <a *ngIf = "!loggedIn" class="navbar-brand" href="#" (click)="openLogin()" style="padding-left:1%">Log In	</a> 
+        <a *ngIf = "loggedIn" class="navbar-brand" href="#" (click)="logout()" style="padding-left:1%">Log Out</a> 
       </div>
     
 </nav>

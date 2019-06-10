@@ -18,6 +18,8 @@ import { ArticleSearchComponent } from './article-search/article-search.componen
 import { ReviewerArticlesComponent } from './reviewer-articles/reviewer-articles.component';
 import { RegisterComponent } from './register/register.component';
 import { UserViewComponent } from './user-view/user-view.component';
+import { HomeComponent } from './home/home.component';
+import { RouteGuardService } from './_services/route-guard.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { UserViewComponent } from './user-view/user-view.component';
     ArticleSearchComponent,
     ReviewerArticlesComponent,
     RegisterComponent,
-    UserViewComponent
+    UserViewComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -40,9 +43,14 @@ import { UserViewComponent } from './user-view/user-view.component';
     NgbModule, 
     HttpClientModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule.forRoot([
+      { path: 'home', component: HomeComponent, pathMatch: 'full'}, 
+      { path: '', component: HomeComponent},
+      { path: 'rewiever', component: ReviewerArticlesComponent, canActivate: [RouteGuardService], data:{expectedRole:'ROLE_REVIEWER'}},
+      { path: 'author', component: ArticleSearchComponent, canActivate: [RouteGuardService], data:{expectedRole:'ROLE_AUTOR'}}
+    ])
   ],
-  providers: [NgbActiveModal, {provide: APP_BASE_HREF, useValue: '/'}],
+  providers: [NgbActiveModal, {provide: APP_BASE_HREF, useValue: '/'}, RouteGuardService],
   bootstrap: [AppComponent],
   entryComponents: [LoginComponent,RegisterComponent],
   exports: [LoginComponent,RegisterComponent]
