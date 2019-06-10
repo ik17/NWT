@@ -26,14 +26,8 @@ export class ArticleSearchComponent implements OnInit {
 		clanak.autori = autoriData;
 	}
     console.log(data);
-    /*if (data!=undefined && data._embedded!=undefined)
-    {
-      this.korisnici=data._embedded.userEntities;
-      console.log(this.korisnici);
-    }
-    else this.korisnici=[]
-  }*/
-  this.filtriraniClanci = data;
+    this.filtriraniClanci = data;
+    console.log(this.filtriraniClanci);
 }
   async refreshClanciPoKategoriji(){
     const data = await this.clanakManagement.allClanakByKategorija(this.filterText);
@@ -42,14 +36,8 @@ export class ArticleSearchComponent implements OnInit {
 		clanak.autori = autoriData;
 	}
     console.log(data);
-    /*if (data!=undefined && data._embedded!=undefined)
-    {
-      this.korisnici=data._embedded.userEntities;
-      console.log(this.korisnici);
-    }
-    else this.korisnici=[]
-  }*/
-  this.filtriraniClanci = data;
+    this.filtriraniClanci = data;
+    console.log(this.filtriraniClanci);
 }
 
   ngOnInit() {

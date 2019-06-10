@@ -20,6 +20,8 @@ import { RegisterComponent } from './register/register.component';
 import { UserViewComponent } from './user-view/user-view.component';
 import { HomeComponent } from './home/home.component';
 import { RouteGuardService } from './_services/route-guard.service';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireStorageModule } from 'angularfire2/storage';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,17 @@ import { RouteGuardService } from './_services/route-guard.service';
       { path: '', component: HomeComponent},
       { path: 'rewiever', component: ReviewerArticlesComponent, canActivate: [RouteGuardService], data:{expectedRole:'ROLE_REVIEWER'}},
       { path: 'author', component: ArticleSearchComponent, canActivate: [RouteGuardService], data:{expectedRole:'ROLE_AUTOR'}}
-    ])
+    ]),
+    AngularFireModule.initializeApp({
+      apiKey: "AIzaSyClLu1OVmdBGfibByLFjuKd-oinPqwmgts",
+      authDomain: "attempt2-7ac81.firebaseapp.com",
+      storageBucket: "gs://attempt2-7ac81.appspot.com",
+      databaseURL: "https://attempt2-7ac81.firebaseio.com",
+      projectId: "attempt2-7ac81",
+      messagingSenderId: "287123270237",
+    appId: "1:287123270237:web:8305860c51685048"
+    }),
+    AngularFireStorageModule
   ],
   providers: [NgbActiveModal, {provide: APP_BASE_HREF, useValue: '/'}, RouteGuardService],
   bootstrap: [AppComponent],
