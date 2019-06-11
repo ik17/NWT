@@ -50,6 +50,10 @@ export class ArticleReviewComponent implements OnInit {
   //this.clanci = data;
   //console.log(this.clanci);
 }
+async saljiClanak(){
+	const data = await this.historijaManagement.posaljiClanak(this.idVerzije);
+	console.log(data);
+}
 
   showAuthors(): string {
     return this.autori.join(", ");

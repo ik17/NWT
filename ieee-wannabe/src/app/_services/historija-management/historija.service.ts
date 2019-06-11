@@ -51,7 +51,7 @@ export class HistorijaService {
     return this.request('delete',baseUrl+'/korisnik/'+String(id))
   }
   createUser(user: Korisnik) {
-    return this.request('post', baseUrl + '/korisnik');
+    return this.request('post', baseUrl + '/korisnik',user);
   }
   //kategorija
   AllKategorija(){
@@ -67,7 +67,7 @@ export class HistorijaService {
     return this.request('delete',baseUrl+'/kategorija/'+String(id))
   }
   createKategorija(user: Kategorija) {
-    return this.request('post', baseUrl + '/kategorija');
+    return this.request('post', baseUrl + '/kategorija',user);
   }
   //clanak
   AllClanak(){
@@ -83,7 +83,7 @@ export class HistorijaService {
     return this.request('delete',baseUrl+'/clanak/'+String(id))
   }
   createClanak(user: Clanak) {
-    return this.request('post', baseUrl + '/clanak');
+    return this.request('post', baseUrl + '/clanak',user);
   }
   //verzija
   AllVerzija(){
@@ -99,7 +99,10 @@ export class HistorijaService {
     return this.request('delete',baseUrl+'/verzija/'+String(id))
   }
   createVerzija(user: Verzija) {
-    return this.request('post', baseUrl + '/verzija');
+    return this.request('post', baseUrl + '/verzija',user);
+  }
+  posaljiClanak(id:number){
+	  return this.request('get', baseUrl + '/verzija/prihvacen/'+ String(id));
   }
   //autori
   AllAutor(){
@@ -115,7 +118,7 @@ export class HistorijaService {
     return this.request('delete',baseUrl+'/autor/'+String(id))
   }
   createAutor(user: Autori) {
-    return this.request('post', baseUrl + '/autor');
+    return this.request('post', baseUrl + '/autor',user);
   }
   autorByClanak(id:number){
 	  return this.request('get', baseUrl + '/autor/clanak/'+ String(id));
