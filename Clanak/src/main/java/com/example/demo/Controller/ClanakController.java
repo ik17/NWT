@@ -217,6 +217,7 @@ public class ClanakController {
 			clanak.setKategorija(clanakUpdate.getKategorija());
 			clanak.setNaziv(clanakUpdate.getNaziv());
 			clanak.setOdobrioClanak(clanakUpdate.getOdobrioClanak());
+			clanak.setLinkNaClanak(clanakUpdate.getLinkNaClanak());
 			
 			clanakUpdate = clanakRepository.save(clanak);
 			return clanakUpdate;

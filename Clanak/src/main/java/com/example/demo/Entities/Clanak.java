@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -49,14 +50,19 @@ public class Clanak {
 	@OneToMany(mappedBy = "clanak", cascade = CascadeType.ALL)
 	private Set<Autor> autori;
 	
+	@Size(min = 10, message = "The length of link must be min 10 characters!")
+	@NotEmpty 
+	private String linkNaClanak;
+	
 	public Clanak() {
 		
 	}
 	
-	public Clanak(String naziv, Kategorija kategorija, Boolean odobren, Komentar[] komentari, Autor...autori) {
+	public Clanak(String naziv, Kategorija kategorija, Boolean odobren, String linkNaClanak, Komentar[] komentari, Autor...autori) {
 		this.naziv = naziv;
 		this.kategorija = kategorija;
 		this.clanakOdobren = odobren;
+		this.linkNaClanak = linkNaClanak;
 		this.komentari = Stream.of(komentari).collect(Collectors.toSet());
 		this.komentari.forEach(x -> x.setClanak(this));
 		this.autori = Stream.of(autori).collect(Collectors.toSet());
@@ -90,6 +96,14 @@ public class Clanak {
 		return clanakOdobren;
 	}
 
+	public String getLinkNaClanak() {
+		return linkNaClanak;
+	}
+
+	public void setLinkNaClanak(String linkNaClanak) {
+		this.linkNaClanak = linkNaClanak;
+	}
+
 	public void setClanakOdobren(boolean clanakOdobren) {
 		this.clanakOdobren = clanakOdobren;
 	}
@@ -103,11 +117,12 @@ public class Clanak {
 	}
 
 	public Clanak(String naziv, Kategorija kategorija,
-			boolean clanakOdobren, Korisnik odobrioClanak) {
+			boolean clanakOdobren, Korisnik odobrioClanak, String linkNaClanak) {
 		this.naziv = naziv;
 		this.kategorija = kategorija;
 		this.clanakOdobren = clanakOdobren;
 		this.odobrioClanak = odobrioClanak;
+		this.linkNaClanak = linkNaClanak;
 	}
 	
 }

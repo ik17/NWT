@@ -89,7 +89,7 @@ public class AVerzijaController {
 		             
 		        if(instances.isEmpty()) return "ne radi servis";
 				ServiceInstance serviceInstance=instances.get(0);
-					
+				String linkNaClanak = v1.getLink();
 				String baseUrl=serviceInstance.getUri().toString()+ "/clanak/"; //+id.toString();
 				System.out.println(baseUrl);
 				String naziv = c1.get().getNaziv();
@@ -98,7 +98,7 @@ public class AVerzijaController {
 				String imeKorisnik = c1.get().getOdobrioClanak().getUsername();
 				Long idKategorije = c1.get().getIdKategorije().getId();
 				String nazivKategorije = c1.get().getIdKategorije().getNaziv();
-				String requestJson = "{\"naziv\":\"" + naziv + "\",\"clanakOdobren\":\"" + clanakOdobren + "\",\"odobrioClanak\":"+ "{\"id\":\"" + idKorisnik + "\",\"username\":\"" + imeKorisnik + "\"},\"kategorija\":" + "{\"id\":\"" + idKategorije + "\",\"naziv\":\"" + nazivKategorije + "\"}}"; 
+				String requestJson = "{\"naziv\":\"" + naziv + "\",\"clanakOdobren\":\"" + clanakOdobren + "\",\"odobrioClanak\":"+ "{\"id\":\"" + idKorisnik + "\",\"username\":\"" + imeKorisnik + "\"},\"kategorija\":" + "{\"id\":\"" + idKategorije + "\",\"naziv\":\"" + nazivKategorije + "\"},\"linkNaClanak\":\"" + linkNaClanak + "\"}"; 
 				System.out.println(requestJson);
 				HttpHeaders headers = new HttpHeaders();
 				headers.setContentType(MediaType.APPLICATION_JSON);

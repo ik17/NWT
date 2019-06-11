@@ -7,4 +7,5 @@ export class Clanak {
     kategorija : Kategorija;
     clanakOdobren : number;
     odobrioClanak : Korisnik;
+    linkNaClanak : string;
 }

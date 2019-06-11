@@ -33,7 +33,7 @@ export class ArticleReviewComponent implements OnInit {
 	this.nazivClanka = data.idClanak.naziv;
 	this.kategorija = data.idClanak.idKategorije.naziv;
 	this.urlZaPreuzimanje = data.linkNaClanak;
-	this.vverzijaClanka = data.verzijaClanka;
+	this.verzijaClanka = data.verzijaClanka;
 	this.komentar = data.reviewVerzije;
 	
 	const autoriData = await this.historijaManagement.autorByClanak(data.idClanak.id);
