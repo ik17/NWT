@@ -51,6 +51,20 @@ public class KomentarController {
 		
 		
 	}
+	//get by id clanka
+		@CrossOrigin
+		 @GetMapping("/clanak/{id}")
+		    public List<Komentar> getKomentarByClanak(@PathVariable(value = "id") Long id, @RequestHeader(value="role") String acceptHeader) throws NotFoundException {
+				if (acceptHeader.equals("ROLE_AUTOR")) {
+					 //ovdje pocetak
+					 return komentarRepository.findKomentarByIdClanak(id); //.orElseThrow(() -> new NotFoundException("Nema clanaka sa nazivom "));
+					 //ovdje kraj
+				 }
+				else {	
+						throw new AccessDeniedException("nepravilna rola");
+				}
+			 
+			 }
 	@CrossOrigin
 	@GetMapping(value = "/{id}")
 	public Komentar getCommentById(@PathVariable(value = "id") Long id, @RequestHeader(value="role") String acceptHeader) throws NotFoundException {
