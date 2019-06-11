@@ -135,6 +135,9 @@ export class ClanakService {
   createKomentar(user: Komentar) {
     return this.request('post', baseUrl + '/komentar');
   }
+  komentarByClanak(id:number) {
+	  return this.request('get', baseUrl+ '/komentar/clanak/' + String(id));
+  }
 
 
 
