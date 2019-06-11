@@ -22,6 +22,8 @@ import { HomeComponent } from './home/home.component';
 import { RouteGuardService } from './_services/route-guard.service';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireStorageModule } from 'angularfire2/storage';
+import { SubmitClanakComponent } from './submit-clanak/submit-clanak.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
     ReviewerArticlesComponent,
     RegisterComponent,
     UserViewComponent,
-    HomeComponent
+    HomeComponent,
+    SubmitClanakComponent
   ],
   imports: [
     BrowserModule,
@@ -45,6 +48,7 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
     NgbModule, 
     HttpClientModule,
     ReactiveFormsModule,
+	NgMultiSelectDropDownModule.forRoot(),
     RouterModule.forRoot([
       { path: 'home', component: HomeComponent, pathMatch: 'full'}, 
       { path: '', component: HomeComponent},
