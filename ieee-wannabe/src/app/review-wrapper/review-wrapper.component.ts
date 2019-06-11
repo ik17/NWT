@@ -2,13 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Clanak } from '../_services/clanak-management/clanak';
 import { ClanakService } from '../_services/clanak-management/clanak.service';
-
+import { Komentar } from '../_services/clanak-management/komentar';
+import * as jwt_decode from "jwt-decode";
 @Component({
   selector: 'app-review-wrapper',
   templateUrl: './review-wrapper.component.html',
   styleUrls: ['./review-wrapper.component.css']
 })
 export class ReviewWrapperComponent implements OnInit {
+	Komentar1 : any;
 	idClanka: number = 1;
   clanak: Clanak;
   nazivClanka: string = "Članak 1";
@@ -28,7 +30,11 @@ export class ReviewWrapperComponent implements OnInit {
 	this.idClanka = id;
 	this.refreshClanak();
   }
-  
+  async sendClanak() {
+	  console.log(this.komentar);
+	  this.Komentar1 = new Komentar(this.komentar);
+	  //const odg = await this.clanakManagement
+  }
   async refreshClanak(){
     const data = await this.clanakManagement.oneClanak(this.idClanka);
 	this.nazivClanka = data.naziv;
