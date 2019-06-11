@@ -4,9 +4,15 @@
     <div class = "data"> {{nazivClanka}} </div>
   </div>
   
+    <div class="row col-md-12">
+    <div>Verzija članka: </div>
+    <div class = "data"> {{verzijaClanka}} </div>
+  </div>
+  
   <div class="row col-md-12">
     <div>Autori članka: </div>
-    <div class = "data"> {{showAuthors()}} </div>
+     <div class="row col-md-12 data" *ngFor='let autor of autori'>{{autor.idKorisnik?.username}}</div>
+    
   </div>
 
   <div class="row col-md-12">

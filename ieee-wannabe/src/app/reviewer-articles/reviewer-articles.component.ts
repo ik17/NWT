@@ -22,9 +22,11 @@ export class ReviewerArticlesComponent implements OnInit {
   }
 
   async refreshClanci(){
-    const data = await this.historijaManagement.AllClanak();
+	  const data = await this.historijaManagement.AllVerzija();
+	 
+    //const data = await this.historijaManagement.AllClanak();
 	for (var clanak of data) {
-		const autoriData = await this.historijaManagement.autorByClanak(clanak.id);
+		const autoriData = await this.historijaManagement.autorByClanak(clanak.idClanak.id);
 		clanak.autori = autoriData;
 	}
     
