@@ -38,6 +38,11 @@ export class ClanakService {
     });
   }
 
+  //link
+  
+  getLink(naziv:string) {
+	  return this.request('get', baseUrl + '/clanak/link/' + naziv);
+  }
   //servisi za pretragu 
   allClanakByNaziv(naziv:string) {
     return this.request('get', baseUrl + '/clanak/naziv/'+ naziv);

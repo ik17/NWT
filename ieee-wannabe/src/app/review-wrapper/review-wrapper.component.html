@@ -6,7 +6,7 @@
     
     <div class="row col-md-12">
       <div>Autori članka: </div>
-      <div class = "data"> {{showAuthors()}} </div>
+       <div class="data" *ngFor='let autor of autori'>{{autor.korisnik?.username}}</div>
     </div>
   
     <div class="row col-md-12">
@@ -38,8 +38,8 @@
           </thead>
           <tbody>
               <tr *ngFor='let komentar of komentari'>
-                  <td>{{ komentar.korisnik }}</td>
-                  <td>{{ komentar.tekst }}</td>
+                  <td>{{ komentar.korisnik?.username }}</td>
+                  <td>{{ komentar.textKomentara }}</td>
               </tr>
           </tbody>
       </table>
