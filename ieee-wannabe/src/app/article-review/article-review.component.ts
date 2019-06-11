@@ -60,6 +60,7 @@ async saljiClanak(){
   }
 
   onClickPrihvati(): void {
+	  this.saljiClanak();
     alert("Pritisnut je button Prihvati");
   }
 
