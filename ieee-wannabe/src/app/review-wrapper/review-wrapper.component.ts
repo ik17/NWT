@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Clanak } from '../_services/clanak-management/clanak';
 import { ClanakService } from '../_services/clanak-management/clanak.service';
 import { Komentar } from '../_services/clanak-management/komentar';
+import { Korisnik } from '../_services/clanak-management/korisnik';
 import * as jwt_decode from "jwt-decode";
 @Component({
   selector: 'app-review-wrapper',
@@ -30,10 +31,19 @@ export class ReviewWrapperComponent implements OnInit {
 	this.idClanka = id;
 	this.refreshClanak();
   }
+  posaljiKomentar() {
+	  this.sendClanak();
+  }
   async sendClanak() {
 	  console.log(this.komentar);
-	  this.Komentar1 = new Komentar(this.komentar);
-	  //const odg = await this.clanakManagement
+	  const dataClanak = await this.clanakManagement.oneClanak(this.idClanka);
+	const dataKorisnik = await this.clanakManagement.oneUser(jwt_decode(localStorage.getItem("id_token")).id);
+	
+	  this.Komentar1 = new Komentar(this.komentar, dataClanak, dataKorisnik );
+	  const odg = await this.clanakManagement.createKomentar(this.Komentar1);
+	  console.log(odg);
+	  const komentariData = await this.clanakManagement.komentarByClanak(this.idClanka);
+	this.komentari = komentariData;
   }
   async refreshClanak(){
     const data = await this.clanakManagement.oneClanak(this.idClanka);

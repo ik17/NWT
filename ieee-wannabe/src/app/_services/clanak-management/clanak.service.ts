@@ -66,7 +66,7 @@ export class ClanakService {
     return this.request('delete',baseUrl+'/korisnik/'+String(id))
   }
   createUser(user: Korisnik) {
-    return this.request('post', baseUrl + '/korisnik');
+    return this.request('post', baseUrl + '/korisnik',user);
   }
 
   //kategorija
@@ -83,7 +83,7 @@ export class ClanakService {
     return this.request('delete',baseUrl+'/kategorija/'+String(id))
   }
   createKategorija(user: Kategorija) {
-    return this.request('post', baseUrl + '/kategorija');
+    return this.request('post', baseUrl + '/kategorija', user);
   }
 
   //clanak
@@ -100,7 +100,7 @@ export class ClanakService {
     return this.request('delete',baseUrl+'/clanak/'+String(id))
   }
   createClanak(user: Clanak) {
-    return this.request('post', baseUrl + '/clanak');
+    return this.request('post', baseUrl + '/clanak',user);
   }
 
   //autori
@@ -117,7 +117,7 @@ export class ClanakService {
     return this.request('delete',baseUrl+'/autor/'+String(id))
   }
   createAutor(user: Autor) {
-    return this.request('post', baseUrl + '/autor');
+    return this.request('post', baseUrl + '/autor',user);
   }
   autorByClanak(id:number) {
     return this.request('get', baseUrl + '/autor/clanak/' + String(id));
@@ -138,7 +138,7 @@ export class ClanakService {
     return this.request('delete',baseUrl+'/komentar/'+String(id))
   }
   createKomentar(user: Komentar) {
-    return this.request('post', baseUrl + '/komentar');
+    return this.request('post', baseUrl + '/komentar',user);
   }
   komentarByClanak(id:number) {
 	  return this.request('get', baseUrl+ '/komentar/clanak/' + String(id));

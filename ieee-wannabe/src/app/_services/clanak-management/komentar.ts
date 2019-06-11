@@ -6,4 +6,12 @@ export class Komentar {
     textKomentara: string;
     clanak: Clanak;
     korisnik: Korisnik;
+	
+	constructor(textKomentara, clanak, korisnik ) {
+        this.textKomentara = textKomentara;
+        this.clanak = clanak;
+        this.korisnik = korisnik;
+    
+    }
+	
 }
