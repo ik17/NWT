@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -117,6 +118,8 @@ public class ClanakController {
 			 
 			 }
 		
+		
+
 		//get by name
 				@CrossOrigin
 				 @GetMapping("/kategorija/{naziv}")
@@ -152,6 +155,17 @@ public class ClanakController {
 		}
 		System.out.println(response.getBody());
 		return response.getBody();
+	}
+	@CrossOrigin
+	@GetMapping(value = "/authorId/{id}")
+	public List<Clanak> getByAuthorId(@PathVariable("id") int id, @RequestHeader(value="role") String acceptHeader)throws NotFoundException{
+		if (acceptHeader.equals("ROLE_AUTOR") || acceptHeader.equals("ROLE_REVIEWER")) {
+			 return clanakRepository.getByAuthor(id); //.orElseThrow(() -> new NotFoundException("Nema clanaka sa nazivom "));
+			 //ovdje kraj
+		 }
+		else {	
+				throw new AccessDeniedException("nepravilna rola");
+		}
 	}
 	@CrossOrigin
 	@PostMapping(value = "")
@@ -229,6 +243,8 @@ public class ClanakController {
 		
 		
 	} 
+	
+	
 	 private static HttpEntity<?> getHeaders() throws IOException {
 			HttpHeaders headers = new HttpHeaders();
 			headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);

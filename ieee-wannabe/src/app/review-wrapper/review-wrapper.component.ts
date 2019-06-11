@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Clanak } from '../_services/clanak-management/clanak';
 import { ClanakService } from '../_services/clanak-management/clanak.service';
 import { Komentar } from '../_services/clanak-management/komentar';
@@ -23,7 +23,9 @@ export class ReviewWrapperComponent implements OnInit {
                        { "korisnik":"user2", tekst:"a ovo je moj komentar na ovo"},            
                        { "korisnik":"user123", tekst:"slazem se sa user1"} ];
 
-  constructor(public clanakManagement: ClanakService, private route: ActivatedRoute) { }
+  constructor(public clanakManagement: ClanakService, 
+    private route: ActivatedRoute,
+    public router: Router) { }
 
   ngOnInit() {
     const id = +this.route.snapshot.paramMap.get('id');
@@ -53,19 +55,21 @@ export class ReviewWrapperComponent implements OnInit {
 	
 	//this.komentar = data.reviewVerzije;
 	
-	const autoriData = await this.clanakManagement.autorByClanak(data.id);
+  const autoriData = await this.clanakManagement.autorByClanak(data.id);
+  console.log(autoriData);
 	this.autori = autoriData;
 	
 	// komentari
 	const komentariData = await this.clanakManagement.komentarByClanak(data.id);
 	this.komentari = komentariData;
-	
-    
    
 }
 
   showAuthors(): string {
     return this.autori.join(", ");
   }
-
+  openUser(id:number){
+    console.log(id);
+    this.router.navigate(['/usera/' + id.toString()]);
+  }
 }

@@ -143,7 +143,9 @@ export class ClanakService {
   komentarByClanak(id:number) {
 	  return this.request('get', baseUrl+ '/komentar/clanak/' + String(id));
   }
-
+  getArticleByAuthorId(id:number){
+    return this.request('get', baseUrl+ '/clanak/authorId/' + String(id));
+  }
 
 
 

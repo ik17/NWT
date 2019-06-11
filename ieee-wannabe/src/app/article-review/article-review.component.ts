@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Clanak } from '../_services/historija-management/clanak';
 import { HistorijaService } from '../_services/historija-management/historija.service';
 
@@ -18,7 +18,9 @@ export class ArticleReviewComponent implements OnInit {
   komentar: string = "";
   idVerzije = -1;
 
-  constructor(public historijaManagement: HistorijaService,private route: ActivatedRoute) { }
+  constructor(public historijaManagement: HistorijaService, 
+    private route: ActivatedRoute, 
+    public router: Router) { }
   
 
   ngOnInit() {
@@ -67,5 +69,8 @@ async saljiClanak(){
   onClickOdbij(): void {
     alert("Pritisnut je button Odbij");
   }
-
+  openUser(id:number){
+    console.log(id);
+    this.router.navigate(['/userr/' + id.toString()]);
+  }
 }

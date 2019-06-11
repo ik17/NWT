@@ -11,7 +11,12 @@
   
   <div class="row col-md-12">
     <div>Autori članka: </div>
-     <div class="row col-md-12 data" *ngFor='let autor of autori'>{{autor.idKorisnik?.username}}</div>
+     <div class="row col-md-12 data" *ngFor='let autor of autori'>
+       <div class="container" (click)="openUser(autor.idKorisnik.id)">
+          {{autor.idKorisnik?.username}}
+       </div>
+      
+      </div>
     
   </div>
 

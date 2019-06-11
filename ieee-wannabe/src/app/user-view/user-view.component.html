@@ -3,28 +3,34 @@
 <div class="container-fluid">
 
   <div class="row col-md-12">
-    <div class = "dataBig"> {{nazivKorisnika}} </div>
+    <div class="col-md-4">
+      Ime i prezime:
+    </div>
+    <div class = "col-md-4"> {{korisnik?.korisnikPodaci.ime}} {{ korisnik?.korisnikPodaci.prezime }} </div>
   </div>
 
   <div class="row col-md-12">
-    <div class = "data"> {{username}} </div>
+    <div class="col-md-4">
+      Username:
+    </div>
+    <div class = "col-md-4"> {{korisnik?.username}} </div>
   </div>
   <div class="datum">
   <div class="row col-md-12">
-    <div class="datum" >Datum prijave: </div>
-    <div class="datum" > {{datum}} </div>
+    <div class="col-md-4" >Datum prijave: </div>
+    <div class="col-md-8" > {{korisnik?.korisnikPodaci.datumPrijave|date:'medium'}} </div>
   </div>
 </div>
   <div class ="custom-padding">
       <hr style="border: none;">
   <div class="row col-md-12">
-    <div>Biografija </div>
-    <div class = "data"> {{biografija}} </div>
+    <div class="col-md-3">Biografija:  </div>
+    <div class = "data col-md-9"> {{korisnik?.korisnikPodaci.biografija}} </div>
   </div>
 </div>
 <hr style="border: none;">
 <div class="row col-md-12">
-
+<!--
 <label for="file" class="custom-file-upload">
   Upload članak
 </label>
@@ -39,7 +45,7 @@
 <div *ngIf="downloadURL | async; let downloadSrc" class="alert alert-info" role="alert">
   File uploaded: <a [href]="downloadSrc">{{downloadSrc}}</a>
 </div>
-
+-->
 
 
 <hr style="border: none;">
@@ -49,10 +55,9 @@
 <div class="row col-md-12">
     Lista članaka
   </div>
-  <div class="datacontainer" *ngFor='let clanak of clanci'>
-      <div class="row col-md-12 data3">{{clanak.nazivClanka}}</div>
-      <div class="row col-md-12 data2">{{clanak.autori}}</div>
-      <div class="row col-md-12 data2">{{clanak.kategorija}}</div>
+  <div class="datacontainer row col-md-12" *ngFor='let clanak of clanci'>
+      <div class="row col-md-12 data3">{{clanak?.naziv}}</div>
+      <div class="row col-md-12 data2">{{clanak?.kategorija.naziv}}</div>
     </div>
 
 

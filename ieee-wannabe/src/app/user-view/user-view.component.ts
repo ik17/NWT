@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireUploadTask, AngularFireStorageReference, AngularFireStorage } from 'angularfire2/storage';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { User } from '../_services/korisnik-management/user';
+import { KorisnikManagementService } from '../_services/korisnik-management/korisnik-management.service';
+import { ClanakService } from '../_services/clanak-management/clanak.service';
 
 @Component({
   selector: 'app-user-view',
@@ -18,19 +22,41 @@ export class UserViewComponent implements OnInit {
   fileToUpload: File = null;
   uploadProgress: Observable<number>;
   downloadURL: Observable<string>;
-  clanci: any[] = [ {"nazivClanka":"Clanak 1", "autori":"Autor1", "kategorija":"Kategorija 1"}, 
+  clanci: any[];
+  /*clanci: any[] = [ {"nazivClanka":"Clanak 1", "autori":"Autor1", "kategorija":"Kategorija 1"}, 
   {"nazivClanka":"Clanak 2", "autori":"Autor2", "kategorija":"Kategorija 7"},
   {"nazivClanka":"Clanak 3", "autori":"Autor 3", "kategorija":"Kategorija 3"},
   {"nazivClanka":"Clanak 4", "autori":"Autor 17", "kategorija":"Kategorija 9"}, 
-  {"nazivClanka":"Clanak 5", "autori":"Autor 5", "kategorija":"Kategorija 1"}] ;
+  {"nazivClanka":"Clanak 5", "autori":"Autor 5", "kategorija":"Kategorija 1"}] ;*/
 
  
 
-  constructor(private afStorage: AngularFireStorage) { }
+  constructor(private afStorage: AngularFireStorage, private route: ActivatedRoute, 
+    private korisnikManagementService: KorisnikManagementService,
+    private clanakService: ClanakService) { }
+
+korisnik: User;
 
   ngOnInit() {
+    const id = +this.route.snapshot.paramMap.get('id');
+    console.log(id);
+     this.getUser(id);
+     console.log(this.korisnik);
   }
+  async getUser(id:number){
+    console.log("here");
+    const data = await this.korisnikManagementService.oneUser(id);
+    this.korisnik = data;
+    console.log("here2");
+    console.log(this.korisnik);
+    this.getClanci(this.korisnik.id);
+  }
+  async getClanci(id:number){
+      const data = await this.clanakService.getArticleByAuthorId(id);
+      this.clanci = data;
+      console.log(this.clanci);
 
+  }
 
 
   onClickPrihvati(): void {
@@ -54,8 +80,7 @@ export class UserViewComponent implements OnInit {
      )
     .subscribe()
   }
-    
-    
+
     
     /*
     console.log("here");
