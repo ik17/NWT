@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ClanakService } from '../_services/clanak-management/clanak.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-article-search',
@@ -17,7 +18,7 @@ export class ArticleSearchComponent implements OnInit {
   filterText: string = "";
   
 
-  constructor(public clanakManagement: ClanakService) { }
+  constructor(public clanakManagement: ClanakService, public router: Router) { }
 
   async refreshClanci(){
     const data = await this.clanakManagement.allClanakByNaziv(this.filterText);
@@ -41,6 +42,7 @@ export class ArticleSearchComponent implements OnInit {
 }
 
   ngOnInit() {
+    console.log("here");
     //this.filtriraniClanci = this.clanci;
     this.refreshClanci();
   }
@@ -60,5 +62,10 @@ filtrirajClankePoKategoriji(): void {
           clanak.autori.toLocaleLowerCase().indexOf(filterBy) !== -1 || 
           clanak.kategorija.toLocaleLowerCase().indexOf(filterBy) !== -1);
 }
+
+  openArticle(id:number){
+    console.log(id);
+    this.router.navigate(['/author/' + id.toString()]);
+  }
 
 }

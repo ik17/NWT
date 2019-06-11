@@ -1,9 +1,12 @@
 <div class="container-fluid">
     <div class="datacontainer" *ngFor='let clanak of clanci'>
-      <div class="row col-md-12 data">{{clanak.naziv}}</div>
-    <div class="row col-md-12 data">{{clanak.idKategorije.naziv}}</div>
-    <div class="row col-md-12 data">{{clanak.odobrioClanak.username}}</div>
-	 <div class="row col-md-12 data" *ngFor='let autor of clanak.autori'>{{autor.idKorisnik.username}}</div>
+      <div class="container" (click)="openArticle(clanak.id)">
+          <div class="row col-md-12 data">{{clanak.naziv}}</div>
+          <div class="row col-md-12 data">{{clanak.idKategorije.naziv}}</div>
+          <div class="row col-md-12 data">{{clanak.odobrioClanak.username}}</div>
+         <div class="row col-md-12 data" *ngFor='let autor of clanak.autori'>{{autor.idKorisnik.username}}</div>
+      </div>
+      
 
 
     </div>

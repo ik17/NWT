@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HistorijaService } from '../_services/historija-management/historija.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reviewer-articles',
@@ -14,7 +15,7 @@ export class ReviewerArticlesComponent implements OnInit {
                     {"nazivClanka":"Clanak 4", "autori":"Autor 17", "kategorija":"Kategorija 9"}, 
                     {"nazivClanka":"Clanak 5", "autori":"Autor 5", "kategorija":"Kategorija 1"}] ; 
 */
-  constructor(public historijaManagement: HistorijaService) { }
+  constructor(public historijaManagement: HistorijaService, private router: Router) { }
 
   ngOnInit() {
 	  //this.refreshClanci();
@@ -41,5 +42,10 @@ export class ReviewerArticlesComponent implements OnInit {
   prikazi() {
    this.refreshClanci();
   }
-
+  openArticle(idArticle:number){
+    console.log(idArticle);
+    //this.router.navigate(['/reviewer', { id: idArticle }]);
+    this.router.navigate(['/reviewer/' + idArticle.toString()]);
+    //console.log("doesnt work");
+  }
 }

@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
     this.closeModal();
     switch(decodedToken.role){
       case 'ROLE_REVIEWER':
-        this.router.navigate(['../rewiever'])
+        this.router.navigate(['../reviewer'])
         break;
       case 'ROLE_AUTOR':
         this.router.navigate(['../author'])

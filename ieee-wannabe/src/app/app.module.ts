@@ -48,8 +48,10 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
     RouterModule.forRoot([
       { path: 'home', component: HomeComponent, pathMatch: 'full'}, 
       { path: '', component: HomeComponent},
-      { path: 'rewiever', component: ReviewerArticlesComponent, canActivate: [RouteGuardService], data:{expectedRole:'ROLE_REVIEWER'}},
-      { path: 'author', component: ArticleSearchComponent, canActivate: [RouteGuardService], data:{expectedRole:'ROLE_AUTOR'}}
+      { path: 'reviewer', component: ReviewerArticlesComponent, canActivate: [RouteGuardService], data:{expectedRole:'ROLE_REVIEWER'}},
+      { path: 'author', component: ArticleSearchComponent, canActivate: [RouteGuardService], data:{expectedRole:'ROLE_AUTOR'}},
+      { path: 'reviewer/:id', component: ArticleReviewComponent, canActivate: [RouteGuardService], data:{expectedRole:'ROLE_REVIEWER'}},
+      { path: 'author/:id', component: ReviewWrapperComponent, canActivate: [RouteGuardService], data:{expectedRole:'ROLE_AUTOR'}}
     ]),
     AngularFireModule.initializeApp({
       apiKey: "AIzaSyClLu1OVmdBGfibByLFjuKd-oinPqwmgts",

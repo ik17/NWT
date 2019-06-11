@@ -9,10 +9,13 @@
   </div>
   
   <div class="datacontainer" *ngFor='let clanak of filtriraniClanci'>
-    <div class="row col-md-12 data">{{clanak.naziv}}</div>
-    <div class="row col-md-12 data">{{clanak.kategorija.naziv}}</div>
-    <div class="row col-md-12 data">{{clanak.odobrioClanak.username}}</div>
-	 <div class="row col-md-12 data" *ngFor='let autor of clanak.autori'>{{autor.korisnik.username}}</div>
+    <div class="container" (click)="openArticle(clanak.id)">
+        <div class="row col-md-12 data">{{clanak.naziv}}</div>
+        <div class="row col-md-12 data">{{clanak.kategorija.naziv}}</div>
+        <div class="row col-md-12 data">{{clanak.odobrioClanak.username}}</div>
+       <div class="row col-md-12 data" *ngFor='let autor of clanak.autori'>{{autor.korisnik.username}}</div>
+    </div>
+    
 
   </div>
 
