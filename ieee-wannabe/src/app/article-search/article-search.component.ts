@@ -34,14 +34,16 @@ export class ArticleSearchComponent implements OnInit {
 }
 
   async refreshClanciPoKategoriji(){
-    const data = await this.clanakManagement.allClanakByKategorija(this.filterText);
-	  for (var clanak of data) {
-      const autoriData = await this.clanakManagement.autorByClanak(clanak.id);
-      clanak.autori = autoriData;
-	  }
-    console.log(data);
-    this.filtriraniClanci = data;
-    console.log(this.filtriraniClanci);
+    if(this.filterText!==""){
+      const data = await this.clanakManagement.allClanakByKategorija(this.filterText);
+      for (var clanak of data) {
+        const autoriData = await this.clanakManagement.autorByClanak(clanak.id);
+        clanak.autori = autoriData;
+      }
+      console.log(data);
+      this.filtriraniClanci = data;
+      console.log(this.filtriraniClanci);
+    }
 }
 
   ngOnInit() {
