@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -25,11 +27,16 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import com.example.demo.entity.AVerzija;
+import com.example.demo.entity.Autor;
 import com.example.demo.entity.Clanak;
 import com.example.demo.repository.AVerzijaRepository;
+import com.example.demo.repository.AutorRepository;
 import com.example.demo.repository.ClanakRepository;
+
 
 import javassist.NotFoundException;
 
@@ -43,6 +50,8 @@ public class AVerzijaController {
 	ClanakRepository cR;
 	@Autowired
 	private DiscoveryClient discoveryClient;
+	@Autowired
+	AutorRepository aR;
 	@CrossOrigin
 	@GetMapping(value="")
     public List<AVerzija> getAll(@RequestHeader(value="role") String acceptHeader){
@@ -113,14 +122,33 @@ public class AVerzijaController {
 					System.out.println(ex);
 				}
 				System.out.println(response);
+				/*JSONParser parser = new JSONParser();
+				try {
+					JSONObject json = (JSONObject) parser.parse(response.getBody());
+					System.out.println(json.get("id"));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				*/
+				
+				JSONObject object = new JSONObject(response.getBody());
+				int id2 = object.getInt("id");
+				System.out.println(id2);
+				List<Autor> autori = aR.findAutorByIdClanak(new Long(id2));
 				if (response != null) return  response.getBody();
 				else return "Error";
+				//sad dohvatiti autore
+				
+				
 			 //ovdje kraj
 		 }
 		else {
 					
 				throw new AccessDeniedException("nepravilna rola");
 		}	     
+		 
+		 
 	        
 	 }
 	@CrossOrigin
