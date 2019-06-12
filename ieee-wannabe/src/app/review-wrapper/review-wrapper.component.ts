@@ -30,8 +30,8 @@ export class ReviewWrapperComponent implements OnInit {
   ngOnInit() {
     const id = +this.route.snapshot.paramMap.get('id');
     console.log(id);
-	this.idClanka = id;
-	this.refreshClanak();
+	  this.idClanka = id;
+	  this.refreshClanak();
   }
   posaljiKomentar() {
 	  this.sendClanak();
@@ -39,18 +39,18 @@ export class ReviewWrapperComponent implements OnInit {
   async sendClanak() {
 	  console.log(this.komentar);
 	  const dataClanak = await this.clanakManagement.oneClanak(this.idClanka);
-	const dataKorisnik = await this.clanakManagement.oneUser(jwt_decode(localStorage.getItem("id_token")).id);
+	  const dataKorisnik = await this.clanakManagement.oneUser(jwt_decode(localStorage.getItem("id_token")).id);
 	
 	  this.Komentar1 = new Komentar(this.komentar, dataClanak, dataKorisnik );
 	  const odg = await this.clanakManagement.createKomentar(this.Komentar1);
 	  console.log(odg);
 	  const komentariData = await this.clanakManagement.komentarByClanak(this.idClanka);
-	this.komentari = komentariData;
+	  this.komentari = komentariData;
   }
   async refreshClanak(){
     const data = await this.clanakManagement.oneClanak(this.idClanka);
-	this.nazivClanka = data.naziv;
-	this.kategorija = data.kategorija.naziv;
+	  this.nazivClanka = data.naziv;
+	  this.kategorija = data.kategorija.naziv;
 	//this.urlZaPreuzimanje = data.linkNaClanak;
 	
 	//this.komentar = data.reviewVerzije;

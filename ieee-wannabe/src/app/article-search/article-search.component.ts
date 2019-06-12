@@ -9,10 +9,6 @@ import { Router } from '@angular/router';
 })
 export class ArticleSearchComponent implements OnInit {
 
-  clanci: any[] = [ {"nazivClanka":"Clanak 1", "autori":"Autor 1", "kategorija":"Kategorija 1"}, 
-                    {"nazivClanka":"Clanak 2", "autori":"Autor 2", "kategorija":"Kategorija 7"},
-                    {"nazivClanka":"Clanak 3", "autori":"Autor 3", "kategorija":"Kategorija 3"},
-                    {"nazivClanka":"Clanak 4", "autori":"Autor 17", "kategorija":"Kategorija 9"} ]; 
   filtriraniClanci: any[];
   listaAutora: any[];
   filterText: string = "";
@@ -21,21 +17,28 @@ export class ArticleSearchComponent implements OnInit {
   constructor(public clanakManagement: ClanakService, public router: Router) { }
 
   async refreshClanci(){
-    const data = await this.clanakManagement.allClanakByNaziv(this.filterText);
-	for (var clanak of data) {
-		const autoriData = await this.clanakManagement.autorByClanak(clanak.id);
-		clanak.autori = autoriData;
-	}
-    console.log(data);
-    this.filtriraniClanci = data;
-    console.log(this.filtriraniClanci);
+    if(this.filterText !== ""){
+      const data = await this.clanakManagement.allClanakByNaziv(this.filterText);
+      for (var clanak of data) {
+        const autoriData = await this.clanakManagement.autorByClanak(clanak.id);
+        clanak.autori = autoriData;
+      }
+      console.log(data);
+      this.filtriraniClanci = data;
+      console.log(this.filtriraniClanci);
+    }
+    else{
+      const data = await this.clanakManagement.AllClanak();
+      this.filtriraniClanci = data;
+    }
 }
+
   async refreshClanciPoKategoriji(){
     const data = await this.clanakManagement.allClanakByKategorija(this.filterText);
-	for (var clanak of data) {
-		const autoriData = await this.clanakManagement.autorByClanak(clanak.id);
-		clanak.autori = autoriData;
-	}
+	  for (var clanak of data) {
+      const autoriData = await this.clanakManagement.autorByClanak(clanak.id);
+      clanak.autori = autoriData;
+	  }
     console.log(data);
     this.filtriraniClanci = data;
     console.log(this.filtriraniClanci);
@@ -55,13 +58,6 @@ filtrirajClankePoKategoriji(): void {
     this.refreshClanciPoKategoriji();
     //this.filtriraniClanci= (this.filterText ? this.performFilter(this.filterText) : this.clanci);
   }
-  performFilter(filterBy: string): any[] {
-    filterBy = filterBy.toLocaleLowerCase();
-    return this.clanci.filter((clanak: any) => 
-          clanak.nazivClanka.toLocaleLowerCase().indexOf(filterBy) !== -1 || 
-          clanak.autori.toLocaleLowerCase().indexOf(filterBy) !== -1 || 
-          clanak.kategorija.toLocaleLowerCase().indexOf(filterBy) !== -1);
-}
 
   openArticle(id:number){
     console.log(id);

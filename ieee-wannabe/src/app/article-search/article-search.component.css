@@ -11,10 +11,10 @@
     color :#87C232;
     background-color: #474A4F;
     font-size: 22px;
-    margin-right: 25%;
+    /*margin-right: 25%;
     margin-top: 1%;
     width: 22%;
-    float: right;
+    float: right;*/
 }
 
 .data {
@@ -40,4 +40,8 @@ input {
     background: #474A4F;
     border: 0px;
     width: 70%;
+}
+
+.textInputa{
+    color:white;
 }
