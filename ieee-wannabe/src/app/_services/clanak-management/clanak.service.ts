@@ -8,6 +8,7 @@ import { Komentar } from './komentar';
 import { Korisnik } from './korisnik';
 
 const baseUrl = environment.url + '/clanakUI';
+const clanakUrl = environment.urlClanak;
 
 @Injectable({
   providedIn: 'root'
@@ -66,7 +67,7 @@ export class ClanakService {
     return this.request('delete',baseUrl+'/korisnik/'+String(id))
   }
   createUser(user: Korisnik) {
-    return this.request('post', baseUrl + '/korisnik',user);
+    return this.request('post', clanakUrl + '/korisnik',user);
   }
 
   //kategorija

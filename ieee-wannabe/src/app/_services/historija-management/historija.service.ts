@@ -8,6 +8,7 @@ import { Verzija } from './verzija';
 import { Korisnik } from './korisnik';
 
 const baseUrl = environment.url + '/historijaUI';
+const historijaUrl = environment.urlHistorija;
 
 @Injectable({
   providedIn: 'root'
@@ -51,7 +52,7 @@ export class HistorijaService {
     return this.request('delete',baseUrl+'/korisnik/'+String(id))
   }
   createUser(user: Korisnik) {
-    return this.request('post', baseUrl + '/korisnik',user);
+    return this.request('post', historijaUrl + '/korisnik',user);
   }
   //kategorija
   AllKategorija(){

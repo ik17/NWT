@@ -60,7 +60,7 @@ public class KorisnikController {
 		}
 		 
 		 }
-	@CrossOrigin
+	/*@CrossOrigin
 	 @PostMapping(value="")
 	    public Korisnik createUder(@RequestBody @Valid final Korisnik korisnik,@RequestHeader(value="role") String acceptHeader, Errors errors) throws Exception {
 
@@ -78,6 +78,12 @@ public class KorisnikController {
 	          //  throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
 	        //}
 		 	
+	    }*/
+	@CrossOrigin
+	 @PostMapping(value="")
+	    public Korisnik createUder(@RequestBody @Valid final Korisnik korisnik, Errors errors) throws Exception {
+			 System.out.println("In");
+		     return kR.save(korisnik);
 	    }
 	@CrossOrigin
 	 @PutMapping("/{id}")

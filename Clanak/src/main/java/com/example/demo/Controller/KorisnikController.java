@@ -62,12 +62,13 @@ public class KorisnikController {
 			}
 		
 		}
+	/*
 	@CrossOrigin
 	@PostMapping(value = "")
 	public Korisnik createUser(@RequestBody @Valid final Korisnik korisnik,@RequestHeader(value="role") String acceptHeader, Errors errors)throws Exception {
-		/*if(errors.hasErrors()) {
-			throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
-		}*/
+		//if(errors.hasErrors()) {
+		//	throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
+		//}
 		
 		if (acceptHeader.equals("ROLE_AUTOR")) {
 			 //ovdje pocetak
@@ -78,6 +79,11 @@ public class KorisnikController {
 				throw new AccessDeniedException("nepravilna rola");
 			}
 		
+	}*/
+	@CrossOrigin
+	@PostMapping(value = "")
+	public Korisnik createUser(@RequestBody @Valid final Korisnik korisnik, Errors errors)throws Exception {
+			return korisnikRepository.save(korisnik);
 	}
 	@CrossOrigin
 	@DeleteMapping("/{id}")

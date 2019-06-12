@@ -22,7 +22,8 @@ public class Receiver {
         System.out.println(action);
         if(action.equals("1")) {
         	//System.out.println(action);
-        	korisnikController.createUser(new Korisnik(data), "ROLE_AUTOR",null);
+        	//korisnikController.createUser(new Korisnik(data), "ROLE_AUTOR",null);
+        	korisnikController.createUser(new Korisnik(data), null);
         }
         else if( action.equals( "2")) {
         	korisnikController.updateKorisnik(Long.parseLong(data.substring(0,1),10), new Korisnik(data.substring(1)),"ROLE_AUTOR", null);

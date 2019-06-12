@@ -26,9 +26,9 @@
     color :rgb(40, 53, 22);
     background-color: #6A6E71;
     font-size: 22px;
-    margin-right: 1%;
+    /*margin-right: 1%;
     margin-top: 1%;
-    width: 22%;
+    width: 22%;*/
 }
 
 .custom-padding {
@@ -104,4 +104,9 @@ hr {
     padding: 0.5%;
     margin-bottom: 2%;
     
+}
+
+.red{
+    color:red;
+    font-size:32px;
 }

@@ -51,7 +51,7 @@ export class ReviewWrapperComponent implements OnInit {
     const data = await this.clanakManagement.oneClanak(this.idClanka);
 	  this.nazivClanka = data.naziv;
 	  this.kategorija = data.kategorija.naziv;
-	//this.urlZaPreuzimanje = data.linkNaClanak;
+	  this.urlZaPreuzimanje = data.linkNaClanak;
 	
 	//this.komentar = data.reviewVerzije;
 	

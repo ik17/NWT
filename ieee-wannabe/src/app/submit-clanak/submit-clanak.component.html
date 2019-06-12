@@ -1,40 +1,47 @@
     
 <div class="container-fluid">
+    <div class="row col-md-12">
+        <label for="file" class="custom-file-upload">
+          Upload članak
+        </label>
+          <input type="file"
+                 id="file"
+                 (change)="handleFileInput($event)"
+                 accept=".pdf"/>
+        
+        <div class="progress">
+          <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width]="(uploadProgress | async) + '%'" [attr.aria-valuenow]="(uploadProgress | async)" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <div *ngIf="downloadURL | async; let downloadSrc" class="alert alert-info" role="alert">
+          File uploaded, download link: <a [href]="downloadSrc">{{downloadSrc}}</a>
+        </div>
+  </div>
 
-
-<label for="file" class="custom-file-upload">
-  Upload članak
-</label>
-  <input type="file"
-         id="file"
-         (change)="handleFileInput($event)"
-         accept=".pdf"/>
-
-<div class="progress">
-  <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width]="(uploadProgress | async) + '%'" [attr.aria-valuenow]="(uploadProgress | async)" aria-valuemin="0" aria-valuemax="100"></div>
-</div>
-<div *ngIf="downloadURL | async; let downloadSrc" class="alert alert-info" role="alert">
-  File uploaded: <a [href]="downloadSrc">{{downloadSrc}}</a>
-</div>
 
  <div class="row col-md-12 comment">
-      <div>Naziv: </div>
-      <textarea class="span6" rows="1" cols="50" [(ngModel)]='naziv'></textarea>   
-    </div>
+    <div class="col-md-4">Naziv: </div>
+      <input class="col-md-6 span6" [(ngModel)]='naziv'>   
+  </div>
 	
 	<div class="row col-md-12 comment">
-      <div>Autori: </div>
+      <div class="col-md-4">Autori: </div>
+    <div class="col-md-8">
+        <ng-multiselect-dropdown
+        [placeholder]="'Select Authors'"
+        [data]="dropdownList"
+        [(ngModel)]="selectedItems"
+        [settings]="dropdownSettings"
+        (onSelect)="onItemSelect($event)"
+        (onSelectAll)="onSelectAll($event)"
+      >
+      </ng-multiselect-dropdown>
     </div>
-	<ng-multiselect-dropdown
-  [placeholder]="'custom placeholder'"
-  [data]="dropdownList"
-  [(ngModel)]="selectedItems"
-  [settings]="dropdownSettings"
-  (onSelect)="onItemSelect($event)"
-  (onSelectAll)="onSelectAll($event)"
->
-</ng-multiselect-dropdown>
-<div class="pull-right">
-	 <button class = "btn "  (click)='posaljiKomentar()'>Pošalji komentar</button>
-	 </div>
+  </div>
+  <div class="row col-md-12">
+      <div class="col-md-6 red">{{ispis}}</div>
+      <div class="col-md-6 pull-right">
+        <button class = "btn "  (click)='posaljiClanak()'>Pošalji članak</button>
+      </div>
+  </div>
+  
 </div>
