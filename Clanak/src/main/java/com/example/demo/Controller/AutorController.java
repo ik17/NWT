@@ -83,7 +83,7 @@ public class AutorController {
 			}
 		
 		}
-	@CrossOrigin
+	/*@CrossOrigin
 	@PostMapping(value = "")
 	public Autor createAuthor(@RequestBody @Valid final Autor autor,@RequestHeader(value="role") String acceptHeader, Errors errors) throws Exception {
 		
@@ -104,6 +104,27 @@ public class AutorController {
 		else {		
 				throw new AccessDeniedException("nepravilna rola");
 			}
+		
+		
+		
+		
+	}*/
+	@CrossOrigin
+	@PostMapping(value = "")
+	public Autor createAuthor(@RequestBody @Valid final Autor autor, Errors errors) throws Exception {
+		
+		 
+			 if(errors.hasErrors()) {
+					throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
+				}
+				Clanak c = clanakRepository
+						.findById(autor.getClanak().getId())
+						.orElseThrow(() -> new NotFoundException("Article with given id not found"));
+				Korisnik k = korisnikRepository
+						.findById(autor.getKorisnik().getId())
+						.orElseThrow(() -> new NotFoundException("User with given id not found"));
+				return autorRepository.save(autor);
+			 //ovdje kraj
 		
 		
 		

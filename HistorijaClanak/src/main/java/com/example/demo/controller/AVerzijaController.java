@@ -135,10 +135,33 @@ public class AVerzijaController {
 				JSONObject object = new JSONObject(response.getBody());
 				int id2 = object.getInt("id");
 				System.out.println(id2);
-				List<Autor> autori = aR.findAutorByIdClanak(new Long(id2));
+				List<Autor> autori = aR.findAutorByIdClanak(new Long(id));
+				System.out.println(autori.size());
+				for(int i = 0; i<autori.size();i++) {
+					Long id_autora = autori.get(i).getIdKorisnik().getId();
+					String baseUrl2=serviceInstance.getUri().toString()+ "/autor/"; //+id.toString();
+					String requestJson2 = "{\"korisnik\":" + "{\"id\":"+autori.get(i).getIdKorisnik().getId() + "}," + "\"clanak\":{\"id\":" + autori.get(i).getIdClanak().getId() + "}}"; 
+					HttpHeaders headers2 = new HttpHeaders();
+					headers2.setContentType(MediaType.APPLICATION_JSON);
+					System.out.println("hereAuthor");
+					System.out.println(requestJson2);
+					HttpEntity<String> entity2 = new HttpEntity<String>(requestJson2,headers2);
+						RestTemplate restTemplate2 = new RestTemplate();
+					ResponseEntity<String> response2=null;
+					try{
+						response2 = restTemplate2.postForEntity( baseUrl2, entity2 , String.class );
+						}catch (Exception ex)
+					{	
+						System.out.println(ex);
+					}
+					System.out.println(response2.getBody());
+				}
+					
 				if (response != null) return  response.getBody();
 				else return "Error";
 				//sad dohvatiti autore
+				
+				
 				
 				
 			 //ovdje kraj
