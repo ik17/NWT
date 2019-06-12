@@ -100,6 +100,7 @@ export class HistorijaService {
     return this.request('delete',baseUrl+'/verzija/'+String(id))
   }
   createVerzija(user: Verzija) {
+    console.log(user);
     return this.request('post', baseUrl + '/verzija',user);
   }
   posaljiClanak(id:number){

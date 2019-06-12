@@ -34,7 +34,7 @@ public class KorisnikController {
 	@GetMapping(value="")
     public List<Korisnik> getAll(@RequestHeader(value="role") String acceptHeader){
 		System.out.println("in korisnik");
-		if (acceptHeader.equals("ROLE_REVIEWER")) {
+		if (acceptHeader.equals("ROLE_REVIEWER") || acceptHeader.equals("ROLE_AUTOR")) {
 			System.out.println("in korisnik2");
 			 //ovdje pocetak
 			return kR.findAll();

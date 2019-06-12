@@ -131,7 +131,7 @@ public class ClanakController {
 	 @PostMapping(value="")
 	    public Clanak createClanak(@RequestBody @Valid final Clanak clanak,@RequestHeader(value="role") String acceptHeader, Errors errors) throws Exception {
 
-		 if (acceptHeader.equals("ROLE_REVIEWER")) {
+		 if (acceptHeader.equals("ROLE_REVIEWER") || acceptHeader.contentEquals("ROLE_AUTOR")) {
 			 //ovdje pocetak
 
 		        if(errors.hasErrors()){
@@ -142,12 +142,12 @@ public class ClanakController {
 		                .orElseThrow(
 		                        () -> new NotFoundException("Category with given id not found")
 		                );
-		        
+		        /*
 		        Korisnik korisnik= kkR
 		                .findById(clanak.getOdobrioClanak().getId())
 		                .orElseThrow(
 		                        () -> new NotFoundException("User with given id not found")
-		                );
+		                );*/
 
 		        return cR.save(clanak);
 		        //ovdje kraj

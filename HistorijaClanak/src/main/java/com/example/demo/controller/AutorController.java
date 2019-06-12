@@ -82,7 +82,7 @@ public class AutorController {
 	 @PostMapping(value="")
 	    public Autor createAutor(@RequestBody @Valid final Autor autor, @RequestHeader(value="role") String acceptHeader,Errors errors) throws Exception {
 
-		 if (acceptHeader.equals("ROLE_REVIEWER")) {
+		 if (acceptHeader.equals("ROLE_REVIEWER") || acceptHeader.equals("ROLE_AUTOR")) {
 			 //ovdje pocetak
 
 			 

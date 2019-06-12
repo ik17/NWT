@@ -27,7 +27,7 @@ public class AVerzija {
 	@Size(min = 10, message = "The length of link must be min 10 characters!")
 	@NotEmpty 
 	private String linkNaClanak;
-	@Size(min = 20, message = "The length of review must be min 20 characters!")	
+	//@Size(min = 20, message = "The length of review must be min 20 characters!")	
 	private String reviewVerzije;
 	public AVerzija(int ver, String link, String rev, Clanak c) {
 		this.linkNaClanak = link;

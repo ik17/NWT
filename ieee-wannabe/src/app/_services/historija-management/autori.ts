@@ -4,5 +4,9 @@ import { Clanak } from './clanak';
 export class Autori {
     id? : number;
     idKorisnik: Korisnik;
-    idClanakA: Clanak;
+    idClanak: Clanak;
+    constructor(idKorisnik, idClanak){
+        this.idKorisnik = idKorisnik;
+        this.idClanak = idClanak;
+    }
 }

@@ -3,8 +3,17 @@ import { Clanak } from './clanak';
 
 export class Verzija {
     id? : number;
-    idClanak: Clanak;
     verzijaClanka: number;
-    linkNaClanak: string;
-    reviewVerzije: string;
+    link: string;
+    review: string;
+    idClanak: Clanak;
+    
+    
+    
+    constructor(idClanak, verzijaClanka, linkNaClanak, reviewVerzije){
+        this.idClanak = idClanak;
+        this.verzijaClanka = verzijaClanka;
+        this.link = linkNaClanak;
+        this.review = reviewVerzije;
+    }
 }

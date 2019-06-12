@@ -176,10 +176,12 @@ public class AVerzijaController {
 	 }
 	@CrossOrigin
 	 @PostMapping(value="")
-	    public AVerzija createVersion(@RequestBody @Valid final AVerzija verzija,@RequestHeader(value="role") String acceptHeader, Errors errors) throws Exception {
-
+	    public AVerzija createVersion(@RequestBody/* @Valid */final AVerzija verzija,@RequestHeader(value="role") String acceptHeader, Errors errors) throws Exception {
+		System.out.println(verzija.getLink());
+		System.out.println(verzija.getReview());
+		System.out.println(verzija.getVerzijaClanka());
 		 
-		 if (acceptHeader.equals("ROLE_REVIEWER")) {
+		 if (acceptHeader.equals("ROLE_REVIEWER") || acceptHeader.equals("ROLE_AUTOR")) {
 			 //ovdje pocetak
 			 if(errors.hasErrors()){
 		            throw new Exception(errors.getAllErrors().get(0).getDefaultMessage());
