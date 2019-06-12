@@ -1,27 +1,61 @@
 <div class="container">
-  <div class="row col-md-12 searchdiv">
-    <div class="col-md-4">
+  <div class="row col-md-12 moveLower">
+    <div class="col-md-6">
       <input type="text" class="textInputa"
           [(ngModel)]='filterText' />
     </div>
     
-      <div class="col-md-3">
+      <div class="col-md-2">
           <button class="btn btn-primary" (click)='filtrirajClanke()'>Pretraga po nazivu</button>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-2">
           <button class="btn btn-primary" (click)='filtrirajClankePoKategoriji()'>Pretraga po kategoriji</button>
+      </div>
+      <div class="col-md-2">
+          <button class="btn btn-primary" (click)='dodajClanak()'>Dodaj članak</button>
       </div>
   </div>
   
   <div class="datacontainer" *ngFor='let clanak of filtriraniClanci'>
     <div class="container" (click)="openArticle(clanak.id)">
-        <div class="row col-md-12 data">{{clanak.naziv}}</div>
-        <div class="row col-md-12 data">{{clanak.kategorija.naziv}}</div>
-        <div class="row col-md-12 data">{{clanak.odobrioClanak.username}}</div>
-       <div class="row col-md-12 data" *ngFor='let autor of clanak.autori'>{{autor.korisnik.username}}</div>
+        <div class="row col-md-12">
+          <div class="col-md-4">
+            Naziv članka:
+          </div>
+          <div class="col-md-8">
+              {{clanak.naziv}}
+          </div>
+        </div>
+        <hr>
+        <div class="row col-md-12">
+            <div class="col-md-4">
+              Kategorija članka:
+            </div>
+            <div class="col-md-8">
+                {{clanak.kategorija.naziv}}
+            </div>
+          </div>
+          <hr>
+          <div class="row col-md-12">
+              <div class="col-md-4">
+                Članak odobrio:
+              </div>
+              <div class="col-md-8">
+                  {{clanak.odobrioClanak.username}}
+              </div>
+            </div>
+            <hr>
+            <div class="row col-md-12">
+                <div class="col-md-4">
+                  Autori:
+                </div>
+                <div class="col-md-8">
+                  <div *ngFor='let autor of clanak.autori'>
+                      {{autor.korisnik.username}}
+                  </div>
+                </div>
+              </div>
     </div>
-    
-
   </div>
 
 

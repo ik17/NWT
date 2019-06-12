@@ -29,12 +29,6 @@
     /*margin-bottom: 2%;*/
 }
 
-.searchdiv {
-    margin-left: 10%;
-    margin-right: 10%;
-    /*margin-bottom: 4%;*/
-    width: 100%;
-}
 
 input {
     background: #474A4F;
@@ -44,4 +38,9 @@ input {
 
 .textInputa{
     color:white;
+    margin-top:5%;
+}
+
+.moveLower{
+    padding-top:5%;
 }

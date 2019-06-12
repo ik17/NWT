@@ -57,7 +57,8 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
       { path: 'reviewer/:id', component: ArticleReviewComponent, canActivate: [RouteGuardService], data:{expectedRole:'ROLE_REVIEWER'}},
       { path: 'author/:id', component: ReviewWrapperComponent, canActivate: [RouteGuardService], data:{expectedRole:'ROLE_AUTOR'}},
       { path: 'userr/:id', component: UserViewComponent, canActivate: [RouteGuardService], data:{expectedRole:'ROLE_REVIEWER'}},
-      { path: 'usera/:id', component: UserViewComponent, canActivate: [RouteGuardService], data:{expectedRole:'ROLE_AUTOR'}}
+      { path: 'usera/:id', component: UserViewComponent, canActivate: [RouteGuardService], data:{expectedRole:'ROLE_AUTOR'}},
+      { path: 'addArticle', component: SubmitClanakComponent, canActivate: [RouteGuardService], data:{expectedRole:'ROLE_AUTOR'}}
     ]),
     AngularFireModule.initializeApp({
       apiKey: "AIzaSyClLu1OVmdBGfibByLFjuKd-oinPqwmgts",

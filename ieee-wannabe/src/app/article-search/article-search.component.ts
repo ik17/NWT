@@ -29,6 +29,10 @@ export class ArticleSearchComponent implements OnInit {
     }
     else{
       const data = await this.clanakManagement.AllClanak();
+      for (var clanak of data) {
+        const autoriData = await this.clanakManagement.autorByClanak(clanak.id);
+        clanak.autori = autoriData;
+      }
       this.filtriraniClanci = data;
     }
 }
@@ -64,6 +68,10 @@ filtrirajClankePoKategoriji(): void {
   openArticle(id:number){
     console.log(id);
     this.router.navigate(['/author/' + id.toString()]);
+  }
+
+  dodajClanak(){
+    this.router.navigate(['/addArticle/']);
   }
 
 }

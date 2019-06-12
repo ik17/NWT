@@ -1,20 +1,61 @@
 <div class="container-fluid">
     <div class="datacontainer" *ngFor='let clanak of clanci'>
-      <div class="container" (click)="openArticle(clanak.id)">
-          <div class="row col-md-12 data">{{clanak.idClanak.naziv}}</div>
-		  <div class="row col-md-12 data">Kategorija: </div>
-          <div class="row col-md-12 data">{{clanak.idClanak.idKategorije.naziv}}</div>
-		  <div class="row col-md-12 data">Odobrio: </div>
-          <div class="row col-md-12 data">{{clanak.idClanak.odobrioClanak.username}}</div>
-		  <div class="row col-md-12 data">Verzija: </div>
-		  <div class="row col-md-12 data">{{clanak.verzijaClanka}}</div>
-		  <div class="row col-md-12 data">Autori: </div>
-         <div class="row col-md-12 data" *ngFor='let autor of clanak.autori'>{{autor.idKorisnik.username}}</div>
-      </div>
-      
-
-
+          <div class="container" (click)="openArticle(clanak.id)">
+            <div class="row">
+              <div class="col-md-4">
+                  Naziv:
+              </div>
+              <div class="col-md-8">
+                  <div class="row col-md-12">{{clanak.idClanak.naziv}}</div>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="row col-md-12">Kategorija: </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="row col-md-12">{{clanak.idClanak.idKategorije.naziv}}</div>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                  <div class="col-md-4">
+                      <div class="row col-md-12">Odobrio: </div>
+                  </div>
+                  <div class="col-md-8">
+                      <div class="row col-md-12">{{clanak.idClanak.odobrioClanak.username}}</div>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="row col-md-12">Verzija: </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="row col-md-12">{{clanak.verzijaClanka}}</div>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                      <div class="col-md-4">
+                          <div class="row col-md-12">Autori: </div>
+                      </div>
+                      <div class="col-md-8">
+                          <div class="row col-md-12" *ngFor='let autor of clanak.autori'>
+                            {{autor.idKorisnik.username}}
+                          </div>
+                      </div>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+          </div>
     </div>
-    <button class = "btn col-md-6 col-md-offset3"  (click)='prikazi()'>Prikazi</button>
   </div>
   

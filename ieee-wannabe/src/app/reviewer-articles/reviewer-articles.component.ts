@@ -18,7 +18,7 @@ export class ReviewerArticlesComponent implements OnInit {
   constructor(public historijaManagement: HistorijaService, private router: Router) { }
 
   ngOnInit() {
-	  //this.refreshClanci();
+	  this.refreshClanci();
   }
 
   async refreshClanci(){
